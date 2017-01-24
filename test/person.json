@@ -1,0 +1,10 @@
+{
+  "first_name": "Staniel",
+  "last_name": "Bread",
+  "age": 31,
+  "address": {
+    "street": "Broad",
+    "city": "The Bronx",
+    "country": "USA"
+  }
+}
