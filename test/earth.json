@@ -1,0 +1,5 @@
+{
+  "name": "Earth",
+  "rooms": ["Living Room", "Dining Room", "Garage"],
+  "connections": ["Blips & Chitz", "Cob World"]
+}
