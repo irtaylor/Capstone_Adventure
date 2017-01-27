@@ -1,0 +1,6 @@
+{
+    "name": "Earth",
+    "rooms": ["Arcade", "Cafeteria"],
+    "connections": [],
+    "description": "Blips & Chitz, Morty! It's the *urp* Greatest Arcade in the Multiverse!"
+}

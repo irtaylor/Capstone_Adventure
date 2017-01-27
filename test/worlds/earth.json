@@ -1,0 +1,6 @@
+{
+    "name": "Earth",
+    "rooms": ["Living Room", "Dining Room", "Garage"],
+    "connections": ["Blips & Chitz", "Cob World"],
+    "description": "Welcome to Earth: Home Sweet Home!"
+}
