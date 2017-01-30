@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import sys
 
 import curses
@@ -17,10 +16,15 @@ demo_room_path = './data/demo.json'
 prompt_enter = "Press ENTER to continue..."
 
 
+
+
 class FakeStdIO(object):
     """
         A class to override write and readline methods for stdout and stdin respectively.
         This class utilizes a curses window to format text, wrapping it appropriately.
+
+        This technique is demonstrated by AmstrongJ in his own text adventure game:
+        Murder in the Park - A Robotic Mystery: https://github.com/ArmstrongJ/robotadventure 
     """
     def __init__(self,stdscr):
         self.stdscr = stdscr
