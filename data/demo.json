@@ -1,0 +1,8 @@
+{
+    "name": "The Garage",
+    "features": ["Rick", "beakers filled with purple liquid", "one of Rick's gadgets, hooked up to a computer"],
+    "longform": "Rick kinda took over the garage -- there's a lot of weird stuff in here.",
+    "shortform": "The garage is a total mess.",
+    "connections": ["Living Room", "Summer's Room"],
+    "objects": ["ray gun"]
+}
