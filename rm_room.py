@@ -19,44 +19,53 @@ class Room(object):
         Initializes the Room.
         :param name: The name of the Room as a string
         """
-        pass
+        self.name = name
+        self.features = []
+        self.items = []
+        self.long_description = ""
+        self.short_description = ""
+        # self.long_description_exit = ""
+        # self.short_description_exit = ""
+        # self.morty_hints = []
+        # self.adjacent_rooms = []
+        # self.adjacent_worlds = []
 
     def get_features(self):
         """
         Returns a list of the features in this Room.
         :return: A list of objects
         """
-        pass
+        return self.features
 
     def get_items(self):
         """
         Returns a list of items that are in this room, if any
         :return: A list of items in this room
         """
-        pass
+        return self.items
 
-    def get_entrance_description(self):
+    def get_entrance_long(self):
         """
         When a player enters a room for the first time, they will receive this message.
         :return: A string with the long form description of this room.
         """
-        pass
+        return self.long_description
 
-    def get_short_entrance_description(self):
+    def get_entrance_short(self):
         """
          When a player enters a room after the first time, they will receive this message.
         :return: A string with the short form description of this room.
         """
-        pass
+        return self.short_description
 
-    def get_exit_description(self):
+    def get_exit_long(self):
         """
         When a player exits a room for the first time, they will receive this message.
         :return: A string with the long form description of this room.
         """
         pass
 
-    def get_short_exit_description(self):
+    def get_exit_short(self):
         """
         When a player exits a room after the first time, they will receive this message.
         :return: A string with the short form description of this room.

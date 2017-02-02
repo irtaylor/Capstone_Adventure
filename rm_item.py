@@ -14,7 +14,6 @@ class Item(object):
         :param num_uses: The number of times that this item may be used
         """
         self.num_uses = num_uses
-        pass
 
     def use(self, room, in_battle, health):
         """

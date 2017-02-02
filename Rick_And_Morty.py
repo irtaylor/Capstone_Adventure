@@ -12,11 +12,11 @@ from cmd import Cmd
 import json
 from pprint import pprint
 
-# Import data structures
-import rm_character, rm_item, rm_player, rm_room
+from structure_builder import *
 
 demo_room_path = './data/demo.json'
 prompt_enter = "Press ENTER to continue..."
+
 
 class FakeStdIO(object):
     """
@@ -83,12 +83,9 @@ def main():
         helloparser.stdout = io
         helloparser.stdin = io
 
-        # Print current room and prompt
-        with open(demo_room_path) as json_data:
-            data = json.load(json_data)
-            # print(d)
-            sys.stdout.write(data["name"] + '\n')
-            sys.stdout.write(data["longform"] + '\n')
+        demo_room = build_room(demo_room_path)
+        sys.stdout.write(demo_room.name + '\n')
+        sys.stdout.write(demo_room.get_entrance_long() + '\n')
 
         helloparser.cmdloop()
 
