@@ -5,18 +5,17 @@ import curses
 from curses import wrapper
 import textwrap
 
-# cmd.Cmd
-from cmd import Cmd
+# import parser
+import parser
 
 # JSON support
 import json
 from pprint import pprint
 
 demo_room_path = './data/demo.json'
+room_path = './test/formatted_data/rooms/'
+start_room = room_path + '/earth/garage.json'
 prompt_enter = "Press ENTER to continue..."
-
-
-
 
 class FakeStdIO(object):
     """
@@ -45,25 +44,6 @@ class FakeStdIO(object):
             temp = ' '
         return temp
 
-
-
-class MyPrompt(Cmd):
-
-    prompt = '>> '
-    def do_hello(self, args):
-        """Says hello. If you provide a name, it will greet you with it."""
-        if len(args) == 0:
-            name = 'stranger'
-        else:
-            name = args
-        print "Hello, %s" % name
-
-    def do_quit(self, args):
-        """Quits the program."""
-        print "Quitting."
-        raise SystemExit
-
-
 def main():
     stdscr = curses.initscr()
     curses.cbreak()
@@ -79,13 +59,14 @@ def main():
         sys.stdin = io
         sys.stdout = io
 
-        helloparser = MyPrompt()
+        helloparser = parser.MyPrompt()
         helloparser.stdout = io
         helloparser.stdin = io
 
         # Print current room and prompt
-        with open(demo_room_path) as json_data:
+        with open(start_room) as json_data:
             data = json.load(json_data)
+            helloparser.data = data
             #print(d)
             sys.stdout.write(data["name"] + '\n')
             sys.stdout.write(data["longform"] + '\n')
