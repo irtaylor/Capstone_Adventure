@@ -12,11 +12,11 @@ from cmd import Cmd
 import json
 from pprint import pprint
 
+# Import data structures
+import rm_character, rm_item, rm_player, rm_room
+
 demo_room_path = './data/demo.json'
 prompt_enter = "Press ENTER to continue..."
-
-
-
 
 class FakeStdIO(object):
     """
@@ -26,7 +26,7 @@ class FakeStdIO(object):
         This technique is demonstrated by AmstrongJ in his own text adventure game:
         Murder in the Park - A Robotic Mystery: https://github.com/ArmstrongJ/robotadventure 
     """
-    def __init__(self,stdscr):
+    def __init__(self, stdscr):
         self.stdscr = stdscr
 
     def write(self, str):
@@ -41,15 +41,15 @@ class FakeStdIO(object):
 
     def readline(self):
         temp = self.stdscr.getstr()
-        if len(temp)==0:
+        if len(temp) == 0:
             temp = ' '
         return temp
-
 
 
 class MyPrompt(Cmd):
 
     prompt = '>> '
+
     def do_hello(self, args):
         """Says hello. If you provide a name, it will greet you with it."""
         if len(args) == 0:
@@ -67,7 +67,7 @@ class MyPrompt(Cmd):
 def main():
     stdscr = curses.initscr()
     curses.cbreak()
-    #curses.noecho()
+    # curses.noecho()
     curses.echo()
     stdscr.keypad(1)
     stdscr.scrollok(True)
@@ -86,7 +86,7 @@ def main():
         # Print current room and prompt
         with open(demo_room_path) as json_data:
             data = json.load(json_data)
-            #print(d)
+            # print(d)
             sys.stdout.write(data["name"] + '\n')
             sys.stdout.write(data["longform"] + '\n')
 
