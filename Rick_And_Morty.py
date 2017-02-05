@@ -85,5 +85,5 @@ def main():
 if __name__ == '__main__':
     global MY_WORLDS
     MY_WORLDS = construct_worlds()
-    print_worlds(MY_WORLDS)
-    #main()
+    #print_worlds(MY_WORLDS)
+    main()
