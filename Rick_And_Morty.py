@@ -66,13 +66,13 @@ def main():
         sys.stdin = io
         sys.stdout = io
 
-        helloparser = CommandParser()
-        helloparser.stdout = io
-        helloparser.stdin = io
+        command_parser = CommandParser()
+        command_parser.stdout = io
+        command_parser.stdin = io
 
         # game stuff goes here
 
-        helloparser.cmdloop()
+        command_parser.cmdloop()
 
     except KeyboardInterrupt:
         pass

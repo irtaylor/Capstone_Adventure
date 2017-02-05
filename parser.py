@@ -8,6 +8,9 @@ class CommandParser(Cmd):
 
     prompt = '>> '
 
+    def use(self, args):
+        """ Calls corresponding use command for the item in question """
+
     def do_hello(self, args):
         """Says hello. If you provide a name, it will greet you with it."""
         if len(args) == 0:
@@ -16,7 +19,7 @@ class CommandParser(Cmd):
             name = args
         print "Hello, %s" % name
 
-    def do_port(self, args):
+    def do_portal(self, args):
         """With args: Error text.
         Without args: Check portal gun for fuel and chips."""
         if len(args) == 0:
