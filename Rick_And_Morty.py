@@ -16,8 +16,8 @@ from pprint import pprint
 from structure_builder import *
 
 demo_room_path = './data/demo.json'
-WORLDS_FILE_PATH = "data/formatted_data/worlds/"
-ROOMS_FILE_PATH = "data/formatted_data/rooms/"
+WORLDS_FILE_PATH = "data/worlds/"
+ROOMS_FILE_PATH = "data/rooms/"
 prompt_enter = "Press ENTER to continue..."
 MY_WORLDS = {}
 
