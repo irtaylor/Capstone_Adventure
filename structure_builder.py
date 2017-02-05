@@ -5,8 +5,38 @@ Rick and Morty Adventure Game: Keep Summer Safe
 Benjamin Brewster
 """
 import json
+import os
 from rm_room import Room
 from rm_world import World
+
+WORLDS_DIRECTORY_PATH = "data/worlds/"
+MY_WORLDS = {}
+
+
+def construct_worlds():
+    global MY_WORLDS                                                                            # dictionary of all worlds
+    world_directories = os.listdir(WORLDS_DIRECTORY_PATH)
+    for directory in world_directories:
+        str_key = directory                                                                     # remove .json from
+        world_file_path = WORLDS_DIRECTORY_PATH + directory + '/' + directory + '.json'
+        world_obj = build_world(world_file_path)
+        MY_WORLDS[str_key] = world_obj
+
+        room_directory = os.listdir(WORLDS_DIRECTORY_PATH + directory + '/rooms')
+        for room in room_directory:
+            room_obj = build_room(WORLDS_DIRECTORY_PATH + directory + '/rooms/' + room)
+            world_obj.rooms.append(room_obj)
+
+def print_worlds():
+    global MY_WORLDS
+    for world in MY_WORLDS:
+        planet = MY_WORLDS[world]
+        print planet.name
+        print planet.description
+        for room in planet.rooms:
+            print room.name
+            print room.long_description
+        print "\n"
 
 
 def build_room(file_path_str):
@@ -45,8 +75,3 @@ def build_world(file_path_str):
         new_world.connections = data["connections"][:]
 
         return new_world
-
-
-
-
-
