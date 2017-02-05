@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 import os
-import parser
+from parser import *
 
 import curses
 from curses import wrapper
@@ -16,7 +16,7 @@ from pprint import pprint
 
 from structure_builder import *
 
-demo_room_path = './data/demo.json'
+demo_room_path = './data/rooms/earth/living_room.json'
 WORLDS_FILE_PATH = "data/worlds/"
 ROOMS_FILE_PATH = "data/rooms/"
 prompt_enter = "Press ENTER to continue..."
@@ -81,24 +81,7 @@ class FakeStdIO(object):
             temp = ' '
         return temp
 
-"""
-class MyPrompt(Cmd):
 
-    prompt = '>> '
-
-    def do_hello(self, args):
-        """Says hello. If you provide a name, it will greet you with it."""
-        if len(args) == 0:
-            name = 'stranger'
-        else:
-            name = args
-        print "Hello, %s" % name
-
-    def do_quit(self, args):
-        """Quits the program."""
-        print "Quitting."
-        raise SystemExit
-"""
 
 def main():
     stdscr = curses.initscr()
@@ -115,7 +98,7 @@ def main():
         sys.stdin = io
         sys.stdout = io
 
-        helloparser = MyPrompt()
+        helloparser = CommandParser()
         helloparser.stdout = io
         helloparser.stdin = io
 

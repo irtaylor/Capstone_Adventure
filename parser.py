@@ -4,10 +4,10 @@ import sys
 roomdir = './formatted_data/rooms/'
 worlddir = './formatted_data/worlds'
 
-class MyPrompt(Cmd):
+class CommandParser(Cmd):
 
     prompt = '>> '
-      
+
     def do_hello(self, args):
         """Says hello. If you provide a name, it will greet you with it."""
         if len(args) == 0:
@@ -24,7 +24,7 @@ class MyPrompt(Cmd):
         else:
             name = args
             print "Check portal gun for fuel and chips.\nDo we want it to check for chips or did we want to have it blow up instead?\n" % name
-    
+
     def do_shoot(self, args):
         """Shoots raygun.
             With args: shoots target (maybe? unsure how combat system will work).  Might get rid of this action in favour for a general use item.
@@ -34,9 +34,9 @@ class MyPrompt(Cmd):
         else:
             name = args
             print "Shoot action goes here.\n"
-    
+
     def do_look(self, args):
-        """Required verb. 
+        """Required verb.
         With no args: Reprints the long form description of the room.
         With args: look at a feature or object."""
         if len(args) == 0:
@@ -55,12 +55,7 @@ class MyPrompt(Cmd):
              print "You can't take everything!\n"
         else:
             name = args
-           
-    def do_help(self, args):
-        """Required verb.
-        Print available commands."""
-        print "List of commands go here.\n"
-    
+
     def do_savegame(self, args):
         """Required verb.
         Saves game to file."""
