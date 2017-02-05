@@ -10,27 +10,27 @@ from rm_room import Room
 from rm_world import World
 
 WORLDS_DIRECTORY_PATH = "data/worlds/"
-MY_WORLDS = {}
 
 
 def construct_worlds():
-    global MY_WORLDS                                                                            # dictionary of all worlds
+    my_worlds = {}                                                                            # dictionary of all worlds
     world_directories = os.listdir(WORLDS_DIRECTORY_PATH)
     for directory in world_directories:
         str_key = directory                                                                     # remove .json from
         world_file_path = WORLDS_DIRECTORY_PATH + directory + '/' + directory + '.json'
         world_obj = build_world(world_file_path)
-        MY_WORLDS[str_key] = world_obj
+        my_worlds[str_key] = world_obj
 
         room_directory = os.listdir(WORLDS_DIRECTORY_PATH + directory + '/rooms')
         for room in room_directory:
             room_obj = build_room(WORLDS_DIRECTORY_PATH + directory + '/rooms/' + room)
             world_obj.rooms.append(room_obj)
 
-def print_worlds():
-    global MY_WORLDS
-    for world in MY_WORLDS:
-        planet = MY_WORLDS[world]
+    return my_worlds
+
+def print_worlds(my_worlds):
+    for world in my_worlds:
+        planet = my_worlds[world]
         print planet.name
         print planet.description
         for room in planet.rooms:

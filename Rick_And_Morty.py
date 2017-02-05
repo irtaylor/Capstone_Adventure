@@ -16,6 +16,8 @@ from pprint import pprint
 
 from structure_builder import *
 
+MY_WORLDS = {}
+
 
 prompt_enter = "Press ENTER to continue..."
 
@@ -81,6 +83,7 @@ def main():
         curses.endwin()
 
 if __name__ == '__main__':
-    construct_worlds()
-    #print_worlds()
-    main()
+    global MY_WORLDS
+    MY_WORLDS = construct_worlds()
+    print_worlds(MY_WORLDS)
+    #main()
