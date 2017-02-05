@@ -1,0 +1,7 @@
+{
+    "name": "Cob World",
+    "rooms": [],
+    "starting_room": "",
+    "connections": ["Parallel Earth", "Pluto"],
+    "description": "A Planet Where Everything is \"On the Cob!\""
+}

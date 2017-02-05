@@ -1,0 +1,7 @@
+{
+    "name": "Tiny Planet",
+    "rooms": ["Wasteland", "Valley of Mega Trees"],
+    "starting_room": ["Wasteland"],
+    "connections": [],
+    "description": "Psshh. Total knock-off of The Little Prince."
+}

@@ -80,13 +80,6 @@ class Room(object):
         """
         pass
 
-    def get_adjacent_worlds(self):
-        """
-        Determine what worlds may be reached from this one.
-        :return: A list of worlds that may be reached by the Portal Gun
-        """
-        pass
-
     def get_adjacent_rooms(self):
         """
         Determine where the Player may travel on this planet

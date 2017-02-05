@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import os
 
 import curses
 from curses import wrapper
@@ -15,7 +16,41 @@ from pprint import pprint
 from structure_builder import *
 
 demo_room_path = './data/demo.json'
+WORLDS_FILE_PATH = "test/formatted_data/worlds/"
+ROOMS_FILE_PATH = "test/formatted_data/rooms/"
 prompt_enter = "Press ENTER to continue..."
+MY_WORLDS = {}
+
+
+def construct_worlds():
+    global MY_WORLDS
+    world_files = os.listdir(WORLDS_FILE_PATH)
+    for world in world_files:
+        str_key = world[:-5]
+        world_obj = build_world(WORLDS_FILE_PATH + world)
+        MY_WORLDS[str_key] = world_obj
+    room_files = os.listdir(ROOMS_FILE_PATH)
+    for world in room_files:
+        if world in MY_WORLDS:
+            corresponding_world = MY_WORLDS[world]
+            areas = os.listdir(ROOMS_FILE_PATH + world)
+            for area in areas:
+                if area[-5:] == ".json":
+                    path = ROOMS_FILE_PATH + world + "/" + area
+                    new_area = build_room(path)
+                    corresponding_world.rooms.append(new_area)
+
+
+def print_worlds():
+    global MY_WORLDS
+    for world in MY_WORLDS:
+        planet = MY_WORLDS[world]
+        print planet.name
+        print planet.description
+        for room in planet.rooms:
+            print room.name
+            print room.long_description
+        print "\n"
 
 
 class FakeStdIO(object):
@@ -98,4 +133,6 @@ def main():
         curses.endwin()
 
 if __name__ == '__main__':
-    main()
+    construct_worlds()
+    print_worlds()
+    # main()
