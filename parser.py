@@ -1,15 +1,29 @@
 from cmd import Cmd
 import sys
+from rm_player import Player
 
 roomdir = './formatted_data/rooms/'
 worlddir = './formatted_data/worlds'
 
 class CommandParser(Cmd):
-
     prompt = '>> '
+    player = Player()
 
-    def use(self, args):
+
+
+    def do_use(self, args):
         """ Calls corresponding use command for the item in question """
+
+    def do_get_current_world(self, args):
+        """ State the player's current world and room """
+        print self.player.get_current_world()
+
+    def do_list_inventory(self, args):
+        """ List the player's inventory """
+        print "Current Inventory:"
+        for item in self.player.get_inventory():
+            print '- ' + item
+
 
     def do_hello(self, args):
         """Says hello. If you provide a name, it will greet you with it."""

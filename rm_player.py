@@ -5,6 +5,8 @@ Rick and Morty Adventure Game: Keep Summer Safe
 Benjamin Brewster
 """
 
+from rm_item import Item
+
 
 class Player(object):
 
@@ -12,10 +14,22 @@ class Player(object):
         """
         Initializes the player with an empty inventory, base attack power, and health.
         """
-        self.inventory = []
-        self.attack_pwr = 1
-        self.health = 10
+        self.inventory = {}
+        self.current_world = None
         pass
+
+    def add_to_inventory(self, item):
+        self.inventory[item] = Item(item)
+
+    def get_inventory(self):
+        return self.inventory
+
+    def get_current_world(self):
+        return self.current_world.name
+
+    def set_current_world(self, current_world):
+        self.current_world = current_world
+
 
     def attack(self):
         """

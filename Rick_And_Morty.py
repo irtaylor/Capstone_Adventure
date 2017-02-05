@@ -15,8 +15,8 @@ import json
 from pprint import pprint
 
 from structure_builder import *
+from rm_player import Player
 
-MY_WORLDS = {}
 
 
 prompt_enter = "Press ENTER to continue..."
@@ -52,6 +52,9 @@ class FakeStdIO(object):
 
 
 def main():
+    my_worlds = construct_worlds()
+
+
     stdscr = curses.initscr()
     curses.cbreak()
     # curses.noecho()
@@ -70,7 +73,9 @@ def main():
         command_parser.stdout = io
         command_parser.stdin = io
 
-        # game stuff goes here
+
+        command_parser.player.set_current_world(my_worlds["earth"])
+        command_parser.player.add_to_inventory('Portal Gun')
 
         command_parser.cmdloop()
 
@@ -83,7 +88,4 @@ def main():
         curses.endwin()
 
 if __name__ == '__main__':
-    global MY_WORLDS
-    MY_WORLDS = construct_worlds()
-    #print_worlds(MY_WORLDS)
     main()

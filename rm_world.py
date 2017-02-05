@@ -48,6 +48,3 @@ class World(object):
         :return: A string with the world's description.
         """
         return self.description
-
-
-

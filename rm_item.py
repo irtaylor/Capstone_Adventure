@@ -8,12 +8,17 @@ Benjamin Brewster
 
 class Item(object):
 
-    def __init__(self, num_uses):
+    def __init__(self, name):
         """
         Initializes the Item object
         :param num_uses: The number of times that this item may be used
         """
-        self.num_uses = num_uses
+        #self.num_uses = num_uses
+        self.name = ''
+
+
+    def get_name(self):
+        return self.name
 
     def use(self, room, in_battle, health):
         """
