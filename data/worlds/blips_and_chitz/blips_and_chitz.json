@@ -1,6 +1,5 @@
 {
     "name": "Blips & Chitz",
-    "rooms": ["Arcade", "Cafeteria"],
     "starting_room": "Arcade",
     "connections": [],
     "description": "The greatest arcade in the Multiverse."

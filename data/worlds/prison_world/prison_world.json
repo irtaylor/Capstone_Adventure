@@ -1,6 +1,5 @@
 {
     "name": "Prison World",
-    "rooms": ["Prison Entrance", "Summer's Cell"],
     "starting_room": ["Prison Entrance"],
     "connections": [],
     "description": "This is very obviously a Prison World."

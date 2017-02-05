@@ -17,20 +17,22 @@ from pprint import pprint
 from structure_builder import *
 
 demo_room_path = './data/rooms/earth/living_room.json'
-WORLDS_FILE_PATH = "data/worlds/"
-ROOMS_FILE_PATH = "data/rooms/"
+WORLDS_DIRECTORY_PATH = "data/worlds/"
+#ROOMS_FILE_PATH = "data/rooms/"
 prompt_enter = "Press ENTER to continue..."
 MY_WORLDS = {}
 
 
 def construct_worlds():
-    global MY_WORLDS
-    world_files = os.listdir(WORLDS_FILE_PATH)
-    for world in world_files:
-        str_key = world[:-5]
-        world_obj = build_world(WORLDS_FILE_PATH + world)
+    global MY_WORLDS                                                                            # dictionary of all worlds
+    world_directories = os.listdir(WORLDS_DIRECTORY_PATH)
+    for directory in world_directories:
+        str_key = directory                                                                     # remove .json from
+        world_file_path = WORLDS_DIRECTORY_PATH + directory + '/' + directory + '.json'
+        world_obj = build_world(world_file_path)
         MY_WORLDS[str_key] = world_obj
-    room_files = os.listdir(ROOMS_FILE_PATH)
+
+    """room_files = os.listdir(ROOMS_FILE_PATH)
     for world in room_files:
         if world in MY_WORLDS:
             corresponding_world = MY_WORLDS[world]
@@ -39,7 +41,7 @@ def construct_worlds():
                 if area[-5:] == ".json":
                     path = ROOMS_FILE_PATH + world + "/" + area
                     new_area = build_room(path)
-                    corresponding_world.rooms.append(new_area)
+                    corresponding_world.rooms.append(new_area)"""
 
 
 def print_worlds():
@@ -117,6 +119,6 @@ def main():
         curses.endwin()
 
 if __name__ == '__main__':
-    #construct_worlds()
-    #print_worlds()
-    main()
+    construct_worlds()
+    print_worlds()
+    #main()

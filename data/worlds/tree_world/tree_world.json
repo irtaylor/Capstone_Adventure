@@ -1,6 +1,5 @@
 {
     "name": "Tree World",
-    "rooms": ["Wasteland", "Valley of Mega Trees"],
     "starting_room": ["Wasteland"],
     "connections": [],
     "description": "The perfect place to find Mega Trees."

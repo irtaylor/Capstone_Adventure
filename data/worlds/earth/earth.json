@@ -1,6 +1,5 @@
 {
     "name": "Earth",
-    "rooms": ["Living Room", "Dining Room", "Garage"],
     "starting_room": ["Living Room"],
     "connections": ["Blips & Chitz", "Cob World"],
     "description": "Welcome to Earth: Home Sweet Home!"

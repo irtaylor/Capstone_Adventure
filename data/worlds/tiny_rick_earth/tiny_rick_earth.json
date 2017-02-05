@@ -1,6 +1,5 @@
 {
     "name": "Tiny Rick Earth",
-    "rooms": ["Classroom", "Gym"],
     "starting_room": ["Classroom"],
     "connections": [],
     "description": "A parallel Earth, with Rick as a high school student."

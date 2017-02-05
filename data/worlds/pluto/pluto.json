@@ -1,6 +1,5 @@
 {
     "name": "Pluto",
-    "rooms": ["Plutonian Palace", "Plutonium Mines"],
     "starting_room": ["Plutonian Palace"],
     "connections": [],
     "description": "Pluto: Not a planet."
