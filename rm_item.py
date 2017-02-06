@@ -8,7 +8,7 @@ Benjamin Brewster
 import json
 from pprint import pprint
 
-import sys
+from random import *
 
 OBJECTS_PATH = './data/objects/'
 
@@ -27,12 +27,18 @@ class Item(object):
         return self.name
 
     #def use(self, room, in_battle, health):
-    def use(self, keyword):
+    def use(self):
+        seed()
         itemName = self.get_name().replace(" ", "_")
         with open(OBJECTS_PATH + itemName + '.json') as json_data:
             data = json.load(json_data)
         json_data.close()
-        return data["actions"]["success"];
+        #need to add tag to item to determine if can fail, possibility to add a different variable affecting difficulty to get a success
+        if (randint(0,1) == 1):
+            result = "success"
+        else:
+            result = "failure"
+        return data["actions"][result];
         """
         A player uses the item. Results may vary.
 
