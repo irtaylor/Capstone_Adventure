@@ -34,10 +34,13 @@ class Item(object):
             data = json.load(json_data)
         json_data.close()
         #need to add tag to item to determine if can fail, possibility to add a different variable affecting difficulty to get a success
-        if (randint(0,1) == 1):
-            result = "success"
+        if (itemName != 'portal_gun'):
+            if (randint(0,1) == 1):
+                result = "success"
+            else:
+                result = "failure"
         else:
-            result = "failure"
+            result = "success"
         return data["actions"][result];
         """
         A player uses the item. Results may vary.

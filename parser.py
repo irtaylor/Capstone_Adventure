@@ -64,6 +64,8 @@ class CommandParser(Cmd):
         args = prepCheck(args)
         args = spaceToUnderscore(args).lower()
         self.player.set_current_world(self.player.worlds[args])
+        self.item = Item('portal gun')
+        print self.item.use()
 
     def do_port(self, args):
         self.do_go(args)
