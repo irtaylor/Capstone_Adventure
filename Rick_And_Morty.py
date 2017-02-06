@@ -7,9 +7,6 @@ import curses
 from curses import wrapper
 import textwrap
 
-# cmd.Cmd
-from cmd import Cmd
-
 # JSON support
 import json
 from pprint import pprint
@@ -75,7 +72,7 @@ def main():
 
 
         command_parser.player.set_current_world(my_worlds["earth"])
-        command_parser.player.add_to_inventory('Portal Gun')
+        command_parser.player.add_to_inventory('portal_gun')
 
         command_parser.cmdloop()
 

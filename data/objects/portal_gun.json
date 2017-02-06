@@ -2,8 +2,6 @@
     "name": "Portal Gun",
     "description": "Travel the Multiverse in style!",
     "worlds_unlocked": ["earth"],
-    "actions": [{
-        "name": "go",
-        "success": "And awaaaaaay we go!",
-    }]
+    "actions": { "name": "go",
+         "success": "And awaaaaaay we go!" }
 }

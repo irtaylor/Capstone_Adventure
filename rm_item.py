@@ -4,6 +4,13 @@ cs419
 Rick and Morty Adventure Game: Keep Summer Safe
 Benjamin Brewster
 """
+# JSON support
+import json
+from pprint import pprint
+
+import sys
+
+OBJECTS_PATH = './data/objects/'
 
 
 class Item(object):
@@ -14,13 +21,18 @@ class Item(object):
         :param num_uses: The number of times that this item may be used
         """
         #self.num_uses = num_uses
-        self.name = ''
-
+        self.name = name
 
     def get_name(self):
         return self.name
 
-    def use(self, room, in_battle, health):
+    #def use(self, room, in_battle, health):
+    def use(self, keyword):
+        itemName = self.get_name().replace(" ", "_")
+        with open(OBJECTS_PATH + itemName + '.json') as json_data:
+            data = json.load(json_data)
+        json_data.close()
+        return data["actions"]["success"];
         """
         A player uses the item. Results may vary.
 
