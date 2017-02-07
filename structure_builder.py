@@ -13,29 +13,60 @@ WORLDS_DIRECTORY_PATH = "data/worlds/"
 
 
 def construct_worlds():
-    my_worlds = {}                                                                            # dictionary of all worlds
+    """
+    Populates World objects with JSON data from the "data/worlds" directory.
+
+    :return: A dictionary with name(lower case, underscore-separated) --> world object pairs
+    """
+    # Dictionary to populate with key value pairs
+    my_worlds = {}
+
+    # List of directory names with our worlds
     world_directories = os.listdir(WORLDS_DIRECTORY_PATH)
     for directory in world_directories:
-        str_key = directory                                                                     # remove .json from
+        # Key name for my_worlds
+        str_key = directory
+
+        # Create string representing the path to the world JSON file
         world_file_path = WORLDS_DIRECTORY_PATH + directory + '/' + directory + '.json'
+
+        # Create world object and add to dictionary
         world_obj = build_world(world_file_path)
         my_worlds[str_key] = world_obj
 
+        # Get names of all corresponding room JSON files
         room_directory = os.listdir(WORLDS_DIRECTORY_PATH + directory + '/rooms')
+
+        # Create each Room object and append it to our list of rooms in the corresponding World object
         for room in room_directory:
             room_obj = build_room(WORLDS_DIRECTORY_PATH + directory + '/rooms/' + room)
-            world_obj.rooms.append(room_obj)
+            world_obj.rooms[room_obj.name] = room_obj
 
+    # Return our completed dictionary
     return my_worlds
 
+
 def print_worlds(my_worlds):
-    for world in my_worlds:
-        planet = my_worlds[world]
-        print planet.name
-        print planet.description
-        for room in planet.rooms:
-            print room.name
-            print room.long_description
+    """
+    Writes the contents of our my_worlds dictionary to standard out.
+
+    :param my_worlds: Dictionary containing world name --> world obj pairs
+    """
+    for planet in my_worlds:
+
+        # Get World object
+        current_world = my_worlds[planet]
+
+        # Print basic World info
+        print current_world.name
+        print current_world.description
+
+        # Print basic room info
+        room_keys = current_world.rooms.keys()
+        for room in room_keys:
+            current_room = current_world.rooms[room]
+            print current_room.name
+            print current_room.long_description
         print "\n"
 
 
@@ -73,5 +104,4 @@ def build_world(file_path_str):
         new_world.name = data["name"]
         new_world.description = data["description"]
         new_world.connections = data["connections"][:]
-
         return new_world

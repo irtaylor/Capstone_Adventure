@@ -50,10 +50,8 @@ class FakeStdIO(object):
         return temp
 
 
-
 def main():
     my_worlds = construct_worlds()
-
 
     stdscr = curses.initscr()
     curses.cbreak()

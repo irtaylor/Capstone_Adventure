@@ -14,28 +14,19 @@ class World(object):
     def __init__(self):
         """
         Initializes the Room.
-        :param name: The name of the Room as a string
         """
         self.name = ""
-        self.rooms = []
+        self.rooms = {}
         self.starting_room = ""
         self.connections = []
         self.description = ""
 
-    def get_areas(self):
+    def get_rooms(self):
         """
         Returns a list of the features in this Room.
         :return: A list of objects
         """
         return self.rooms
-
-    def create_areas(self, file_path):
-        """
-        Initializes the room objects that exist for this planet.
-
-        :param file_path: file path to the json files with room content.
-        """
-        pass
 
     def get_connecting_worlds(self):
         """
