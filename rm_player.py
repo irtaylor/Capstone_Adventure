@@ -21,9 +21,9 @@ class Player(object):
     def add_to_inventory(self, item):
         """
         Adds the given Item object to the player's inventory.
-        :param item: The string of the item to  to add to the inventory
+        :param item: The Item object to be added to the inventory.
         """
-        self.inventory[item] = Item(item)
+        self.inventory[item.name] = item
 
     def get_inventory(self):
         """
