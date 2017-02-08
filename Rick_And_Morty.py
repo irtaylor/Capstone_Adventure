@@ -1,23 +1,10 @@
 #!/usr/bin/env python
-import sys
-import os
 from parser import *
 
 import curses
-from curses import wrapper
 import textwrap
 
-# cmd.Cmd
-from cmd import Cmd
-
-# JSON support
-import json
-from pprint import pprint
-
 from structure_builder import *
-from rm_player import Player
-
-
 
 prompt_enter = "Press ENTER to continue..."
 
@@ -34,7 +21,7 @@ class FakeStdIO(object):
         self.stdscr = stdscr
 
     def write(self, str):
-        height,width = self.stdscr.getmaxyx()
+        height, width = self.stdscr.getmaxyx()
         if len(str) >= width:
             for line in textwrap.wrap(str,width-2):
                 self.stdscr.addstr(line)
@@ -52,7 +39,6 @@ class FakeStdIO(object):
 
 def main():
     my_worlds = construct_worlds()
-
     stdscr = curses.initscr()
     curses.cbreak()
     # curses.noecho()
@@ -67,10 +53,9 @@ def main():
         sys.stdin = io
         sys.stdout = io
 
-        command_parser = CommandParser()
+        command_parser = CommandParser(my_worlds)
         command_parser.stdout = io
         command_parser.stdin = io
-
 
         command_parser.player.set_current_world(my_worlds["earth"])
         command_parser.player.add_to_inventory('Portal Gun')

@@ -24,23 +24,25 @@ def construct_worlds():
     # List of directory names with our worlds
     world_directories = os.listdir(WORLDS_DIRECTORY_PATH)
     for directory in world_directories:
-        # Key name for my_worlds
-        str_key = directory
+        if directory != ".DS_Store":
+            # Key name for my_worlds
+            str_key = directory
 
-        # Create string representing the path to the world JSON file
-        world_file_path = WORLDS_DIRECTORY_PATH + directory + '/' + directory + '.json'
+            # Create string representing the path to the world JSON file
+            world_file_path = WORLDS_DIRECTORY_PATH + directory + '/' + directory + '.json'
 
-        # Create world object and add to dictionary
-        world_obj = build_world(world_file_path)
-        my_worlds[str_key] = world_obj
+            # Create world object and add to dictionary
+            world_obj = build_world(world_file_path)
+            my_worlds[str_key] = world_obj
 
-        # Get names of all corresponding room JSON files
-        room_directory = os.listdir(WORLDS_DIRECTORY_PATH + directory + '/rooms')
+            # Get names of all corresponding room JSON files
+            room_directory = os.listdir(WORLDS_DIRECTORY_PATH + directory + '/rooms')
 
-        # Create each Room object and append it to our list of rooms in the corresponding World object
-        for room in room_directory:
-            room_obj = build_room(WORLDS_DIRECTORY_PATH + directory + '/rooms/' + room)
-            world_obj.rooms[room_obj.name] = room_obj
+            # Create each Room object and append it to our list of rooms in the corresponding World object
+            for room in room_directory:
+                if room != ".DS_Store":
+                    room_obj = build_room(WORLDS_DIRECTORY_PATH + directory + '/rooms/' + room)
+                    world_obj.rooms[room_obj.name] = room_obj
 
     # Return our completed dictionary
     return my_worlds
@@ -102,6 +104,7 @@ def build_world(file_path_str):
         data = json.load(json_data)
         new_world = World()
         new_world.name = data["name"]
+        new_world.starting_room = data["starting_room"]
         new_world.description = data["description"]
         new_world.connections = data["connections"][:]
         return new_world

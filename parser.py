@@ -5,10 +5,100 @@ from rm_player import Player
 roomdir = './formatted_data/rooms/'
 worlddir = './formatted_data/worlds'
 
+PREPOSITIONS = {'to'}
+CONJUNCTIONS = {'and'}
+
+
+def prepCheck(mystring):
+    if mystring.split()[0] in PREPOSITIONS:
+            mystring = mystring.split(' ')[1:]
+            mystring = " ".join(mystring)
+    return mystring
+
+
+def convert_to_key(str):
+    str = str.lower()
+    str = str.replace(" ", "_")
+    return str
+
 
 class CommandParser(Cmd):
-    prompt = '>> '
-    player = Player()
+
+    def __init__(self, worlds_map):
+        Cmd.__init__(self)
+        self.prompt = '>> '
+        self.player = Player()
+        self.worlds = worlds_map
+        self.current_world = None
+        self.current_room = None
+
+    def is_valid_destination(self, destination):
+        for key in self.current_world.rooms.keys():
+            if key.lower() == destination.lower():
+                return True, True, key
+        if convert_to_key(destination) in self.worlds.keys():
+            return True, False, destination
+        else:
+            return False, False, None
+
+    def change_world(self):
+        # Update world of engine to that of the player
+        self.current_world = self.player.current_world
+
+        # Get the starting room for the new world
+        key = convert_to_key(self.current_world.name)
+        start_name = self.worlds[key].starting_room
+        start_room = self.worlds[key].rooms[start_name]
+
+        # Update current room of both engine and player to world's starting room
+        self.player.current_room = start_room
+        self.current_room = start_room
+
+        # Write out descriptions to player
+        # TODO: Add logic for if_visited to diff between long and short descriptions
+        print self.player.current_world.description
+        print self.player.current_room.get_entrance_long()
+        for room in self.current_world.rooms:
+            print room
+
+    def change_room(self):
+        # Update world of engine to that of the player
+        self.current_room = self.player.current_room
+
+        # Write out descriptions to player
+        # TODO: Add logic for if_visited to diff between long and short descriptions
+        print self.player.current_room.get_entrance_long()
+
+    def preloop(self):
+        if self.player.current_world.name != self.current_world:
+            self.change_world()
+        elif self.player.current_room != self.current_room:
+            self.change_room()
+
+    def postcmd(self, stop, line):
+        if self.player.current_world != self.current_world:
+            self.change_world()
+        elif self.player.current_room != self.current_room:
+            self.change_room()
+
+    def do_go(self, args):
+        # TODO: ADD VALIDATION LOGIC
+        # TODO: ADD VALIDATION FOR TRAVELING TO SAME ROOM
+        # split off preposition if there is one
+        stripped = prepCheck(args)
+        is_valid, is_room, destination = self.is_valid_destination(stripped)
+        if is_valid is True:
+            if is_room is True:
+                self.player.current_room = self.current_world.rooms[destination]
+            else:
+                new_world = convert_to_key(stripped)
+                self.player.set_current_world(self.worlds[new_world])
+        else:
+            print "What are you blathering about Morty? " \
+                  "Are you sure that's even a real place? There's no %s around here!" % stripped
+
+    def do_port(self, args):
+        self.do_go(args)
 
     def do_use(self, args):
         """Calls corresponding use command for the item in question """
@@ -61,12 +151,12 @@ class CommandParser(Cmd):
         With args: look at a feature or object.
         """
         if len(args) == 0:
-            sys.stdout.write(self.data["longform"] + '\n')
+            sys.stdout.write(self.current_room.get_entrance_long() + '\n')
         else:
             # Required verb. Check args for 'at', if look at, validate the item is a valid item or object then print
             # the description of object or item
             # Need to implement for loop for cycling through lists of objects
-            sys.stdout.write('Looks like there is a %s lying around.\n' % self.data["objects"][0])
+            sys.stdout.write('Looks like there is a %s lying around.\n' % str(self.current_room.get_items()))
 
     def do_take(self, args):
         """
