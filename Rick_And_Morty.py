@@ -49,6 +49,12 @@ class FakeStdIO(object):
             temp = ' '
         return temp
 
+def get_text(file_name):
+    with open(file_name, "r") as inFile:
+        text = inFile.read().splitlines()
+        for line in text:
+            print line
+        print
 
 def main():
     my_worlds = construct_worlds()
@@ -72,9 +78,9 @@ def main():
         command_parser.stdin = io
 
 
-        command_parser.player.set_current_world(my_worlds["earth"])
-        command_parser.player.add_to_inventory('Portal Gun')
-
+        #command_parser.player.set_current_world(my_worlds["earth"])
+        #command_parser.player.add_to_inventory('Portal Gun')
+        get_text("./data/text/intro.txt")
         command_parser.cmdloop()
 
     except KeyboardInterrupt:
