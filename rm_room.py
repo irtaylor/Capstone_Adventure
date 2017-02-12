@@ -24,11 +24,24 @@ class Room(object):
         self.items = []
         self.long_description = ""
         self.short_description = ""
+        self.is_visited = False
         # self.long_description_exit = ""
         # self.short_description_exit = ""
         # self.morty_hints = []
         # self.adjacent_rooms = []
         # self.adjacent_worlds = []
+
+    def print_description(self):
+        print self.name
+        if self.is_visited is False:
+            print self.long_description
+            self.set_is_visited(True)
+        else:
+            print self.short_description
+
+    def set_is_visited(self, is_visited):
+        self.is_visited = is_visited
+
 
     def get_features(self):
         """
@@ -86,6 +99,3 @@ class Room(object):
         :return: A list of the rooms that a player may travel to.
         """
         pass
-
-
-

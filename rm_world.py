@@ -20,6 +20,7 @@ class World(object):
         self.starting_room = ""
         self.connections = []
         self.description = ""
+        self.is_visited = False
 
     def get_rooms(self):
         """
@@ -27,6 +28,15 @@ class World(object):
         :return: A list of objects
         """
         return self.rooms
+
+    def print_description(self):
+        print self.name
+        if self.is_visited is False:
+            print self.description
+            self.set_is_visited(True)
+
+    def set_is_visited(self, is_visited):
+        self.is_visited = is_visited
 
     def get_connecting_worlds(self):
         """

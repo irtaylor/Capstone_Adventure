@@ -131,10 +131,8 @@ class CommandParser(Cmd):
         self.player.current_room = start_room
         self.current_room = start_room
 
-        # Write out descriptions to player
-        # TODO: Add logic for if_visited to diff between long and short descriptions
-        print self.player.current_world.description
-        print self.player.current_room.get_entrance_long()
+        self.player.current_world.print_description()
+        self.player.current_room.print_description()
         for room in self.current_world.rooms:
             print room
 
@@ -147,7 +145,7 @@ class CommandParser(Cmd):
 
         # Write out descriptions to player
         # TODO: Add logic for if_visited to diff between long and short descriptions
-        print self.player.current_room.get_entrance_long()
+        self.player.current_room.print_description()
 
     def do_go(self, args):
         """
@@ -239,12 +237,13 @@ class CommandParser(Cmd):
         With args: look at a feature or object.
         """
         if len(args) == 0:
-            sys.stdout.write(self.current_room.get_entrance_long() + '\n')
-        else:
+            print self.current_room.get_entrance_long()
+        """else:
             # Required verb. Check args for 'at', if look at, validate the item is a valid item or object then print
             # the description of object or item
             # Need to implement for loop for cycling through lists of objects
             sys.stdout.write('Looks like there is a %s lying around.\n' % str(self.current_room.get_items()))
+        """
 
     def do_take(self, args):
         """
