@@ -85,7 +85,7 @@ def main():
         sys.stdin = io
         sys.stdout = io
 
-        command_parser = CommandParser()
+        command_parser = CommandParser(my_worlds)
         command_parser.stdout = io
         command_parser.stdin = io
 

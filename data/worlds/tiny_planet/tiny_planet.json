@@ -1,6 +1,6 @@
 {
     "name": "Tiny Planet",
-    "starting_room": ["Wasteland"],
+    "starting_room": "Tiny Planet",
     "connections": [],
     "description": "Psshh. Total knock-off of The Little Prince."
 }

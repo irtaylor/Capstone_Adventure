@@ -14,7 +14,7 @@ class Player(object):
         """
         Initializes the player with an empty inventory.
         """
-        self.inventory = {}
+        self.inventory = []
         self.current_world = None
         self.current_room = None
 
@@ -23,7 +23,7 @@ class Player(object):
         Adds the given Item object to the player's inventory.
         :param item: The Item object to be added to the inventory.
         """
-        self.inventory[item] = item
+        self.inventory.append(item)
 
     def get_inventory(self):
         """
