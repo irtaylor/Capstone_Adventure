@@ -7,9 +7,6 @@ import curses
 from curses import wrapper
 import textwrap
 
-# cmd.Cmd
-from cmd import Cmd
-
 # JSON support
 import json
 from pprint import pprint
@@ -50,8 +47,10 @@ class FakeStdIO(object):
         return temp
 
 
+
 def main():
     my_worlds = construct_worlds()
+
 
     stdscr = curses.initscr()
     curses.cbreak()
@@ -71,7 +70,8 @@ def main():
         command_parser.stdout = io
         command_parser.stdin = io
 
-
+        #initializing player state
+        command_parser.player.worlds = my_worlds
         command_parser.player.set_current_world(my_worlds["earth"])
         command_parser.player.add_to_inventory('Portal Gun')
 

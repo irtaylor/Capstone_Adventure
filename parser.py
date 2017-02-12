@@ -1,30 +1,75 @@
-from cmd import Cmd
-import sys
-from rm_player import Player
+#!/usr/bin/env python
 
-roomdir = './formatted_data/rooms/'
-worlddir = './formatted_data/worlds'
+from cmd import Cmd
+
+import sys
+import re
+from rm_player import Player
+from rm_item import Item
+from rm_world import World
+from rm_room import Room
+
+PREPOSITIONS = { 'to' }
+CONJUNCTIONS = { 'and' }
+
+
+def spaceToUnderscore(mystring):
+    return mystring.replace(" ", "_")
+    
+def underscoreToSpace(mystring):
+    return mystring.replace("_", " ")
+    
+def prepCheck(mystring):
+    if mystring.split()[0] in PREPOSITIONS:
+            mystring = mystring.split(' ')[1:]
+            mystring = " ".join(mystring)
+    return mystring
 
 class CommandParser(Cmd):
     prompt = '>> '
     player = Player()
 
-
-
+    #args = args.lower()
+      
     def do_use(self, args):
         """ Calls corresponding use command for the item in question """
-
+        args = args.lower()
+        #check if portal gun -- portal gun is special case item, so hard coding how it responds
+        if (args == 'portal gun'):
+            for world in self.player.worlds:
+                print self.player.worlds[world].name
+        #not portal gun to use item action text
+        else:
+            self.item = Item(args)
+            print self.item.use()
+    
     def do_get_current_world(self, args):
         """ State the player's current world and room """
         print self.player.get_current_world()
+    
+    def do_get(self, args):
+        """ State the player's current world and room """
+        if (args == 'current world'):
+            print self.player.get_current_world()
 
-    def do_list_inventory(self, args):
-        """ List the player's inventory """
-        print "Current Inventory:"
-        for item in self.player.get_inventory():
-            print '- ' + item
+    def do_list(self, args):
+        if (args == 'inventory'):
+            """ List the player's inventory """
+            print "Current Inventory:"
+            for item in self.player.get_inventory():
+                print '- ' + item
 
+    def do_go(self, args):
+        #split off preposition if there is one
+        args = prepCheck(args)
+        args = spaceToUnderscore(args).lower()
+        self.player.set_current_world(self.player.worlds[args])
+        self.item = Item('portal gun')
+        print self.item.use()
 
+    def do_port(self, args):
+        self.do_go(args)
+        
     def do_hello(self, args):
         """Says hello. If you provide a name, it will greet you with it."""
         if len(args) == 0:
@@ -33,24 +78,12 @@ class CommandParser(Cmd):
             name = args
         print "Hello, %s" % name
 
-    def do_portal(self, args):
-        """With args: Error text.
-        Without args: Check portal gun for fuel and chips."""
-        if len(args) == 0:
-            print "Where are you going?"
-        else:
-            name = args
-            print "Check portal gun for fuel and chips.\nDo we want it to check for chips or did we want to have it blow up instead?\n" % name
-
     def do_shoot(self, args):
         """Shoots raygun.
             With args: shoots target (maybe? unsure how combat system will work).  Might get rid of this action in favour for a general use item.
             Without args: Error text."""
-        if len(args) == 0:
-            print "Whoa, watch where you're pointing that thing!"
-        else:
-            name = args
-            print "Shoot action goes here.\n"
+        item = Item('ray gun')
+        print item.use()
 
     def do_look(self, args):
         """Required verb.
@@ -84,6 +117,9 @@ class CommandParser(Cmd):
         Load game.  Do we want to enable a parameter for the player to name the save file?"""
         if len(args) == 0:
             print "Loading file, if file doesn't exist, throw error text.\n"
+    
+    def default(self, args):
+        print "Not a recognized command"
 
     def do_quit(self, args):
         """Quits the program."""

@@ -23,7 +23,7 @@ class Player(object):
         Adds the given Item object to the player's inventory.
         :param item: The Item object to be added to the inventory.
         """
-        self.inventory[item.name] = item
+        self.inventory[item] = item
 
     def get_inventory(self):
         """

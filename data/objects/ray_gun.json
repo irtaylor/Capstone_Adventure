@@ -1,9 +1,9 @@
 {
     "name": "Ray Gun",
     "description": "Looks like a hand gun, but with a whole lotta -- well like fins and shit.",
-    "actions": [{
+    "actions": {
         "name": "shoot",
         "success": "Wow, I can't believe you actually shot him. Oh boy, he's bleedin' out, Morty. Yep, he's definitely dead. Wow, I did not see that coming at all! Totally didn't see it coming.",
         "failure": "You missed? Seriously? I mean, come on, Morty, he's like right there!"
-    }]
+    }
 }
