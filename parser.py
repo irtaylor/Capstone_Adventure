@@ -3,7 +3,6 @@
 from cmd import Cmd
 
 import sys
-import re
 from rm_player import Player
 
 # List of prepositions that will be parsed from user input
@@ -139,7 +138,7 @@ class CommandParser(Cmd):
         :param line: user input
         """
         # If the player's current world doesn't match what's stored in the engine, update engine's world
-        if self.player.current_world.name != self.current_world:
+        if self.player.current_world != self.current_world:
             self.change_world()
 
         # If the player's current room doesn't match what's stored in the engine, update engine's room
@@ -205,7 +204,6 @@ class CommandParser(Cmd):
 
     def do_port(self, args):
         self.do_go(args)"""
-
 
     def do_list_inventory(self, args):
         """List the player's inventory """
