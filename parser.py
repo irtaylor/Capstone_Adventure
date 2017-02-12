@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from cmd import Cmd
-
 import sys
+import text_helpers
+from cmd import Cmd
 from rm_player import Player
 
 # List of prepositions that will be parsed from user input
@@ -53,6 +53,36 @@ class CommandParser(Cmd):
         self.worlds = worlds_map
         self.current_world = None
         self.current_room = None
+
+    def sync_location(self):
+          """
+          Synchronizes the player.current_world / room attribute with the world state
+          """
+          # If the player's current world doesn't match what's stored in the engine, update engine's world
+          if self.player.current_world != self.current_world:
+              self.change_world()
+
+          # If the player's current room doesn't match what's stored in the engine, update engine's room
+          elif self.player.current_room != self.current_room:
+              self.change_room()
+
+    def preloop(self):
+        """
+        Runs at the beginning of every game, initializes world with starting location.
+        """
+        text_helpers.get_intro()
+        print "Press any key to continue..."
+        self.stdin.readline()
+        self.sync_location()
+
+    def postcmd(self, stop, line):
+        """
+        Runs after each command. Updates engine's location if the user has changed locations.
+        :param stop: EOF
+        :param line: user input
+        """
+        self.sync_location()
+
 
     def do_use(self, args):
         """ Calls corresponding use command for the item in question """
@@ -119,32 +149,6 @@ class CommandParser(Cmd):
         # TODO: Add logic for if_visited to diff between long and short descriptions
         print self.player.current_room.get_entrance_long()
 
-    def preloop(self):
-        """
-        Runs at the beginning of every game, initializes world with starting location.
-        """
-        # If the player's current world doesn't match what's stored in the engine, update engine's world
-        if self.player.current_world.name != self.current_world:
-            self.change_world()
-
-        # If the player's current room doesn't match what's stored in the engine, update engine's room
-        elif self.player.current_room != self.current_room:
-            self.change_room()
-
-    def postcmd(self, stop, line):
-        """
-        Runs after each command. Updates engine's location if the user has changed locations.
-        :param stop: EOF
-        :param line: user input
-        """
-        # If the player's current world doesn't match what's stored in the engine, update engine's world
-        if self.player.current_world != self.current_world:
-            self.change_world()
-
-        # If the player's current room doesn't match what's stored in the engine, update engine's room
-        elif self.player.current_room != self.current_room:
-            self.change_room()
-
     def do_go(self, args):
         """
         Updates the player's location to that given in the user's input, if valid.
@@ -193,17 +197,6 @@ class CommandParser(Cmd):
             print "Current Inventory:"
             for item in self.player.get_inventory():
                 print '- ' + item
-
-    """def do_go(self, args):
-        #split off preposition if there is one
-        args = prepCheck(args)
-        args = spaceToUnderscore(args).lower()
-        self.player.set_current_world(self.player.worlds[args])
-        self.item = Item('portal gun')
-        print self.item.use()
-
-    def do_port(self, args):
-        self.do_go(args)"""
 
     def do_list_inventory(self, args):
         """List the player's inventory """
