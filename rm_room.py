@@ -25,6 +25,7 @@ class Room(object):
         self.long_description = ""
         self.short_description = ""
         self.is_visited = False
+        self.features = {}
         # self.long_description_exit = ""
         # self.short_description_exit = ""
         # self.morty_hints = []
@@ -41,7 +42,6 @@ class Room(object):
 
     def set_is_visited(self, is_visited):
         self.is_visited = is_visited
-
 
     def get_features(self):
         """

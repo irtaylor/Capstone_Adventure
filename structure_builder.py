@@ -69,6 +69,12 @@ def print_worlds(my_worlds):
             current_room = current_world.rooms[room]
             print current_room.name
             print current_room.long_description
+            if len(current_room.features) > 0:
+                if current_room.features[0] is not None and type(current_room.features[0]) is dict:
+                    # TODO: HEY LOOK HERE
+                    print current_room.features[0]["key"]
+            if current_room.items is not None:
+                print current_room.items
         print "\n"
 
 
@@ -87,7 +93,9 @@ def build_room(file_path_str):
         new_room.long_description = data["longform"]
         new_room.short_description = data["shortform"]
         new_room.features = data["features"][:]
-        # new_room.items = data["objects"][:]
+        # TODO: Remove this check because all rooms should have an items array, even if empty
+        if data.get("items") is not None:
+            new_room.items = data["items"][:]
         return new_room
 
 

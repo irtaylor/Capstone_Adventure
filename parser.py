@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-import sys
 import text_helpers
 from cmd import Cmd
 from rm_player import Player
@@ -55,16 +53,16 @@ class CommandParser(Cmd):
         self.current_room = None
 
     def sync_location(self):
-          """
-          Synchronizes the player.current_world / room attribute with the world state
-          """
-          # If the player's current world doesn't match what's stored in the engine, update engine's world
-          if self.player.current_world != self.current_world:
-              self.change_world()
+        """
+        Synchronizes the player.current_world / room attribute with the world state
+        """
+        # If the player's current world doesn't match what's stored in the engine, update engine's world
+        if self.player.current_world != self.current_world:
+            self.change_world()
 
-          # If the player's current room doesn't match what's stored in the engine, update engine's room
-          elif self.player.current_room != self.current_room:
-              self.change_room()
+            # If the player's current room doesn't match what's stored in the engine, update engine's room
+        elif self.player.current_room != self.current_room:
+            self.change_room()
 
     def preloop(self):
         """
@@ -83,16 +81,16 @@ class CommandParser(Cmd):
         """
         self.sync_location()
 
-
     def do_use(self, args):
         """ Calls corresponding use command for the item in question """
         args = args.lower()
-        #check if portal gun -- portal gun is special case item, so hard coding how it responds
-        if (args == 'portal gun'):
+        # check if portal gun -- portal gun is special case item, so hard coding how it responds
+        if args == 'portal gun':
             for world in self.player.worlds:
                 print self.player.worlds[world].name
-        #not portal gun to use item action text
+        # not portal gun to use item action text
         else:
+            # TODO: fix so that it retrieves item from dictionary, not instantiate item
             self.item = Item(args)
             print self.item.use()
 
@@ -213,7 +211,8 @@ class CommandParser(Cmd):
     def do_shoot(self, args):
         """Shoots raygun.
             With args: shoots target (maybe? unsure how combat system will work).  Might get rid of this action in favour for a general use item.
-            Without args: Error text."""
+            Without args: Error text.
+        """
         item = Item('ray gun')
         print item.use()
 
