@@ -1,0 +1,14 @@
+Rick and Morty's Command-Line Adventure
+Created by Team Andromeda:
+- Stephanie Creamer
+- Kyle Bergman
+- Ian Taylor
+
+As Read to you by Rick Sanchez:
+
+Welcome to Earth Dimension C-137 -- one of an infinite number of Planet Earths in the Multiverse!
+As it happens, in this particular dimension, on this particular planet, in this particular Earth dimension, Morty's sister, Summer, has gone missing.
+Ugh, really? Are we really doing a long text intro thing? I-i-i-t's way to hard to read all this. *Urp*. No, seriously, I'm done.
+
+Alright, fine... *Urp* If you wanna save Summer and blah-blah-Multiverse-something-not-fun, you'll have to waste my time, money, and resources finding her.
+Or, ya, know, we could just chill out? Ok, fine! We'll find your sister! 
