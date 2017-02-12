@@ -1,7 +1,7 @@
 {
     "name": "Garage",
-    "features": ["beakers filled with purple liquid", "one of Rick's gadgets, hooked up to a computer"],
+    "features": [{"beakers_of_purple_liquid": "They bubble and froth angrily."}],
+    "items": [{"ray_gun"}],
     "longform": "Rick's garage is impressive -- at first -- but after you've been in here a million times, you get used to seeing crazy gadgets all the time.",
-    "shortform": "Same old stuff -- gadgets and gizmos and who knows what else...",
-    "objects": ["ray gun"]
+    "shortform": "Same old stuff -- gadgets and gizmos and who knows what else..."
 }
