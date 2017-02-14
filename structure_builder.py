@@ -1,9 +1,5 @@
-"""
-Kyle Bergman
-cs419
-Rick and Morty Adventure Game: Keep Summer Safe
-Benjamin Brewster
-"""
+#!/usr/bin/env python
+
 import json
 import os
 from rm_room import Room

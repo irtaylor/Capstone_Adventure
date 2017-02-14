@@ -1,9 +1,4 @@
-"""
-Kyle Bergman
-cs419
-Rick and Morty Adventure Game: Keep Summer Safe
-Benjamin Brewster
-"""
+#!/usr/bin/env python
 
 
 class Room(object):
@@ -33,7 +28,7 @@ class Room(object):
         # self.adjacent_worlds = []
 
     def print_description(self):
-        print self.name
+        print "You are in the " + self.name + "."
         if self.is_visited is False:
             print self.long_description
             self.set_is_visited(True)
