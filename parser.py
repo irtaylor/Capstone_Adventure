@@ -188,6 +188,7 @@ class CommandParser(Cmd):
 
         self.player.current_world.print_description()
         self.player.current_room.print_description()
+        print "You can go to the following rooms: "
         for room in self.current_world.rooms:
             print room
 

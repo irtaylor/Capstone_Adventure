@@ -24,10 +24,11 @@ class World(object):
         return self.rooms
 
     def print_description(self):
-        print self.name
+        print "Planet: " + self.name
         if self.is_visited is False:
             print self.description
             self.set_is_visited(True)
+        print
 
     def set_is_visited(self, is_visited):
         self.is_visited = is_visited
