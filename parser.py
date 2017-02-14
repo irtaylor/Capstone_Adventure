@@ -1,12 +1,5 @@
 #!/usr/bin/env python
 
-"""
-Stephanie Creamer
-CS 467
-Rick and Morty Adventure Game: Keep Summer Safe
-Benjamin Brewster
-"""
-
 import text_helpers
 from cmd import Cmd
 from rm_player import Player
@@ -46,7 +39,7 @@ def check_for_prepositions(string):
 def check_if_vowel(string):
     """"
     Checks if first word starts with a vowel; this is to assist determining
-    which article to use 
+    which article to use
     """
     if any ((vowel in VOWELS) for vowel in string[0]):
     #if string.startswith(for any in VOWELS):
@@ -63,12 +56,12 @@ def convert_to_key(world_name):
     lower_case = world_name.lower()
     key = lower_case.replace(" ", "_")
     return key
-    
+
 
 def format_string_plurality(key, description):
     """
     Verify if string is plural or not to prepend the correct article,
-    depending on whether the object being examined is an item or a feature    
+    depending on whether the object being examined is an item or a feature
     Features use both fields, proper nouns and items only use the key, currently
     """
     if key in PROPER_NOUNS:
@@ -96,7 +89,7 @@ def add_article(string, plural):
         else:
             string = "a " + string
     return string
-        
+
 class CommandParser(Cmd):
 
     def __init__(self, worlds_map):
@@ -209,7 +202,7 @@ class CommandParser(Cmd):
         # TODO: Add logic for if_visited to diff between long and short descriptions
         self.player.current_room.print_description()
         self.list_room_items()
-    
+
     # populate array of things in the current room
     # this is necesary now because the items and features are stored in two different locations and have different information available
     # formats strings to prepend article and determine plurality
@@ -231,8 +224,8 @@ class CommandParser(Cmd):
             fixed_string = format_string_plurality(data["name"], None)
             room_elements.append(fixed_string)
         return room_elements
-    
-    
+
+
     def build_sentence(self, elements):
         """
         Builds sentence to return to output to the user appending conjunctions, commas, and helping verbs as needed
@@ -254,10 +247,10 @@ class CommandParser(Cmd):
                 sentence+=element
             if len(elements) > 1:
                 sentence+=" and "
-                sentence+=elements[-1] + "."                  
+                sentence+=elements[-1] + "."
         print sentence
 
-    
+
     def list_room_items(self):
         """
         Collects elements (items and features) from room and their descriptions
@@ -266,7 +259,7 @@ class CommandParser(Cmd):
         room_elements = []
         room_elements = self.get_room_elements(room_elements)
         self.build_sentence(room_elements)
-        
+
 
     def do_go(self, args):
         """
@@ -323,7 +316,7 @@ class CommandParser(Cmd):
         print "Current Inventory:"
         for item in self.player.get_inventory():
             print '- ' + item
-    
+
     def do_inventory(self, args):
         """List the player's inventory"""
         """Required verb."""
@@ -372,7 +365,7 @@ class CommandParser(Cmd):
         # Required verb. Check args for 'at', if look at, validate the item is a valid item or object then print
         # the description of object or item
         # Need to implement for loop for cycling through lists of objects
-        # sys.stdout.write('Looks like there is a %s lying around.\n' % str(self.current_room.get_items()))"""    
+        # sys.stdout.write('Looks like there is a %s lying around.\n' % str(self.current_room.get_items()))"""
         else:
             # strip off preposition
             stripped = check_for_prepositions(args)
@@ -381,7 +374,7 @@ class CommandParser(Cmd):
             # might change this is  'in' instead of breaking down string and looping through words
             for word in stripped.split():
                 #iterate through current room's feature list to determine if it is a feature or an object
-                for i in range(len(self.current_room.features)):                  
+                for i in range(len(self.current_room.features)):
                         try:
                             self.current_room.features[i]["key"]
                         except:
@@ -403,7 +396,7 @@ class CommandParser(Cmd):
                         print data["description"]
                         return
             # TODO: Add error text for when user enters item not existing in the current room
-                        
+
     def do_take(self, args):
         """
         Required verb.
