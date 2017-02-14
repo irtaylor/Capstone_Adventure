@@ -1,6 +1,11 @@
 {
     "name": "Cob World",
-    "features": ["strawberries on the cob"],
+    "features": [{
+        "key": "strawberries",
+        "description": "strawberries on the cob",
+        "interactive_text": "...? What the hell is that, Morty? Strawberries on the cob?!! It's not natural Morty. We gotta get outta here!"
+    }],
+    "items": ["processor"],
     "longform": "Morty, I've got a really bad feeling about this. *Urp*. Everything's on the cob! Obviously there's corn on the cob. But then there's strawberries on the cob, ants on the cob. Jesus even the molecules are on the cob. This is bad, Morty. This is really really bad.",
     "shortform": "I do not feel good about this, Morty. Everything's STILL ON THE COB."
 }

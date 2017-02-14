@@ -1,7 +1,9 @@
 {
     "name": "Portal Gun",
-    "description": "Travel the Multiverse in style!",
-    "worlds_unlocked": ["earth"],
-    "actions": { "name": "go",
-         "success": "And awaaaaaay we go!" }
+    "description": "Travel the Multiverse in style! This portal gun can take us to any world we want -- as long as we've got enough power.",
+    "actions": {
+        "name": "go",
+        "success": "And awaaaaaay we go!",
+        "failure": "We can't go there -- the portal gun isn't working!"
+    }
 }

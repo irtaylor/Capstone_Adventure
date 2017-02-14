@@ -1,0 +1,9 @@
+{
+    "name": "Multiverse Battery",
+    "description": "A powerful battery to recharge the portal gun. Actually, I invented these -- inside the battery is a tiny universe, whose sole pupose is to generate electricity for me.",
+    "actions": {
+        "name": "use",
+        "success": "You've recharged the portal gun.",
+        "failure": "Well that didn't work."
+    }
+}

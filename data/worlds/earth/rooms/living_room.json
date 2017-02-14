@@ -1,6 +1,16 @@
 {
     "name": "Living Room",
-    "features": ["couch", "TV", "Jerry"],
-    "longform": "Ah, The living room! A peaceful place for relax and bonding with family. You see a couch, the TV, and Jerry. Pretty standard for a suburban upper-middle class family, don't ya think?",
+    "features": [{
+            "key": "tv",
+            "description": "television",
+            "interactive_text": "Rick once hooked this baby up to get intergalactic TV shows, but it drew too much power and caused a neighborhood blackout."
+        },
+        {
+            "key": "couch",
+            "description": "comfy couch",
+            "interactive_text": "It would be great to lie down for a nap, but Summer's missing."
+        }
+    ],
+    "longform": "Ah, The living room! A peaceful place for relax and bonding with family. Pretty standard for a suburban upper-middle class family, don't ya think?",
     "shortform": "Ok, I get it, it's a living room. There's really standard, living room stuff here."
 }
