@@ -1,7 +1,7 @@
 {
     "name": "Living Room",
     "features": [{
-            "key": "tv",
+            "key": "television",
             "description": "television",
             "interactive_text": "Rick once hooked this baby up to get intergalactic TV shows, but it drew too much power and caused a neighborhood blackout."
         },
