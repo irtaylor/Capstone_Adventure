@@ -20,7 +20,7 @@ VOWELS = {'a', 'e', 'i', 'o', 'u'}
 CONJUNCTIONS = {'and'}
 
 # List of proper nouns
-PROPER_NOUNS = { 'Jerry', 'Rick', 'Morty', 'Beth', 'Summer'}
+PROPER_NOUNS = { 'Jerry', 'Rick', 'Morty', 'Beth', 'Summer', 'Tiny Rick'}
 
 # TODO: expand to also strip out articles of incoming strings
 def check_for_prepositions(string):
