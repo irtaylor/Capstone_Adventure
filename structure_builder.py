@@ -65,12 +65,14 @@ def print_worlds(my_worlds):
             current_room = current_world.rooms[room]
             print current_room.name
             print current_room.long_description
-            if len(current_room.features) > 0:
+            """if len(current_room.features) > 0:
                 if current_room.features[0] is not None and type(current_room.features[0]) is dict:
                     # TODO: HEY LOOK HERE
-                    print current_room.features[0]["key"]
-            if current_room.items is not None:
-                print current_room.items
+                    print current_room.features[0]["key"]"""
+            print current_room.features
+            print current_room.items
+            """if current_room.items is not None:
+                print current_room.items"""
         print "\n"
 
 
