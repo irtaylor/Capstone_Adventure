@@ -45,7 +45,7 @@ class FakeStdIO(object):
 
 def main():
     my_worlds = construct_worlds()
-    # print_worlds(my_worlds)
+    #print_worlds(my_worlds)
 
     stdscr = curses.initscr()
     curses.cbreak()

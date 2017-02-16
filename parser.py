@@ -20,7 +20,7 @@ VOWELS = {'a', 'e', 'i', 'o', 'u'}
 CONJUNCTIONS = {'and'}
 
 # List of proper nouns
-PROPER_NOUNS = { 'Jerry', 'Rick', 'Morty', 'Beth', 'Summer'}
+PROPER_NOUNS = { 'Jerry', 'Rick', 'Morty', 'Beth', 'Summer', 'Tiny Rick'}
 
 # TODO: expand to also strip out articles of incoming strings
 def check_for_prepositions(string):
@@ -81,7 +81,8 @@ def add_article(string, plural):
     """
     Prepends appropriate article to a feature or item
     """
-    if plural == True:
+    # TODO: Fix pluraity with nouns which do not end with 's' and singular nouns that end with 's'
+    if (plural == True) or (string.lower() == "money"):
         string = "some " + string
     else:
         if check_if_vowel(string) is True:
@@ -127,7 +128,6 @@ class CommandParser(Cmd):
         print "Press any key to continue..."
         self.stdin.readline()
         self.sync_location()
-        self.list_room_items()
 
     def postcmd(self, stop, line):
         """
@@ -190,7 +190,8 @@ class CommandParser(Cmd):
         self.player.current_room.print_description()
         print "You can go to the following rooms: "
         for room in self.current_world.rooms:
-            print room
+            print room            
+        self.list_room_items()
 
     def change_room(self):
         """
@@ -219,7 +220,7 @@ class CommandParser(Cmd):
                 room_elements.append(fixed_string)
         for element in range(len(self.current_room.items)):
             # TODO:  Remove call to json file when Item class has been finished
-            with open(OBJECTS_PATH + self.current_room.items[i] + '.json') as json_data:
+            with open(OBJECTS_PATH + self.current_room.items[element].lower() + '.json') as json_data:
                     data = json.load(json_data)
             json_data.close()
             fixed_string = format_string_plurality(data["name"], None)
@@ -248,8 +249,8 @@ class CommandParser(Cmd):
                 sentence+=element
             if len(elements) > 1:
                 sentence+=" and "
-                sentence+=elements[-1] + "."
-        print sentence
+                sentence+=elements[-1]
+        print sentence + "."
 
 
     def list_room_items(self):
