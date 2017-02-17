@@ -1,0 +1,11 @@
+{
+    "name": "Sunny Side Of The Planet",
+    "features": [{
+      "key": "space",
+      "description": "curving slope leading into space",
+      "interactive_text": "Being on a Tiny Planet is really annoying -- the curvature of the surface is so steep, that you can't really see in front of you -- if you look straight, you're just looking out into Space."
+    }],
+    "items": ["plumbus"],
+    "longform": "What is this? A rip-off of The Little Prince? I mean, come on, this is just a small planet. I-i-i-i mean *urp* you could walk around the entire planet in like a few minutes.",
+    "shortform": "There's been like, a hundred sunrise-sunsets since we were here last. This is such a tiny planet."
+}

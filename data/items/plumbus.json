@@ -1,0 +1,9 @@
+{
+    "name": "Plumbus",
+    "description": "A plumbus is... well, I mean... a plumbus is... well everyone's got one? Isn't that all that matters? It's a pretty standard household device, Morty. You don't hear people on Earth being like, \"Oh, toilet paper? What's that???\" Ok, fine, I'll be honest, I'm not really sure how to use the plumbus, Morty. Maybe I gotta be in the right state of mind.",
+    "actions": {
+        "name": "use",
+        "success": "Holy Shit! That was awesome, Morty! Aren't Plumbuses *urp* aren't they like the best? So freakin' glad we got to use that!",
+        "failure": "Huh, plumbuses aren't as cool as I once thought. Maybe I just used it wrong..."
+    }
+}

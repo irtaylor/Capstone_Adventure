@@ -5,7 +5,7 @@
       "description": "mega trees",
       "interactive_text": "They're sort of like tall, purplish, gross palm trees without leaves."
     }],
-    "items": [],
+    "items": ["processor"],
     "longform": "This is where Mega Trees grow, Morty! Right here in this valley! I've scoured the Multiverse for a world just like this, but it takes just the right conditions.",
     "shortform": "Summer's probably not here, but the Mega Trees sure are!"
 }

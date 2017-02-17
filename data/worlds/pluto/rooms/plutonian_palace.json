@@ -1,8 +1,17 @@
 {
     "name": "Plutonian Palace",
     "features": [{
-      
-      }],
+            "key": "palace",
+            "description": "Plutonian Palace",
+            "interactive_text": "The Palace is moderately impressive -- I guess -- if you're a sucker for testaments to corporate greed and lameness."
+
+        },
+        {
+            "key": "king",
+            "description": "Plutonian King",
+            "interactive_text": "He's a gross little frog. Seriously, what's the point? He probably doesn't even know where Summer is!"
+        }
+    ],
     "items": ["hip_flask"],
     "longform": "Forget this place, Morty -- these Plutonian's are in denial. I mean, they still claim this little frozen rock is a planet. A planet, Morty! I mean, look at the palace. It's freaking lame. Seriously, they've only got like five bars on Pluto, Morty. People don't even get routinely blackout here, and they think it's a planet!",
     "shortform": "Summer's not here, Morty. Face it -- even she appreciates how lame this place is."

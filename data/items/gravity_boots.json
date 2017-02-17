@@ -1,0 +1,9 @@
+{
+    "name": "Gravity Boots",
+    "description": "These babies let you walk up just about anything! You can go up, down, downwards. Anywhere! It's weird they're just lying here -- it's a little... convenient.",
+        "actions": {
+        "name": "use",
+        "success": "The boots are on. Nice! We might actually get somewhere.",
+        "failure": "Well that didn't work."
+    }
+}

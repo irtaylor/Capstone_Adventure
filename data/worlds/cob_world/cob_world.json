@@ -1,6 +1,6 @@
 {
     "name": "Cob World",
-    "starting_room": "Cob World",
+    "starting_room": "Plains On The Cob",
     "connections": ["tiny_rick_earth", "pluto"],
     "description": "A Planet Where Everything is \"On the Cob!\""
 }

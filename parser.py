@@ -125,7 +125,7 @@ class CommandParser(Cmd):
         Runs at the beginning of every game, initializes world with starting location.
         """
         text_helpers.get_intro()
-        print "Press any key to continue..."
+        print "Press any ENTER to continue..."
         self.stdin.readline()
         self.sync_location()
 
@@ -190,7 +190,7 @@ class CommandParser(Cmd):
         self.player.current_room.print_description()
         print "You can go to the following rooms: "
         for room in self.current_world.rooms:
-            print room            
+            print room
         self.list_room_items()
 
     def change_room(self):
