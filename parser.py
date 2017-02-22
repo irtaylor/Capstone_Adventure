@@ -3,49 +3,10 @@
 import text_helpers
 from cmd import Cmd
 from rm_player import Player
+from parser_grammar import *
+from rm_item import Item
 
-# JSON support
-import json
-from pprint import pprint
 
-OBJECTS_PATH = './data/items/'
-
-# List of prepositions that will be parsed from user input
-PREPOSITIONS = {'to', 'at', 'about', 'on', 'onto', 'above', 'into'}
-
-# List of vowels that will determine article
-VOWELS = {'a', 'e', 'i', 'o', 'u'}
-
-# List of conjunctions that will be parsed from user input
-CONJUNCTIONS = {'and'}
-
-# List of proper nouns
-PROPER_NOUNS = { 'Jerry', 'Rick', 'Morty', 'Beth', 'Summer', 'Tiny Rick'}
-
-# TODO: expand to also strip out articles of incoming strings
-def check_for_prepositions(string):
-    """
-    Given a string input, strips the first preposition and returns the new string.
-    :param string: String representing the user's input
-    :return: A string that removes the first preposition from the given input
-    """
-    # If the first word in the string is a preposition
-    if string.split()[0] in PREPOSITIONS:
-        # Remove it
-        string = string.split(' ')[1:]
-        string = " ".join(string)
-    return string
-
-def check_if_vowel(string):
-    """"
-    Checks if first word starts with a vowel; this is to assist determining
-    which article to use
-    """
-    if any ((vowel in VOWELS) for vowel in string[0]):
-    #if string.startswith(for any in VOWELS):
-        return True
-    else:
-        return False
 
 def convert_to_key(world_name):
     """
@@ -57,39 +18,16 @@ def convert_to_key(world_name):
     key = lower_case.replace(" ", "_")
     return key
 
+# ################## This whole block to be deleted when Item subclasses are implemented #############
+# This is just to keep the code functional while the Item subclasses are being implemented
+# JSON support
+import json
+from pprint import pprint
 
-def format_string_plurality(key, description):
-    """
-    Verify if string is plural or not to prepend the correct article,
-    depending on whether the object being examined is an item or a feature
-    Features use both fields, proper nouns and items only use the key, currently
-    """
-    if key in PROPER_NOUNS:
-        return key
-    if (description == None):
-        if key.endswith('s') is True:
-            return add_article(key, True)
-        else:
-            return add_article(key, False)
-    if key.endswith('s'):
-        return add_article(description, True)
-    else:
-        return add_article(description, False)
+OBJECTS_PATH = './data/items/'
 
 
-def add_article(string, plural):
-    """
-    Prepends appropriate article to a feature or item
-    """
-    # TODO: Fix pluraity with nouns which do not end with 's' and singular nouns that end with 's'
-    if (plural == True) or (string.lower() == "money"):
-        string = "some " + string
-    else:
-        if check_if_vowel(string) is True:
-            string = "an " + string
-        else:
-            string = "a " + string
-    return string
+
 
 class CommandParser(Cmd):
 
@@ -208,25 +146,36 @@ class CommandParser(Cmd):
     # populate array of things in the current room
     # this is necesary now because the items and features are stored in two different locations and have different information available
     # formats strings to prepend article and determine plurality
-    def get_room_elements(self, room_elements):
-        for i in range(len(self.current_room.features)):
-            try:
-                self.current_room.features[i]["description"]
-            except:
-                fixed_string = format_string_plurality(self.current_room.features[i], None)
-                room_elements.append(fixed_string)
-            else:
-                fixed_string = format_string_plurality(self.current_room.features[i]["key"], self.current_room.features[i]["description"])
-                room_elements.append(fixed_string)
-        for element in range(len(self.current_room.items)):
-            # TODO:  Remove call to json file when Item class has been finished
-            with open(OBJECTS_PATH + self.current_room.items[element].lower() + '.json') as json_data:
-                    data = json.load(json_data)
-            json_data.close()
-            fixed_string = format_string_plurality(data["name"], None)
+    def get_room_elements(self, room_elements):   
+        for element in self.current_room.get_items():
+            fixed_string = format_string_plurality(self.get_item_name(element), None)
+            room_elements.append(fixed_string)
+        for feature in self.current_room.get_features():
+            fixed_string = format_string_plurality(feature["key"], feature["description"])
             room_elements.append(fixed_string)
         return room_elements
 
+    def get_item_description(self, item):
+        try:
+            self.my_items[item]["description"]
+        except:
+            with open(OBJECTS_PATH + item.lower() + '.json') as json_data:
+                data = json.load(json_data)
+            json_data.close()
+            return data["description"]
+        else:
+            return self.my_items[item]["description"]
+            
+    def get_item_name(self, item):
+        try:
+            self.my_items[item]["name"]
+        except:
+            with open(OBJECTS_PATH + item.lower() + '.json') as json_data:
+                data = json.load(json_data)
+            json_data.close()
+            return data["name"]
+        else:
+            return self.my_items[item]["name"]
 
     def build_sentence(self, elements):
         """
@@ -251,7 +200,6 @@ class CommandParser(Cmd):
                 sentence+=" and "
                 sentence+=elements[-1]
         print sentence + "."
-
 
     def list_room_items(self):
         """
@@ -311,8 +259,9 @@ class CommandParser(Cmd):
             """ List the player's inventory """
             print "Current Inventory:"
             for item in self.player.get_inventory():
-                print '- ' + item
+                print "- %s" % self.get_item_name(item)
 
+    #TODO: Can probably remove this; was a test verb, is no longer needed
     def do_list_inventory(self, args):
         """List the player's inventory """
         print "Current Inventory:"
@@ -341,7 +290,7 @@ class CommandParser(Cmd):
         # Item class not implemented yet
         #item = Item('ray gun')
         #print item.use()
-
+        
     def do_portal(self, args):
         """
         With args: Error text.
@@ -363,42 +312,47 @@ class CommandParser(Cmd):
         """
         if len(args) == 0:
             print self.current_room.get_entrance_long()
-        #else:
         # Required verb. Check args for 'at', if look at, validate the item is a valid item or object then print
         # the description of object or item
-        # Need to implement for loop for cycling through lists of objects
-        # sys.stdout.write('Looks like there is a %s lying around.\n' % str(self.current_room.get_items()))"""
         else:
             # strip off preposition
-            stripped = check_for_prepositions(args)
-            # check if this is a valid item in the current room
+            stripped_input = check_for_prepositions(args)
             # iterate through words in string
-            # might change this is  'in' instead of breaking down string and looping through words
-            for word in stripped.split():
-                #iterate through current room's feature list to determine if it is a feature or an object
-                for i in range(len(self.current_room.features)):
-                        try:
-                            self.current_room.features[i]["key"]
-                        except:
-                            print "Feature not implemented yet."
-                            return
-                        else:
-                            if (self.current_room.features[i]["key"] == word):
-                                print self.current_room.features[i]["interactive_text"]
-                                return
-            # must not be a valid checking if it's an item
-            # TODO: clean this up when Item subclass is created
-            for i in range(len(self.current_room.items)):
-                converted_to_key = convert_to_key(stripped)
-                if (self.current_room.items[i] == converted_to_key):
-                    # try to access Item's description, if it doesn't exist, pull from the json file
-                        with open(OBJECTS_PATH + converted_to_key + '.json') as json_data:
-                            data = json.load(json_data)
-                        json_data.close()
-                        print data["description"]
+            # check if valid item in player inventory
+            for word in stripped_input:
+                if self.is_item_valid(word, self.player.get_inventory()) is True:
+                    item = convert_to_key(stripped_input)
+                    print self.get_item_description(item)
+                    return
+
+            # check if valid item in current room        
+            for word in stripped_input:
+                if self.is_item_valid(word, self.current_room.get_items()) is True:
+                    item = convert_to_key(stripped_input)
+                    print self.get_item_description(item)
+                    return
+
+            # check if valid feature
+            room_features = self.current_room.get_features()
+            for word in stripped_input:
+                for feature in room_features:
+                    if word in feature["key"]:
+                        print feature["interactive_text"]
                         return
+
             # TODO: Add error text for when user enters item not existing in the current room
 
+    def is_item_valid(self, questionable_item, list_of_items):
+        """
+        Checks list to determine if item user is manipulating is in the list.
+        """
+        questionable_item = convert_to_key(questionable_item)
+        for items in list_of_items:
+            if questionable_item in items:
+                return True
+        return False
+            
+            
     def do_take(self, args):
         """
         Required verb.
@@ -409,10 +363,35 @@ class CommandParser(Cmd):
         if len(args) == 0:
              print "You can't take everything!\n"
         else:
-            # TODO: Add validation item exists, is in current room, etc
-            # Also need to add logic to item from room
-            self.player.add_to_inventory(args)
+            #validate item exists, is in current room, etc
+            # if so, add to player inventory, remove item from room           
+            if self.is_item_valid(args, self.current_room.get_items()) is True:
+                item = convert_to_key(args)
+                self.current_room.remove_item(item)
+                self.player.add_to_inventory(item)
+            else:
+                print "item is false"
 
+    def do_drop(self, args):
+        """
+        Required verb.
+        Take object out of player's inventory and drop on ground.
+        With args: Validate item is droppable (item exists in player inventory).  Throw error text if it isn't.
+        Without args: Error text.
+        """
+        if len(args) == 0:
+             print "You can't take everything!\n"
+        else:
+            #validate item exists, is in current room, etc
+            # if so, add to player inventory, remove item from room
+            print self.player.get_inventory()
+            if self.is_item_valid(args, self.player.get_inventory()) is True:
+                item = convert_to_key(args)
+                self.current_room.add_item(item)
+                self.player.remove_from_inventory(item)
+            else:
+                print "item is false"
+                
     def do_savegame(self, args):
         """
         Required verb.

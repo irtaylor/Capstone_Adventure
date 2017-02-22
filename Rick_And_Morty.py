@@ -8,7 +8,7 @@ import curses
 from curses import wrapper
 import textwrap
 
-# JSON support
+# JSON support - should be able to remove this
 import json
 from pprint import pprint
 
@@ -68,7 +68,7 @@ def main():
         #initializing player state
         command_parser.player.worlds = my_worlds
         command_parser.player.set_current_world(my_worlds["earth"])
-        command_parser.player.add_to_inventory('Portal Gun')
+        command_parser.player.add_to_inventory('portal_gun')
 
         command_parser.cmdloop()
 

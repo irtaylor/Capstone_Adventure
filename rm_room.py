@@ -94,3 +94,15 @@ class Room(object):
         :return: A list of the rooms that a player may travel to.
         """
         pass
+    
+    def remove_item(self, item):
+        """
+        Removes item from room.
+        """
+        self.items.remove(item)
+        
+    def add_item(self, item):
+        """
+        Removes item from room.
+        """
+        self.items.append(item)
