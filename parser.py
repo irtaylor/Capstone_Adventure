@@ -143,10 +143,12 @@ class CommandParser(Cmd):
         self.player.current_room.print_description()
         self.list_room_items()
 
-    # populate array of things in the current room
-    # this is necesary now because the items and features are stored in two different locations and have different information available
-    # formats strings to prepend article and determine plurality
+
     def get_room_elements(self, room_elements):   
+        """
+        populate array of things in the current room
+        formats strings to prepend article and determine plurality        
+        """
         for element in self.current_room.get_items():
             fixed_string = format_string_plurality(self.get_item_name(element), None)
             room_elements.append(fixed_string)
@@ -156,6 +158,11 @@ class CommandParser(Cmd):
         return room_elements
 
     def get_item_description(self, item):
+        """
+        Helper function.  
+        Collects item description from Item object or json file, whichever works.
+        Can probably throw this away when Item subclasses are in.
+        """
         try:
             self.my_items[item]["description"]
         except:
@@ -167,6 +174,11 @@ class CommandParser(Cmd):
             return self.my_items[item]["description"]
             
     def get_item_name(self, item):
+        """
+        Helper function.
+        Collects item name from Item object or json file, whichever works.
+        Can probably throw this away when Item subclasses are in.
+        """
         try:
             self.my_items[item]["name"]
         except:
@@ -179,7 +191,7 @@ class CommandParser(Cmd):
 
     def build_sentence(self, elements):
         """
-        Builds sentence to return to output to the user appending conjunctions, commas, and helping verbs as needed
+        Builds sentence to output to the user appending conjunctions, commas, and helping verbs as needed
         """
         sentence = "There"
         if (len(elements)) == 0:
@@ -359,7 +371,7 @@ class CommandParser(Cmd):
         Without args: Error text.
         """
         if len(args) == 0:
-             print "You can't take everything!\n"
+             print "Parameter for item to be dropped not supplied.  Need flavour text here."
         else:
             #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room           
@@ -368,7 +380,7 @@ class CommandParser(Cmd):
                 self.current_room.remove_item(item)
                 self.player.add_to_inventory(item)
             else:
-                print "item is false"
+                print "Can't take object.  Need some flavour text here."
 
     def do_drop(self, args):
         """
@@ -378,7 +390,7 @@ class CommandParser(Cmd):
         Without args: Error text.
         """
         if len(args) == 0:
-             print "You can't take everything!\n"
+             print "Parameter for item to be dropped not supplied.  Need flavour text here."
         else:
             #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
@@ -388,7 +400,7 @@ class CommandParser(Cmd):
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
             else:
-                print "item is false"
+                print "Can't drop object (most likely do not have it in inventory).  Need flavour text here."
                 
     def do_savegame(self, args):
         """
