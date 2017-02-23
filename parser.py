@@ -319,18 +319,16 @@ class CommandParser(Cmd):
             stripped_input = check_for_prepositions(args)
             # iterate through words in string
             # check if valid item in player inventory
-            for word in stripped_input:
-                if self.is_item_valid(word, self.player.get_inventory()) is True:
-                    item = convert_to_key(stripped_input)
-                    print self.get_item_description(item)
-                    return
+            if self.is_item_valid(stripped_input, self.player.get_inventory()) is True:
+                item = convert_to_key(stripped_input)
+                print self.get_item_description(item)
+                return
 
             # check if valid item in current room        
-            for word in stripped_input:
-                if self.is_item_valid(word, self.current_room.get_items()) is True:
-                    item = convert_to_key(stripped_input)
-                    print self.get_item_description(item)
-                    return
+            if self.is_item_valid(stripped_input, self.current_room.get_items()) is True:
+                item = convert_to_key(stripped_input)
+                print self.get_item_description(item)
+                return
 
             # check if valid feature
             room_features = self.current_room.get_features()

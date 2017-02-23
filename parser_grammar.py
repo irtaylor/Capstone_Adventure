@@ -10,7 +10,7 @@ VOWELS = {'a', 'e', 'i', 'o', 'u'}
 CONJUNCTIONS = {'and'}
 
 # List of proper nouns
-PROPER_NOUNS = { 'jerry', 'rick', 'morty', 'beth', 'summer', 'tiny rick' }
+PROPER_NOUNS = { 'jerry', 'rick', 'morty', 'beth', 'summer', 'tiny_rick' }
 
 # TODO: expand to also strip out articles of incoming strings
 def check_for_prepositions(string):
@@ -36,14 +36,25 @@ def check_if_vowel(string):
         return True
     else:
         return False
-        
+
+def key_to_text(string):
+    """
+    Converts the given string from the key format to regular text
+    :param world_name: The world name as a string
+    :return: The world name as it appears as a key in the my_worlds dictionary
+    """
+    key = string.replace("_", " ")
+    return key
+    
 def format_string_plurality(key, description):
     """
     Verify if string is plural or not to prepend the correct article,
     depending on whether the object being examined is an item or a feature
     Features use both fields, proper nouns and items only use the key, currently
     """
-    if key in PROPER_NOUNS:
+    if key.lower() in PROPER_NOUNS:
+        key = key_to_text(key)
+        key = key.title()
         return key
     if (description == None):
         if key.endswith('s') is True:
@@ -66,7 +77,6 @@ def add_article(string, plural):
     else:
         if check_if_vowel(string) is True:
             string = "an " + string
-        else if 
         else:
             string = "a " + string
     return string
