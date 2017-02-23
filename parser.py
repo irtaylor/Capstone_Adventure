@@ -91,9 +91,10 @@ def add_article(string, plural):
             string = "a " + string
     return string
 
+
 class CommandParser(Cmd):
 
-    def __init__(self, worlds_map):
+    def __init__(self, worlds_map, items_dictionary):
         """
         Initializes the Command Parser and field variables.
         :param worlds_map: Dictionary with name (string) --> World object pairings
@@ -105,6 +106,7 @@ class CommandParser(Cmd):
         self.prompt = '>> '
         self.player = Player()
         self.worlds = worlds_map
+        self.items = items_dictionary
         self.current_world = None
         self.current_room = None
 

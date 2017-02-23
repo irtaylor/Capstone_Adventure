@@ -45,40 +45,41 @@ class FakeStdIO(object):
 
 def main():
     my_worlds = construct_worlds()
-    #print_worlds(my_worlds)
+    my_items = construct_items()
+    # print_worlds(my_worlds)
+    print_items(my_items)
 
-    stdscr = curses.initscr()
-    curses.cbreak()
-    # curses.noecho()
-    curses.echo()
-    stdscr.keypad(1)
-    stdscr.scrollok(True)
-    stdscr.clear()
-    stdscr.refresh()
-
-    try:
-        io = FakeStdIO(stdscr)
-        sys.stdin = io
-        sys.stdout = io
-
-        command_parser = CommandParser(my_worlds)
-        command_parser.stdout = io
-        command_parser.stdin = io
-
-        #initializing player state
-        command_parser.player.worlds = my_worlds
-        command_parser.player.set_current_world(my_worlds["earth"])
-        command_parser.player.add_to_inventory('Portal Gun')
-
-        command_parser.cmdloop()
-
-    except KeyboardInterrupt:
-        pass
-    finally:
-        curses.nocbreak()
-        stdscr.keypad(0)
-        curses.echo()
-        curses.endwin()
+    # stdscr = curses.initscr()
+    # curses.cbreak()
+    # # curses.noecho()
+    # curses.echo()
+    # stdscr.keypad(1)
+    # stdscr.scrollok(True)
+    # stdscr.clear()
+    # stdscr.refresh()
+    #
+    # try:
+    #     io = FakeStdIO(stdscr)
+    #     sys.stdin = io
+    #     sys.stdout = io
+    #
+    #     command_parser = CommandParser(my_worlds, my_items)
+    #     command_parser.stdout = io
+    #     command_parser.stdin = io
+    #
+    #     # Initializing player state
+    #     command_parser.player.set_current_world(my_worlds["earth"])
+    #     command_parser.player.add_to_inventory("portal_gun")
+    #
+    #     command_parser.cmdloop()
+    #
+    # except KeyboardInterrupt:
+    #     pass
+    # finally:
+    #     curses.nocbreak()
+    #     stdscr.keypad(0)
+    #     curses.echo()
+    #     curses.endwin()
 
 if __name__ == '__main__':
     main()

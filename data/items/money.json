@@ -1,9 +1,11 @@
 {
     "name": "Money",
     "description": "Intergalactic currency. Good for buying things, and for bribery!",
-    "actions": {
-        "name": "use",
-        "success": "Ka-ching!",
-        "failure": "Money's probably not good for that."
-    }
+    "actions": [
+	    {
+	        "name": "use",
+	        "success": "Ka-ching!",
+	        "failure": "Money's probably not good for that."
+	    }
+	]
 }

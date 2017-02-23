@@ -1,9 +1,11 @@
 {
     "name": "Hip Flask",
     "description": "Woah, cool, a hip flask! Who just leaves this lying around? It's big too -- prolly hold enough Krellian whiskey to keep me buzzzzzzzed for a month!",
-    "actions": {
-        "name": "drink",
-        "success": "*Ack* *cough* *Urp!* WubaLubaDubDub that's good stuff.",
-        "failure": ""
-    }
+    "actions": [
+	    {
+	        "name": "drink",
+	        "success": "*Ack* *cough* *Urp!* WubaLubaDubDub that's good stuff.",
+	        "failure": ""
+	    }
+	]
 }

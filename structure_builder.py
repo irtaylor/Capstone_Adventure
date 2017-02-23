@@ -6,6 +6,7 @@ from rm_room import Room
 from rm_world import World
 
 WORLDS_DIRECTORY_PATH = "data/worlds/"
+ITEMS_DIRECTORY_PATH = "data/items"
 
 
 def construct_worlds():
@@ -114,3 +115,72 @@ def build_world(file_path_str):
         new_world.description = data["description"]
         new_world.connections = data["connections"][:]
         return new_world
+
+
+def build_item(file_path_str):
+    """
+    Loads a item's data from the given file, places it into a new Item object.
+
+    :param file_path_str: path to the desired item file.
+    :return: A new Item object with the content of the passed file
+    """
+
+    # Open the file if possible
+    with open(file_path_str) as json_data:
+        data = json.load(json_data)
+        new_item = World()
+        new_item.name = data["name"]
+        new_item.description = data["description"]
+        new_item.actions = data["actions"][:]
+        return new_item
+
+
+def construct_items():
+    """
+    Populates Item objects with JSON data from the "data/items" directory.
+
+    :return: A dictionary with name(lower case, underscore-separated) --> item object pairs
+    """
+    # Dictionary to populate with key value pairs
+    my_items = {}
+
+    # List of directory names with our items
+    item_files = os.listdir(ITEMS_DIRECTORY_PATH)
+    for item in item_files:
+        if item != ".DS_Store":
+            # Key name for my_worlds
+            str_key = item[:-5]
+
+            # Create string representing the path to the world JSON file
+            item_file_path = ITEMS_DIRECTORY_PATH + '/' + item
+
+            # Create the Item object given the file path
+            item_obj = build_item(item_file_path)
+
+            # Place the new item object into our dictionary
+            my_items[str_key] = item_obj
+
+    # Return our completed dictionary
+    return my_items
+
+
+def print_items(my_items):
+    """
+    Writes the contents of our my_items dictionary to standard out.
+
+    :param my_items: Dictionary containing item name --> item obj pairs
+    """
+    for item in my_items:
+
+        # Get World object
+        current_item = my_items[item]
+
+        # Print basic World info
+        print current_item.name
+        print current_item.description
+
+        for action in current_item.actions:
+            print action["name"]
+            print action["success"]
+            print action["failure"]
+        print "\n"
