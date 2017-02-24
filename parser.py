@@ -125,7 +125,7 @@ class CommandParser(Cmd):
         Runs at the beginning of every game, initializes world with starting location.
         """
         text_helpers.get_intro()
-        print "Press any ENTER to continue..."
+        print "Press ENTER to continue..."
         self.stdin.readline()
         self.sync_location()
 
