@@ -170,6 +170,15 @@ class CommandParser(Cmd):
         else:
             return False, False, None
 
+    def print_rooms_list(self):
+        """
+        Print rooms that the player can navigate to in the current world
+        """
+        print "You can go to the following rooms: "
+        for room in self.current_world.rooms:
+            print room
+        self.list_room_items()
+
     def change_world(self):
         """
         Updates the user to their newest location and prints out descriptions, features, items, etc.
@@ -188,10 +197,7 @@ class CommandParser(Cmd):
 
         self.player.current_world.print_description()
         self.player.current_room.print_description()
-        print "You can go to the following rooms: "
-        for room in self.current_world.rooms:
-            print room
-        self.list_room_items()
+        self.print_rooms_list()
 
     def change_room(self):
         """
@@ -363,6 +369,7 @@ class CommandParser(Cmd):
         """
         if len(args) == 0:
             print self.current_room.get_entrance_long()
+            self.print_rooms_list()
         #else:
         # Required verb. Check args for 'at', if look at, validate the item is a valid item or object then print
         # the description of object or item
