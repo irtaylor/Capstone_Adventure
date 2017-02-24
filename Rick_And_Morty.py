@@ -62,7 +62,7 @@ def main():
 
     height,width = stdscr.getmaxyx()
     if (height < 24) or (width < 80):
-        sys.stdout.write('Recommended minimum terminal size for this game is 24x80.\n')
+        sys.stdout.write('Recommended minimum terminal size for this game is 80x24.\n')
         sys.stdout.write('Please resize your terminal and restart the game.\n')
         sys.stdout.write('Press ENTER to exit. Bye!\n')
         sys.stdin.readline()
