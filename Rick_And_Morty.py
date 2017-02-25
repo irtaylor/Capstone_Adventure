@@ -45,6 +45,7 @@ class FakeStdIO(object):
 
 def main():
     my_worlds = construct_worlds()
+    my_items = construct_items()
     #print_worlds(my_worlds)
 
     stdscr = curses.initscr()
@@ -61,7 +62,7 @@ def main():
         sys.stdin = io
         sys.stdout = io
 
-        command_parser = CommandParser(my_worlds)
+        command_parser = CommandParser(my_worlds, my_items)
         command_parser.stdout = io
         command_parser.stdin = io
 

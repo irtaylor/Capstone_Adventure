@@ -11,13 +11,13 @@ OBJECTS_PATH = './data/objects/'
 
 class Item(object):
 
-    def __init__(self, name):
+    def __init__(self):
         """
         Initializes the Item object
         :param num_uses: The number of times that this item may be used
         """
         # self.num_uses = num_uses
-        self.name = name
+        self.name = ""
 
     def get_name(self):
         """
@@ -48,6 +48,8 @@ class Item(object):
                 result = "failure"
         else:
             result = "success"
+
+        # TODO: accommodate multiple actions
         return data["actions"][result]
 
     def get_usable_description(self):

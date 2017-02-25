@@ -29,9 +29,10 @@ OBJECTS_PATH = './data/items/'
 
 
 
+
 class CommandParser(Cmd):
 
-    def __init__(self, worlds_map):
+    def __init__(self, worlds_map, items_dictionary):
         """
         Initializes the Command Parser and field variables.
         :param worlds_map: Dictionary with name (string) --> World object pairings
@@ -43,6 +44,7 @@ class CommandParser(Cmd):
         self.prompt = '>> '
         self.player = Player()
         self.worlds = worlds_map
+        self.items = items_dictionary
         self.current_world = None
         self.current_room = None
 
@@ -83,11 +85,14 @@ class CommandParser(Cmd):
             for world in self.player.worlds:
                 print self.player.worlds[world].name
         # not portal gun to use item action text
-        #else:
-            # TODO: fix so that it retrieves item from dictionary, not instantiate item
-            # Commenting out non portal gun items use()
-            # self.item = Item(args)
-            # print self.item.use()
+        else:
+            # TODO: insert randomizing logic
+            item = convert_to_key(args)
+            if item in self.player.get_inventory():
+                print self.items[item].actions[0]["success"]
+            else:
+                print "Item not in inventory. Need flavour text."
+            
 
     def is_valid_destination(self, destination):
         """
@@ -157,6 +162,9 @@ class CommandParser(Cmd):
             room_elements.append(fixed_string)
         return room_elements
 
+    def do_testfunc(self, args):
+        print 
+    
     def get_item_description(self, item):
         """
         Helper function.  
@@ -164,14 +172,11 @@ class CommandParser(Cmd):
         Can probably throw this away when Item subclasses are in.
         """
         try:
-            self.my_items[item]["description"]
+            self.items[item].description
         except:
-            with open(OBJECTS_PATH + item.lower() + '.json') as json_data:
-                data = json.load(json_data)
-            json_data.close()
-            return data["description"]
+            print "Item could not be found. Need flavour text here."
         else:
-            return self.my_items[item]["description"]
+            return self.items[item].description
             
     def get_item_name(self, item):
         """
@@ -180,14 +185,11 @@ class CommandParser(Cmd):
         Can probably throw this away when Item subclasses are in.
         """
         try:
-            self.my_items[item]["name"]
+            self.items[item].name
         except:
-            with open(OBJECTS_PATH + item.lower() + '.json') as json_data:
-                data = json.load(json_data)
-            json_data.close()
-            return data["name"]
+            print "Item could not be found. Need flavour text here."
         else:
-            return self.my_items[item]["name"]
+            return self.items[item].name
 
     def build_sentence(self, elements):
         """
@@ -254,6 +256,7 @@ class CommandParser(Cmd):
         Executes the body of do_go().
         """
         self.do_go(args)
+        print self.items["portal_gun"].actions[0]["success"]
 
     def do_get_current_world(self, args):
         """State the player's current world and room """
@@ -298,10 +301,10 @@ class CommandParser(Cmd):
         """    With args: shoots target (maybe? unsure how combat system will work).  Might get rid of this action in favour for a general use item.
             Without args: Error text.
         """
-        print "Not yet implemented."
-        # Item class not implemented yet
-        #item = Item('ray gun')
-        #print item.use()
+        if 'ray_gun' in self.player.get_inventory():
+            chance = rand() % 2
+            if chance == 0:
+                print self.items["ray_gun"].action["success"]
         
     def do_portal(self, args):
         """
@@ -371,7 +374,7 @@ class CommandParser(Cmd):
         Without args: Error text.
         """
         if len(args) == 0:
-             print "Parameter for item to be dropped not supplied.  Need flavour text here."
+             print "Parameter for item to be taken not supplied.  Need flavour text here."
         else:
             #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room           
@@ -379,6 +382,7 @@ class CommandParser(Cmd):
                 item = convert_to_key(args)
                 self.current_room.remove_item(item)
                 self.player.add_to_inventory(item)
+                print "Added %s to inventory." % self.get_item_name(item)
             else:
                 print "Can't take object.  Need some flavour text here."
 
@@ -394,11 +398,11 @@ class CommandParser(Cmd):
         else:
             #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
-            print self.player.get_inventory()
             if self.is_item_valid(args, self.player.get_inventory()) is True:
                 item = convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
+                print "Dropped %s." % self.get_item_name(item)
             else:
                 print "Can't drop object (most likely do not have it in inventory).  Need flavour text here."
                 
