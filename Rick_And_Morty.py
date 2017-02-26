@@ -57,16 +57,29 @@ def main():
     stdscr.clear()
     stdscr.refresh()
 
-    try:
-        io = FakeStdIO(stdscr)
-        sys.stdin = io
-        sys.stdout = io
+    io = FakeStdIO(stdscr)
+    sys.stdin = io
+    sys.stdout = io
 
+    height,width = stdscr.getmaxyx()
+    if (height < 24) or (width < 80):
+        sys.stdout.write('Recommended minimum terminal size for this game is 80x24.\n')
+        sys.stdout.write('Please resize your terminal and restart the game.\n')
+        sys.stdout.write('Press ENTER to exit. Bye!\n')
+        sys.stdin.readline()
+        curses.nocbreak()
+        stdscr.keypad(0)
+        curses.echo()
+        curses.endwin()
+        sys.exit()
+
+
+    try:
         command_parser = CommandParser(my_worlds, my_items)
         command_parser.stdout = io
         command_parser.stdin = io
 
-        #initializing player state
+        # initializing player state
         command_parser.player.worlds = my_worlds
         command_parser.player.set_current_world(my_worlds["earth"])
         command_parser.player.add_to_inventory('portal_gun')
