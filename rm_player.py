@@ -13,7 +13,7 @@ class Player(object):
         self.inventory = []
         self.current_world = None
         self.current_room = None
-        self.unlocked_worlds = ["earth", "pluto"]
+        self.unlocked_worlds = ["earth"]
 
     def add_to_inventory(self, item):
         """

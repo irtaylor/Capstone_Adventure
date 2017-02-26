@@ -2,5 +2,6 @@
     "name": "Pluto",
     "starting_room": "Plutonian Palace",
     "connections": [],
-    "description": "Pluto: Not a planet."
+    "description": "Pluto: Not a planet.",
+    "chips_needed": 3
 }

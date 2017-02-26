@@ -2,5 +2,6 @@
     "name": "Tiny Planet",
     "starting_room": "Sunny Side Of The Planet",
     "connections": [],
-    "description": "Psshh. Total knock-off of The Little Prince."
+    "description": "Psshh. Total knock-off of The Little Prince.",
+    "chips_needed": 3
 }

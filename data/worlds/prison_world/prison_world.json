@@ -2,5 +2,6 @@
     "name": "Prison World",
     "starting_room": "Prison Entrance",
     "connections": [],
-    "description": "This is very obviously a Prison World."
+    "description": "This is very obviously a Prison World.",
+    "chips_needed": 7
 }
