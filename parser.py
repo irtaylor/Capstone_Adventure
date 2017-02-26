@@ -91,12 +91,12 @@ class CommandParser(Cmd):
                 return True, True, key
 
         # If the destination is a key in our worlds map, return (is_valid, !is_room, key)
-        if convert_to_key(destination) in self.worlds.keys():
+        if convert_to_key(destination) in self.player.unlocked_worlds:
             return True, False, destination
-
         # Else, return (!is_valid, !is_room, None)
         else:
             return False, False, None
+
 
     def print_rooms_list(self):
         """
@@ -269,14 +269,10 @@ class CommandParser(Cmd):
         args = args.lower()
         # check if portal gun -- portal gun is special case item, so hard coding how it responds
         if args == 'portal gun':
-            for world in self.player.worlds:
+            print "You can teleport to the following worlds:"
+            for world in self.player.unlocked_worlds:
                 print self.player.worlds[world].name
-                # not portal gun to use item action text
-                # else:
-                # TODO: fix so that it retrieves item from dictionary, not instantiate item
-                # Commenting out non portal gun items use()
-                # self.item = Item(args)
-                # print self.item.use()
+
 
     def help_use(self):
         """

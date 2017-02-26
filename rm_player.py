@@ -13,6 +13,7 @@ class Player(object):
         self.inventory = []
         self.current_world = None
         self.current_room = None
+        self.unlocked_worlds = ["earth"]
 
     def add_to_inventory(self, item):
         """
@@ -20,7 +21,7 @@ class Player(object):
         :param item: The Item object to be added to the inventory.
         """
         self.inventory.append(item)
-    
+
     def remove_from_inventory(self, item):
         """
         Removes the given Item object from the player's inventory.
