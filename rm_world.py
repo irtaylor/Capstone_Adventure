@@ -15,6 +15,7 @@ class World(object):
         self.connections = []
         self.description = ""
         self.is_visited = False
+        self.chips_needed = None
 
     def get_rooms(self):
         """

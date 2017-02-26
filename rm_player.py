@@ -14,6 +14,7 @@ class Player(object):
         self.current_world = None
         self.current_room = None
         self.unlocked_worlds = ["earth"]
+        self.num_chips = 0
 
     def add_to_inventory(self, item):
         """

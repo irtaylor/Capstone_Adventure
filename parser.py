@@ -63,15 +63,6 @@ class CommandParser(Cmd):
         """
         self.sync_location()
 
-    def do_combine(self, args):
-        """
-        Combine one item with another.
-        Usage: combine <item1> [with] <item2>
-        """
-
-        
-
-
     def do_use(self, args):
         """ Calls corresponding use command for the item in question """
         args = args.lower()
@@ -433,7 +424,7 @@ class CommandParser(Cmd):
         Takes an item in a room and puts it in the player's inventory.
         """
         if len(args) == 0:
-            print "Parameter for item to be taken not supplied.  Need flavour text here."
+            print "What? What should I take, Morty? Give me something to work with."
 
         else:
             #validate item exists, is in current room, etc
@@ -441,10 +432,24 @@ class CommandParser(Cmd):
             if self.is_item_valid(args, self.current_room.get_items()) is True:
                 item = convert_to_key(args)
                 self.current_room.remove_item(item)
-                self.player.add_to_inventory(item)
-                print "Added %s to inventory." % self.get_item_name(item)
+
+                if item == 'processor':
+                    self.add_processor_to_portal_gun()
+
+                else:
+                    self.player.add_to_inventory(item)
+                    print "Added %s to inventory." % self.get_item_name(item)
             else:
                 print "Don't be an idiot, we don't need that."
+
+    def add_processor_to_portal_gun(self):
+        self.player.num_chips += 1
+        for key in self.worlds.keys():
+            current_world = self.worlds[key]
+            if self.player.num_chips == current_world.chips_needed:
+                self.player.unlocked_worlds.append(key)
+                print "You've unlocked: %s" % current_world.name
+
 
 
     def do_drop(self, args):

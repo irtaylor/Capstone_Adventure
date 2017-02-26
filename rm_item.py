@@ -18,6 +18,7 @@ class Item(object):
         """
         # self.num_uses = num_uses
         self.name = ""
+        self.combines_with = []
 
     def get_name(self):
         """

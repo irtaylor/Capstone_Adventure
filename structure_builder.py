@@ -114,6 +114,7 @@ def build_world(file_path_str):
         new_world.starting_room = data["starting_room"]
         new_world.description = data["description"]
         new_world.connections = data["connections"][:]
+        new_world.chips_needed = data["chips_needed"]
         return new_world
 
 
