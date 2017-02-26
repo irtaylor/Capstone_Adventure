@@ -308,6 +308,8 @@ class CommandParser(Cmd):
             for item in self.player.get_inventory():
                 print "- %s" % self.get_item_name(item)
 
+            print "- Processors: x%s" % self.player.num_chips
+
     def help_list(self):
         """
         Provides the user with witty, yet practical advice for checking their inventory.
