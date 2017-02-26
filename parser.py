@@ -20,7 +20,8 @@ VOWELS = {'a', 'e', 'i', 'o', 'u'}
 CONJUNCTIONS = {'and'}
 
 # List of proper nouns
-PROPER_NOUNS = { 'Jerry', 'Rick', 'Morty', 'Beth', 'Summer', 'Tiny Rick'}
+PROPER_NOUNS = {'Jerry', 'Rick', 'Morty', 'Beth', 'Summer', 'Tiny Rick'}
+
 
 # TODO: expand to also strip out articles of incoming strings
 def check_for_prepositions(string):
@@ -36,16 +37,18 @@ def check_for_prepositions(string):
         string = " ".join(string)
     return string
 
+
 def check_if_vowel(string):
-    """"
+    """
     Checks if first word starts with a vowel; this is to assist determining
     which article to use
     """
-    if any ((vowel in VOWELS) for vowel in string[0]):
-    #if string.startswith(for any in VOWELS):
+    if any((vowel in VOWELS) for vowel in string[0]):
+        # if string.startswith(for any in VOWELS):
         return True
     else:
         return False
+
 
 def convert_to_key(world_name):
     """
@@ -66,7 +69,7 @@ def format_string_plurality(key, description):
     """
     if key in PROPER_NOUNS:
         return key
-    if (description == None):
+    if description is None:
         if key.endswith('s') is True:
             return add_article(key, True)
         else:
@@ -82,7 +85,7 @@ def add_article(string, plural):
     Prepends appropriate article to a feature or item
     """
     # TODO: Fix pluraity with nouns which do not end with 's' and singular nouns that end with 's'
-    if (plural == True) or (string.lower() == "money"):
+    if plural is True or string.lower() == "money":
         string = "some " + string
     else:
         if check_if_vowel(string) is True:
@@ -90,6 +93,7 @@ def add_article(string, plural):
         else:
             string = "a " + string
     return string
+
 
 class CommandParser(Cmd):
 
@@ -136,20 +140,6 @@ class CommandParser(Cmd):
         :param line: user input
         """
         self.sync_location()
-
-    def do_use(self, args):
-        """ Calls corresponding use command for the item in question """
-        args = args.lower()
-        # check if portal gun -- portal gun is special case item, so hard coding how it responds
-        if args == 'portal gun':
-            for world in self.player.worlds:
-                print self.player.worlds[world].name
-        # not portal gun to use item action text
-        #else:
-            # TODO: fix so that it retrieves item from dictionary, not instantiate item
-            # Commenting out non portal gun items use()
-            # self.item = Item(args)
-            # print self.item.use()
 
     def is_valid_destination(self, destination):
         """
@@ -212,7 +202,8 @@ class CommandParser(Cmd):
         self.list_room_items()
 
     # populate array of things in the current room
-    # this is necesary now because the items and features are stored in two different locations and have different information available
+    # this is necessary now because the items and features are stored in two different locations
+    # and have different information available
     # formats strings to prepend article and determine plurality
     def get_room_elements(self, room_elements):
         for i in range(len(self.current_room.features)):
@@ -233,14 +224,13 @@ class CommandParser(Cmd):
             room_elements.append(fixed_string)
         return room_elements
 
-
     def build_sentence(self, elements):
         """
         Builds sentence to return to output to the user appending conjunctions, commas, and helping verbs as needed
         """
         sentence = "There"
         if (len(elements)) == 0:
-                sentence+=" is nothing of note here."
+                sentence += " is nothing of note here."
         else:
             # print first element
             # determine appropriate verb
@@ -248,31 +238,30 @@ class CommandParser(Cmd):
                 sentence += " are "
             else:
                 sentence += " is "
-            sentence+=elements[0]
+            sentence += elements[0]
             # for all but last element, print with comma
             for element in elements[1:-1]:
-                sentence+=", "
-                sentence+=element
+                sentence += ", "
+                sentence += element
             if len(elements) > 1:
-                sentence+=" and "
-                sentence+=elements[-1]
+                sentence += " and "
+                sentence += elements[-1]
         print sentence + "."
-
 
     def list_room_items(self):
         """
-        Collects elements (items and features) from room and their descriptions
-        Formats the text sentence and outputs it to user
+        Collects elements (items and features) from room and their descriptions.
+        Formats the text sentence and outputs it to user.
         """
         room_elements = []
         room_elements = self.get_room_elements(room_elements)
         self.build_sentence(room_elements)
 
-
     def do_go(self, args):
         """
-        Updates the player's location to that given in the user's input, if valid.
-        :param args: String argument given after the command "go"
+        Usage: go [to planet|roomName]
+
+        Let's get a move on, Morty! Summer most likely doesn't have much time left.
         """
         # TODO: ADD VALIDATION LOGIC
         # TODO: ADD VALIDATION FOR TRAVELING TO SAME ROOM
@@ -295,63 +284,117 @@ class CommandParser(Cmd):
             print "What are you blathering about Morty? " \
                   "Are you sure that's even a real place? There's no %s around here!" % stripped
 
+    def help_go(self):
+        """
+        Provides the user with witty, yet practical advice for going to another place.
+        """
+        print '\nUsage: go [to planet|roomName]\n'
+        print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
+
     def do_port(self, args):
         """
-        Executes the body of do_go().
+        Same functionality as the "go" command.
         """
         self.do_go(args)
 
-    def do_get_current_world(self, args):
-        """State the player's current world and room """
-        print self.player.get_current_world()
+    def help_port(self):
+        """
+        Provides the user with witty, yet practical advice for porting to another place.
+        """
+        print '\nUsage: port [to planet|roomName]\n'
+        print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
 
+    def do_use(self, args):
+        """
+        Uses the desired item. Results may vary.
+        """
+        args = args.lower()
+        # check if portal gun -- portal gun is special case item, so hard coding how it responds
+        if args == 'portal gun':
+            for world in self.player.worlds:
+                print self.player.worlds[world].name
+                # not portal gun to use item action text
+                # else:
+                # TODO: fix so that it retrieves item from dictionary, not instantiate item
+                # Commenting out non portal gun items use()
+                # self.item = Item(args)
+                # print self.item.use()
+
+    def help_use(self):
+        """
+        Provides the user with witty, yet practical advice for using an item.
+        """
+        print '\nUsage: use itemName\n'
+        print 'Well Morty, if you have an item in your inventory, you can use it. ' \
+              'Didn\'t think it was too complicated.'
 
     def do_get(self, args):
-        #Utility verb, currently used to get current world
-        """ State the player's current world and room """
-        if (args == 'current world'):
+        """
+        Helps the player determine where they are in the universe.
+        """
+        # TODO: strip arguments to include phrases like "get the current world", make more natural
+        # TODO: add additional arguments for inventory?
+        if args == 'current world':
             print self.player.get_current_world()
 
+    def help_get(self):
+        """
+        Provides the user with witty, yet practical advice for seeing where they are.
+        """
+        print '\nUsage: get current world\n'
+        print 'Uh, it seems in our scientific adventures, we lost track of which universe we are in. ' \
+              'Use this command to pinpoint our location in the space time continuum.'
+
     def do_list(self, args):
-        if (args == 'inventory'):
-            """ List the player's inventory """
+        """
+        A command for checking a player's inventory. The contents will be printed to the screen.
+        """
+        if args == 'inventory':
             print "Current Inventory:"
             for item in self.player.get_inventory():
                 print '- ' + item
 
-    def do_list_inventory(self, args):
-        """List the player's inventory """
-        print "Current Inventory:"
-        for item in self.player.get_inventory():
-            print '- ' + item
+    def help_list(self):
+        """
+        Provides the user with witty, yet practical advice for checking their inventory.
+        """
+        print '\nUsage: list inventory\n'
+        print 'WHAT\'S IN THE BOX, MORTY!? Just kidding, what have we gathered so far?'
 
     def do_inventory(self, args):
-        """List the player's inventory"""
-        """Required verb."""
+        """
+        A command for checking a player's inventory. The contents will be printed to the screen.
+        """
         self.do_list("inventory")
 
+    def help_inventory(self):
+        """
+        Provides the user with witty, yet practical advice for checking their inventory.
+        """
+        print '\nUsage: inventory\n'
+        print 'WHAT\'S IN THE BOX, MORTY!? Just kidding, what have we gathered so far?'
+
     def do_hello(self, args):
-        """Says hello. If you provide a name, it will greet you with it."""
+        """
+        A simple echo function that says hello back to the user with an optional argument.
+        """
         if len(args) == 0:
             name = 'stranger'
         else:
             name = args
         print "Hello, %s" % name
 
-    def do_shoot(self, args):
-        """Shoots raygun."""
-        """    With args: shoots target (maybe? unsure how combat system will work).  Might get rid of this action in favour for a general use item.
-            Without args: Error text.
+    def help_hello(self):
         """
-        print "Not yet implemented."
-        # Item class not implemented yet
-        #item = Item('ray gun')
-        #print item.use()
+        Provides the user with witty, yet practical advice for saying hello.
+        """
+        print '\nUsage: hello [name]\n'
+        print 'Morty sometimes I underestimate how socially inept you are. ' \
+              'Do I really need to tell you how to say hello?'
 
     def do_portal(self, args):
         """
-        With args: Error text.
-        Without args: Check portal gun for fuel and chips.
+        Enables the user to port to another place, like a room or world.
         """
         if len(args) == 0:
             print "Where are you going?"
@@ -361,20 +404,25 @@ class CommandParser(Cmd):
                   "Do we want it to check for chips or did we " \
                   "want to have it blow up instead?\n" % name
 
+    def help_portal(self):
+        """
+        Provides the user with witty, yet practical advice for porting to another place.
+        """
+        print '\nUsage: portal [to planetName]\n'
+        print 'Feel the power, Morty. Feel the hyperbolic proton gravity thrusters charging this bad boy. ' \
+              'Let\'s use the portal gun to find more of those chips!'
+
     def do_look(self, args):
         """
-        With no args: Reprints the long form description of the room.
-        With args: Prints description of a feature or object.
-        Required verb.
+        Prints a description of the item, feature, or room the player designates.
         """
         if len(args) == 0:
             print self.current_room.get_entrance_long()
             self.print_rooms_list()
-        #else:
         # Required verb. Check args for 'at', if look at, validate the item is a valid item or object then print
         # the description of object or item
         # Need to implement for loop for cycling through lists of objects
-        # sys.stdout.write('Looks like there is a %s lying around.\n' % str(self.current_room.get_items()))"""
+        # sys.stdout.write('Looks like there is a %s lying around.\n' % str(self.current_room.get_items()))
         else:
             # strip off preposition
             stripped = check_for_prepositions(args)
@@ -382,7 +430,7 @@ class CommandParser(Cmd):
             # iterate through words in string
             # might change this is  'in' instead of breaking down string and looping through words
             for word in stripped.split():
-                #iterate through current room's feature list to determine if it is a feature or an object
+                # iterate through current room's feature list to determine if it is a feature or an object
                 for i in range(len(self.current_room.features)):
                         try:
                             self.current_room.features[i]["key"]
@@ -390,14 +438,14 @@ class CommandParser(Cmd):
                             print "Feature not implemented yet."
                             return
                         else:
-                            if (self.current_room.features[i]["key"] == word):
+                            if self.current_room.features[i]["key"] == word:
                                 print self.current_room.features[i]["interactive_text"]
                                 return
             # must not be a valid checking if it's an item
             # TODO: clean this up when Item subclass is created
             for i in range(len(self.current_room.items)):
                 converted_to_key = convert_to_key(stripped)
-                if (self.current_room.items[i] == converted_to_key):
+                if self.current_room.items[i] == converted_to_key:
                     # try to access Item's description, if it doesn't exist, pull from the json file
                         with open(OBJECTS_PATH + converted_to_key + '.json') as json_data:
                             data = json.load(json_data)
@@ -406,41 +454,79 @@ class CommandParser(Cmd):
                         return
             # TODO: Add error text for when user enters item not existing in the current room
 
+    def help_look(self):
+        """
+        Provides the user with witty, yet practical advice for how to take items that exist in a room.
+        """
+        print '\nUsage: look [at feature|item]\n'
+        print '*facepalm* Morty, se-s-seriously? You don\'t know how to look? You look at things.'
+
     def do_take(self, args):
         """
-        Required verb.
-        Take object and put in player's inventory.
-        With args: Validate item is takeable (item exists in item database).  Throw error text if it isn't.
-        Without args: Error text.
+        Takes an item in a room and puts it in the player's inventory.
         """
         if len(args) == 0:
-             print "You can't take everything!\n"
+            print "You can't take everything!\n"
         else:
             # TODO: Add validation item exists, is in current room, etc
             # Also need to add logic to item from room
             self.player.add_to_inventory(args)
 
+    def help_take(self):
+        """
+        Provides the user with witty, yet practical advice for how to take items that exist in a room.
+        """
+        print '\nUsage: take itemName\n'
+        print 'A lot of my gadgets have been scattered around the universe, Morty. ' \
+              'That\'s what happens when you do a lot of cool shit, instead of collecting stamps like Jerry.'
+
     def do_savegame(self, args):
         """
-        Required verb.
-        Saves game to file.
+        Saves the game into a file that may be loaded later.
         """
         if len(args) == 0:
             print "Saving game...\n"
 
+    def help_savegame(self):
+        """
+        Provides the user with witty, yet practical advice for how to save the current state of the game.
+        """
+        print '\nUsage: save\n'
+        print 'Preserves the state of our universe into something I can carry in a flashdrive, Morty. ' \
+              'I\'d explain more but I got shit to do.'
+
     def do_loadgame(self, args):
         """
-        Require verb.
-        Load game.  Do we want to enable a parameter for the player to name the save file?
+        Loads a user's game file into the game engine and resumes the game.
         """
         if len(args) == 0:
             print "Loading file, if file doesn't exist, throw error text.\n"
 
-    def default(self, args):
-    # TODO: Check out aliasing http://stackoverflow.com/questions/12911327/aliases-for-commands-with-python-cmd-module
-        print "Not a recognized command"
+    def help_loadgame(self):
+        """
+        Provides the user with witty, yet practical advice for how to load a game file.
+        """
+        print '\nUsage: load fileName\n'
+        print 'We go back into that parallel universe we preserved. ' \
+              'Hopefully in this one we can actually save Sarah, or whatever her name is.'
 
     def do_quit(self, args):
-        """Quits the program."""
+        """
+        Usage: quit
+
+        I always knew you were a quitter M-M-Morty. I bet you have some lame excuse like homework or something.
+        """
         print "Quitting."
         raise SystemExit
+
+    def help_quit(self):
+        """
+        Provides the user with witty, yet practical advice for how to use quit.
+        """
+        print '\nusage: quit\n'
+        print 'I always knew you were a quitter M-M-Morty. I bet you have some lame excuse ' \
+              'like homework or something.'
+
+    def default(self, args):
+        # TODO: Check out aliasing http://stackoverflow.com/questions/12911327/aliases-for-commands-with-python-cmd-module
+        print "Morty, what the hell are you trying to do?"
