@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # List of prepositions that will be parsed from user input
-PREPOSITIONS = {'to', 'at', 'about', 'on', 'onto', 'above', 'into', 'around'}
+PREPOSITIONS = {'to', 'at', 'about', 'on', 'onto', 'above', 'into', 'around', 'with', 'in', 'by'}
 
 # List of vowels that will determine article
 VOWELS = {'a', 'e', 'i', 'o', 'u'}
@@ -19,11 +19,11 @@ def check_for_prepositions(string):
     :param string: String representing the user's input
     :return: A string that removes the first preposition from the given input
     """
-    # If the first word in the string is a preposition
-    if string.split()[0] in PREPOSITIONS:
-        # Remove it
-        string = string.split(' ')[1:]
-        string = " ".join(string)
+    # Strip all prepositions from command.
+    # See http://stackoverflow.com/a/25346119
+    string_arr = string.split()
+    string_arr = [word for word in string_arr if word.lower() not in PREPOSITIONS]
+    string = ' '.join(string_arr)
     return string
 
 def check_if_vowel(string):
@@ -45,7 +45,7 @@ def key_to_text(string):
     """
     key = string.replace("_", " ")
     return key
-    
+
 def format_string_plurality(key, description):
     """
     Verify if string is plural or not to prepend the correct article,
