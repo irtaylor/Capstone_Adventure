@@ -15,8 +15,10 @@ class Room(object):
         :param name: The name of the Room as a string
         """
         self.name = name
+        self.key = ""
         self.features = []
         self.items = []
+        self.hidden_items = []
         self.long_description = ""
         self.short_description = ""
         self.is_visited = False
@@ -24,8 +26,6 @@ class Room(object):
         # self.long_description_exit = ""
         # self.short_description_exit = ""
         # self.morty_hints = []
-        # self.adjacent_rooms = []
-        # self.adjacent_worlds = []
 
     def print_description(self):
         print "You are in the " + self.name + "."
@@ -51,6 +51,16 @@ class Room(object):
         :return: A list of items in this room
         """
         return self.items
+
+    def reveal_hidden_items(self):
+        """
+        Helper method used to transfer all items in the hidden array to that of the public, items array.
+        """
+        if len(self.hidden_items) > 0:
+            while len(self.hidden_items) > 0:
+                self.items.append(self.hidden_items.pop())
+            return True
+        return False
 
     def get_entrance_long(self):
         """
@@ -88,13 +98,6 @@ class Room(object):
         """
         pass
 
-    def get_adjacent_rooms(self):
-        """
-        Determine where the Player may travel on this planet
-        :return: A list of the rooms that a player may travel to.
-        """
-        pass
-    
     def remove_item(self, item):
         """
         Removes item from room.

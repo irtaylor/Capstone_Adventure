@@ -6,15 +6,17 @@ from rm_player import Player
 from parser_grammar import *
 from rm_item import Item
 
-def convert_to_key(world_name):
+
+def convert_to_key(object_name):
     """
-    Converts the given World name into the key that's used in the my_worlds dictionary
-    :param world_name: The world name as a string
-    :return: The world name as it appears as a key in the my_worlds dictionary
+    Converts the given object name into the key that's used in their respective dictionary
+    :param object_name: The object name as a string
+    :return: The object name as it appears as a key in the dictionary
     """
-    lower_case = world_name.lower()
+    lower_case = object_name.lower()
     key = lower_case.replace(" ", "_")
     return key
+
 
 class CommandParser(Cmd):
 
@@ -65,19 +67,13 @@ class CommandParser(Cmd):
 
     def do_use(self, args):
         """ Calls corresponding use command for the item in question """
-        args = args.lower()
-        # check if portal gun -- portal gun is special case item, so hard coding how it responds
-        if args == 'portal gun':
-            for world in self.player.worlds:
-                print self.player.worlds[world].name
-        # not portal gun to use item action text
-        else:
-            # TODO: insert randomizing logic
-            item = convert_to_key(args)
-            if item in self.player.get_inventory():
-                print self.items[item].actions[0]["success"]
-            else:
-                print "Item not in inventory. Need flavour text."
+        stripped = check_for_prepositions(args)
+        key = convert_to_key(stripped)
+        if key not in self.player.inventory:
+            print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
+                  "So next time how about you suggest something useful."
+        elif key in self.items.keys():
+            self.items[key].use(self.current_world, self.current_room)
 
     def is_valid_destination(self, destination):
         """
@@ -262,18 +258,6 @@ class CommandParser(Cmd):
         print '\nUsage: port [to planet|roomName]\n'
         print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
 
-    def do_use(self, args):
-        """
-        Uses the desired item. Results may vary.
-        """
-        args = args.lower()
-        # check if portal gun -- portal gun is special case item, so hard coding how it responds
-        if args == 'portal gun':
-            print "You can teleport to the following worlds:"
-            for world in self.player.unlocked_worlds:
-                print self.player.worlds[world].name
-
-
     def help_use(self):
         """
         Provides the user with witty, yet practical advice for using an item.
@@ -373,34 +357,33 @@ class CommandParser(Cmd):
         """
         Prints a description of the item, feature, or room the player designates.
         """
-        if len(args) == 0:
+        # strip off preposition
+        stripped_input = check_for_prepositions(args)
+
+        if len(stripped_input) == 0:
             print self.current_room.get_entrance_long()
             self.print_rooms_list()
 
         else:
-            # strip off preposition
-            stripped_input = check_for_prepositions(args)
             # iterate through words in string
 
             # check if valid item in player inventory
             if self.is_item_valid(stripped_input, self.player.get_inventory()) is True:
                 item = convert_to_key(stripped_input)
                 print self.get_item_description(item)
-                return
 
             # check if valid item in current room
-            if self.is_item_valid(stripped_input, self.current_room.get_items()) is True:
+            elif self.is_item_valid(stripped_input, self.current_room.get_items()) is True:
                 item = convert_to_key(stripped_input)
                 print self.get_item_description(item)
-                return
 
-            # check if valid feature
-            room_features = self.current_room.get_features()
-            for word in stripped_input:
-                for feature in room_features:
-                    if word in feature["key"]:
-                        print feature["interactive_text"]
-                        return
+            else:
+                # check if valid feature
+                room_features = self.current_room.get_features()
+                for word in stripped_input:
+                    for feature in room_features:
+                        if word in feature["key"]:
+                            print feature["interactive_text"]
 
     def is_item_valid(self, questionable_item, list_of_items):
         """

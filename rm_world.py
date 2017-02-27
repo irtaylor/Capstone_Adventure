@@ -10,6 +10,7 @@ class World(object):
         Initializes the Room.
         """
         self.name = ""
+        self.key = ""
         self.rooms = {}
         self.starting_room = ""
         self.connections = []

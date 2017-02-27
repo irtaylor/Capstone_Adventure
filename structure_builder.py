@@ -4,6 +4,7 @@ import json
 import os
 from rm_room import Room
 from rm_world import World
+from rm_item import Item
 
 WORLDS_DIRECTORY_PATH = "data/worlds/"
 ITEMS_DIRECTORY_PATH = "data/items"
@@ -92,9 +93,13 @@ def build_room(file_path_str):
         new_room.long_description = data["longform"]
         new_room.short_description = data["shortform"]
         new_room.features = data["features"][:]
-        # TODO: Remove this check because all rooms should have an items array, even if empty
         if data.get("items") is not None:
             new_room.items = data["items"][:]
+        # TODO: REMOVE ONCE ALL ROOMS HAVE HIDDEN_ITEMS ARRAY, EVEN IF EMPTY
+        if data.get("hidden_items") is not None:
+            new_room.hidden_items = data["hidden_items"][:]
+        if data.get("key") is not None:
+            new_room.key = data["key"]
         return new_room
 
 
@@ -115,6 +120,8 @@ def build_world(file_path_str):
         new_world.description = data["description"]
         new_world.connections = data["connections"][:]
         new_world.chips_needed = data["chips_needed"]
+        if data.get("key") is not None:
+            new_world.key = data["key"]
         return new_world
 
 
@@ -129,10 +136,17 @@ def build_item(file_path_str):
     # Open the file if possible
     with open(file_path_str) as json_data:
         data = json.load(json_data)
-        new_item = World()
+        new_item = Item()
         new_item.name = data["name"]
         new_item.description = data["description"]
-        new_item.actions = data["actions"][:]
+        if data.get("success_message") is not None:
+            new_item.success_message = data["success_message"]
+        if data.get("failure_messages") is not None:
+            new_item.failure_messages = data["failure_messages"][:]
+        if data.get("usable_world") is not None:
+            new_item.usable_world = data["usable_world"]
+        if data.get("usable_room") is not None:
+            new_item.usable_room = data["usable_room"]
         return new_item
 
 
