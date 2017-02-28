@@ -7,5 +7,9 @@
 	        "success": "Wow, I can't believe you actually shot him. Oh boy, he's bleedin' out, Morty. Yep, he's definitely dead. Wow, I did not see that coming at all! Totally didn't see it coming.",
 	        "failure": "You missed? Seriously? I mean, come on, Morty, he's like right there!"
 	    }
-	]
+	],
+	"success_message": "\"Morty! I said to put that away! If you start blasting things in these mines we'll set off one of the Plutonian Reactors!\" \"Gee! Sorry Rick, I-I-I just get really nervous around these Pluto guys\" Morty then fumbles putting ray gun back into his bag, dropping the gun to the ground.  *PEW*PEW*PEW*  The gun fires upon impact and hits random machinery, destroying it. However, it looks like some of the processors powering the machine could be useful in powering our portal gun, better grab one. \"Well Morty, that could have gone a lot worse. Just don't let that reinforce the idea that being a fumbling moron will let you succeed later in life. That's for celebrities.",
+    "failure_messages": ["Surely even Jerry and Beth have taught you not to play with guns, Morty. The last thing we need is to lose an eye or two. Do you know how expensive it is to get a Grade A Morty eye at this time of day? Let's just say more schmeckles than we could earn in three lifetimes.", "Holster up, Morty, we will need to save that for whatever no good scum bags took your sister.", "Morty, keep that in the bag, we don't want to end up on any intergalactic wanted lists. Well, more intergalactic wanted lists."],
+	"usable_world": "pluto",
+	"usable_room": "plutonium_mines"
 }

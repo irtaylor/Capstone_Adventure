@@ -371,19 +371,21 @@ class CommandParser(Cmd):
             if self.is_item_valid(stripped_input, self.player.get_inventory()) is True:
                 item = convert_to_key(stripped_input)
                 print self.get_item_description(item)
+                return
 
             # check if valid item in current room
-            elif self.is_item_valid(stripped_input, self.current_room.get_items()) is True:
+            if self.is_item_valid(stripped_input, self.current_room.get_items()) is True:
                 item = convert_to_key(stripped_input)
                 print self.get_item_description(item)
+                return
 
-            else:
-                # check if valid feature
-                room_features = self.current_room.get_features()
-                for word in stripped_input:
-                    for feature in room_features:
-                        if word in feature["key"]:
-                            print feature["interactive_text"]
+            # check if valid feature
+            room_features = self.current_room.get_features()
+            for word in stripped_input:
+                for feature in room_features:
+                    if word in feature["key"]:
+                        print feature["interactive_text"]
+                        return
 
     def is_item_valid(self, questionable_item, list_of_items):
         """
@@ -394,8 +396,6 @@ class CommandParser(Cmd):
             if questionable_item in items:
                 return True
         return False
-
-
 
     def help_look(self):
         """
@@ -434,8 +434,6 @@ class CommandParser(Cmd):
             if self.player.num_chips == current_world.chips_needed:
                 self.player.unlocked_worlds.append(key)
                 print "You've unlocked: %s" % current_world.name
-
-
 
     def do_drop(self, args):
         """
