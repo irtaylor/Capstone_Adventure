@@ -69,7 +69,12 @@ class CommandParser(Cmd):
         """ Calls corresponding use command for the item in question """
         stripped = check_for_prepositions(args)
         key = convert_to_key(stripped)
-        if key not in self.player.inventory:
+        if key == 'portal_gun':
+            print 'It\'s a Big Multiverse, Morty. But without more processors, we can only go here:'
+            for world in self.player.unlocked_worlds:
+                print self.player.worlds[world].name
+
+        elif key not in self.player.inventory:
             print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
                   "So next time how about you suggest something useful."
         elif key in self.items.keys():
