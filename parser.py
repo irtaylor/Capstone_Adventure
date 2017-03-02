@@ -175,7 +175,7 @@ class CommandParser(Cmd):
         try:
             self.items[item].description
         except:
-            print "Item could not be found. Need flavour text here."
+            print "What? What are you saying?"
         else:
             return self.items[item].description
 
@@ -188,7 +188,7 @@ class CommandParser(Cmd):
         try:
             self.items[item].name
         except:
-            print "Item could not be found. Need flavour text here."
+            print "What? What are you saying?"
         else:
             return self.items[item].name
 
@@ -459,7 +459,7 @@ class CommandParser(Cmd):
         Without args: Error text.
         """
         if len(args) == 0:
-             print "Parameter for item to be dropped not supplied.  Need flavour text here."
+             print "What? What should I drop, Morty?"
         else:
             #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
@@ -469,7 +469,7 @@ class CommandParser(Cmd):
                 self.player.remove_from_inventory(item)
                 print "Dropped %s." % self.get_item_name(item)
             else:
-                print "Can't drop object (most likely do not have it in inventory).  Need flavour text here."
+                print "Can't drop that, Morty. No can do, nah-uh, no way!"
 
     def help_take(self):
         """
