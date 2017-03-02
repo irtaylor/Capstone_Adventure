@@ -16,6 +16,7 @@ class Item(object):
         self.failure_messages = []
         self.usable_world = ""
         self.usable_room = ""
+        self.num_uses = ""
 
     def get_name(self):
         """

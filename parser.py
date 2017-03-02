@@ -36,7 +36,10 @@ class CommandParser(Cmd):
         self.current_world = None
         self.current_room = None
         self.aliases = { 'see' : 'look',
-                        'grab' : 'take'}
+                        'grab' : 'take',
+                        'pick' : 'take',
+                        'port' : 'go',
+                        'portal' : 'go'}
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
@@ -163,9 +166,6 @@ class CommandParser(Cmd):
             room_elements.append(fixed_string)
         return room_elements
 
-    def do_testfunc(self, args):
-        print
-
     def get_item_description(self, item):
         """
         Helper function.
@@ -224,6 +224,19 @@ class CommandParser(Cmd):
         room_elements = []
         room_elements = self.get_room_elements(room_elements)
         self.build_sentence(room_elements)
+        
+    def do_testfunc(self,args):
+        print self.items["portal_gun"].get_usable_description()
+        
+    def check_portal_gun(self):
+        """
+        Verify portal gun is in player inventory and that it has sufficient charge to travel.
+        """
+        if "portal_gun" in self.player.get_inventory():
+            if self.items["portal_gun"].num_uses > 0:
+                return True
+        else:
+            return False
 
     def do_go(self, args):
         """
@@ -244,8 +257,14 @@ class CommandParser(Cmd):
             if is_room is True:
                 self.player.current_room = self.current_world.rooms[destination]
             else:
-                new_world = convert_to_key(stripped)
-                self.player.set_current_world(self.worlds[new_world])
+                # check portal gun is in inventory and has sufficent charge
+                if self.check_portal_gun() is True:
+                    new_world = convert_to_key(stripped)
+                    self.player.set_current_world(self.worlds[new_world])
+                    self.items["portal_gun"].num_uses -= 1
+                # gun is out of juice, return error text
+                else:
+                    print "No good, Morty, we're out of juice.  We need to find a power source to recharge the gun."
 
         # Otherwise, destination was invalid, scold Morty for being useless.
         else:
@@ -258,13 +277,6 @@ class CommandParser(Cmd):
         """
         print '\nUsage: go [to planet|roomName]\n'
         print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
-
-    def do_port(self, args):
-        """
-        Same functionality as the "go" command.
-        """
-        self.do_go(args)
-        print self.items["portal_gun"].actions[0]["success"]
 
     def help_port(self):
         """
@@ -348,18 +360,6 @@ class CommandParser(Cmd):
         print 'Morty sometimes I underestimate how socially inept you are. ' \
               'Do I really need to tell you how to say hello?'
 
-    def do_portal(self, args):
-        """
-        Enables the user to port to another place, like a room or world.
-        """
-        if len(args) == 0:
-            print "Where are you going?"
-        else:
-            name = args
-            print "Check portal gun for fuel and chips.\n" \
-                  "Do we want it to check for chips or did we " \
-                  "want to have it blow up instead?\n" % name
-
     def help_portal(self):
         """
         Provides the user with witty, yet practical advice for porting to another place.
@@ -428,6 +428,7 @@ class CommandParser(Cmd):
             print "What? What should I take, Morty? Give me something to work with."
 
         else:
+            args = check_for_prepositions(args)
             #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
             if self.is_item_valid(args, self.current_room.get_items()) is True:
@@ -458,6 +459,7 @@ class CommandParser(Cmd):
         With args: Validate item is droppable (item exists in player inventory).  Throw error text if it isn't.
         Without args: Error text.
         """
+        args = check_for_prepositions(args)
         if len(args) == 0:
              print "What? What should I drop, Morty?"
         else:
