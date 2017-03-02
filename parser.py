@@ -86,7 +86,6 @@ class CommandParser(Cmd):
             print 'It\'s a Big Multiverse, Morty. But without more processors, we can only go here:'
             for world in self.player.unlocked_worlds:
                 print self.player.worlds[world].name
-
         elif key not in self.player.inventory:
             print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
                   "So next time how about you suggest something useful."
