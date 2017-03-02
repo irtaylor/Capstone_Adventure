@@ -139,6 +139,8 @@ def build_item(file_path_str):
         new_item = Item()
         new_item.name = data["name"]
         new_item.description = data["description"]
+        if data.get("actions") is not None:
+            new_item.actions = data["actions"]
         if data.get("success_message") is not None:
             new_item.success_message = data["success_message"]
         if data.get("failure_messages") is not None:

@@ -35,15 +35,33 @@ class CommandParser(Cmd):
         self.items = items_dictionary
         self.current_world = None
         self.current_room = None
-        self.aliases = { 'see' : 'look',
-                        'grab' : 'take'}
+        self.aliases = { 'see'  : 'look',
+                        'grab'  : 'take',
+                        'pick'  : 'take',
+                        }
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
+        key = convert_to_key(cmd_arg)
+        print cmd, cmd_arg
+        # check if the command is a known alias
         if cmd in self.aliases:
             getattr(self, ('do_' + self.aliases[cmd]))(cmd_arg)
-        else:
-            print("This is tiring, Morty. Please, please just tell me something I understand.")
+            return
+
+        # check if the command can apply to a world feature
+        for feature in self.player.current_room.features:
+            if cmd_arg == feature["key"]:
+                print "Did something to a feature."
+                return
+
+        # check if the command applies to an item
+        if key in self.player.inventory:
+            if key in self.items.keys():
+                self.items[key].use(self.current_world, self.current_room)
+                return
+
+        print("This is tiring, Morty. Please, please just tell me something I understand.")
 
 
     def sync_location(self):
@@ -79,7 +97,7 @@ class CommandParser(Cmd):
         """ Calls corresponding use command for the item in question """
         stripped = check_for_prepositions(args)
         key = convert_to_key(stripped)
-        if key == 'portal_gun':
+        if key == 'portal_gun' or key == 'processor':
             print 'It\'s a Big Multiverse, Morty. But without more processors, we can only go here:'
             for world in self.player.unlocked_worlds:
                 print self.player.worlds[world].name
@@ -329,24 +347,6 @@ class CommandParser(Cmd):
         """
         print '\nUsage: inventory\n'
         print 'WHAT\'S IN THE BOX, MORTY!? Just kidding, what have we gathered so far?'
-
-    def do_hello(self, args):
-        """
-        A simple echo function that says hello back to the user with an optional argument.
-        """
-        if len(args) == 0:
-            name = 'stranger'
-        else:
-            name = args
-        print "Hello, %s" % name
-
-    def help_hello(self):
-        """
-        Provides the user with witty, yet practical advice for saying hello.
-        """
-        print '\nUsage: hello [name]\n'
-        print 'Morty sometimes I underestimate how socially inept you are. ' \
-              'Do I really need to tell you how to say hello?'
 
     def do_portal(self, args):
         """
