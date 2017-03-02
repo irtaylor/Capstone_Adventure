@@ -39,12 +39,12 @@ class CommandParser(Cmd):
                         'grab' : 'take',
                         'pick' : 'take',
                         'port' : 'go',
-                        'portal' : 'go'}
+                        'portal' : 'go',
+                        'leave' : 'drop' }
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
         key = convert_to_key(cmd_arg)
-        print cmd, cmd_arg
         # check if the command is a known alias
         if cmd in self.aliases:
             getattr(self, ('do_' + self.aliases[cmd]))(cmd_arg)
@@ -131,12 +131,13 @@ class CommandParser(Cmd):
         """
         Print rooms that the player can navigate to in the current world
         """
-        print "You can go to the following rooms from here: "
-        for room in self.current_world.rooms:
-            if room != self.current_room.name:
-                print room
-        print
-
+        if len(self.current_world.rooms) > 1:
+            print "You can go to the following rooms from here: "
+            for room in self.current_world.rooms:
+                if room != self.current_room.name:
+                    print room
+            print
+            
     def change_world(self):
         """
         Updates the user to their newest location and prints out descriptions, features, items, etc.
@@ -242,6 +243,7 @@ class CommandParser(Cmd):
         room_elements = []
         room_elements = self.get_room_elements(room_elements)
         self.build_sentence(room_elements)
+        print
         
     def check_portal_gun(self):
         """
@@ -384,7 +386,6 @@ class CommandParser(Cmd):
             print "Check portal gun for fuel and chips.\n" \
                   "Do we want it to check for chips or did we " \
                   "want to have it blow up instead?\n" % name
->>>>>>> ItemUseDemo
 
     def help_portal(self):
         """
