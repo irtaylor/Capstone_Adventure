@@ -38,7 +38,7 @@ class CommandParser(Cmd):
         self.aliases = { 'see'  : 'look',
                         'grab'  : 'take',
                         'pick'  : 'take',
-                        }
+                        'leave' : 'drop'}
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
@@ -131,10 +131,11 @@ class CommandParser(Cmd):
         """
         Print rooms that the player can navigate to in the current world
         """
-        print "You can go to the following rooms: "
+        print "You can go to the following rooms from here: "
         for room in self.current_world.rooms:
-            print room
-        self.list_room_items()
+            if room != self.current_room.name:
+                print room
+        print
 
     def change_world(self):
         """
@@ -154,6 +155,7 @@ class CommandParser(Cmd):
 
         self.player.current_world.print_description()
         self.player.current_room.print_description()
+        self.list_room_items()
         self.print_rooms_list()
 
     def change_room(self):
@@ -167,6 +169,7 @@ class CommandParser(Cmd):
         # TODO: Add logic for if_visited to diff between long and short descriptions
         self.player.current_room.print_description()
         self.list_room_items()
+        self.print_rooms_list()
 
     def get_room_elements(self, room_elements):
         """
@@ -242,6 +245,7 @@ class CommandParser(Cmd):
         room_elements = []
         room_elements = self.get_room_elements(room_elements)
         self.build_sentence(room_elements)
+        print
 
     def do_go(self, args):
         """
@@ -249,8 +253,6 @@ class CommandParser(Cmd):
 
         Let's get a move on, Morty! Summer most likely doesn't have much time left.
         """
-        # TODO: ADD VALIDATION LOGIC
-        # TODO: ADD VALIDATION FOR TRAVELING TO SAME ROOM
         # split off preposition if there is one
         stripped = check_for_prepositions(args)
 

@@ -28,7 +28,7 @@ class Room(object):
         # self.morty_hints = []
 
     def print_description(self):
-        print "You are in the " + self.name + "."
+        print "You are in the " + self.name + ":"
         if self.is_visited is False:
             print self.long_description
             self.set_is_visited(True)
@@ -103,7 +103,7 @@ class Room(object):
         Removes item from room.
         """
         self.items.remove(item)
-        
+
     def add_item(self, item):
         """
         Removes item from room.
