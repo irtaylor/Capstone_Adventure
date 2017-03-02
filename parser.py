@@ -43,10 +43,26 @@ class CommandParser(Cmd):
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
+        key = convert_to_key(cmd_arg)
+        print cmd, cmd_arg
+        # check if the command is a known alias
         if cmd in self.aliases:
             getattr(self, ('do_' + self.aliases[cmd]))(cmd_arg)
-        else:
-            print("This is tiring, Morty. Please, please just tell me something I understand.")
+            return
+
+        # check if the command can apply to a world feature
+        for feature in self.player.current_room.features:
+            if cmd_arg == feature["key"]:
+                print "Did something to a feature."
+                return
+
+        # check if the command applies to an item
+        if key in self.player.inventory:
+            if key in self.items.keys():
+                self.items[key].use(self.current_world, self.current_room)
+                return
+
+        print("This is tiring, Morty. Please, please just tell me something I understand.")
 
 
     def sync_location(self):
@@ -82,7 +98,7 @@ class CommandParser(Cmd):
         """ Calls corresponding use command for the item in question """
         stripped = check_for_prepositions(args)
         key = convert_to_key(stripped)
-        if key == 'portal_gun':
+        if key == 'portal_gun' or key == 'processor':
             print 'It\'s a Big Multiverse, Morty. But without more processors, we can only go here:'
             for world in self.player.unlocked_worlds:
                 print self.player.worlds[world].name
@@ -115,10 +131,11 @@ class CommandParser(Cmd):
         """
         Print rooms that the player can navigate to in the current world
         """
-        print "You can go to the following rooms: "
+        print "You can go to the following rooms from here: "
         for room in self.current_world.rooms:
-            print room
-        self.list_room_items()
+            if room != self.current_room.name:
+                print room
+        print
 
     def change_world(self):
         """
@@ -138,6 +155,7 @@ class CommandParser(Cmd):
 
         self.player.current_world.print_description()
         self.player.current_room.print_description()
+        self.list_room_items()
         self.print_rooms_list()
 
     def change_room(self):
@@ -151,6 +169,7 @@ class CommandParser(Cmd):
         # TODO: Add logic for if_visited to diff between long and short descriptions
         self.player.current_room.print_description()
         self.list_room_items()
+        self.print_rooms_list()
 
     def get_room_elements(self, room_elements):
         """
@@ -224,9 +243,6 @@ class CommandParser(Cmd):
         room_elements = self.get_room_elements(room_elements)
         self.build_sentence(room_elements)
         
-    def do_testfunc(self,args):
-        print self.items["portal_gun"].get_usable_description()
-        
     def check_portal_gun(self):
         """
         Verify portal gun is in player inventory and that it has sufficient charge to travel.
@@ -243,8 +259,6 @@ class CommandParser(Cmd):
 
         Let's get a move on, Morty! Summer most likely doesn't have much time left.
         """
-        # TODO: ADD VALIDATION LOGIC
-        # TODO: ADD VALIDATION FOR TRAVELING TO SAME ROOM
         # split off preposition if there is one
         stripped = check_for_prepositions(args)
 
@@ -358,6 +372,19 @@ class CommandParser(Cmd):
         print '\nUsage: hello [name]\n'
         print 'Morty sometimes I underestimate how socially inept you are. ' \
               'Do I really need to tell you how to say hello?'
+
+    def do_portal(self, args):
+        """
+        Enables the user to port to another place, like a room or world.
+        """
+        if len(args) == 0:
+            print "Where are you going?"
+        else:
+            name = args
+            print "Check portal gun for fuel and chips.\n" \
+                  "Do we want it to check for chips or did we " \
+                  "want to have it blow up instead?\n" % name
+>>>>>>> ItemUseDemo
 
     def help_portal(self):
         """

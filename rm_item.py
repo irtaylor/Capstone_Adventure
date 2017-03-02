@@ -12,6 +12,7 @@ class Item(object):
         """
         # self.num_uses = num_uses
         self.name = ""
+        self.actions = []
         self.success_message = ""
         self.failure_messages = []
         self.usable_world = ""
