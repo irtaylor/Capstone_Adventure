@@ -386,11 +386,12 @@ class CommandParser(Cmd):
 
             # check if valid feature
             room_features = self.current_room.get_features()
-            for word in stripped_input:
+            for word in stripped_input.split():
                 for feature in room_features:
-                    if word in feature["key"]:
+                    if word == feature["key"]:
                         print feature["interactive_text"]
                         return
+            print "What... what should I look at? Be specific, Morty."
 
     def is_item_valid(self, questionable_item, list_of_items):
         """
