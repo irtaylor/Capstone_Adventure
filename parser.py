@@ -35,6 +35,16 @@ class CommandParser(Cmd):
         self.items = items_dictionary
         self.current_world = None
         self.current_room = None
+        self.aliases = { 'see' : 'look',
+                        'grab' : 'take'}
+
+    def default(self, line):
+        cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
+        if cmd in self.aliases:
+            getattr(self, ('do_' + self.aliases[cmd]))(cmd_arg)
+        else:
+            print("This is tiring, Morty. Please, please just tell me something I understand.")
+
 
     def sync_location(self):
         """
@@ -515,7 +525,3 @@ class CommandParser(Cmd):
         print '\nusage: quit\n'
         print 'I always knew you were a quitter M-M-Morty. I bet you have some lame excuse ' \
               'like homework or something.'
-
-    def default(self, args):
-        # TODO: Check out aliasing http://stackoverflow.com/questions/12911327/aliases-for-commands-with-python-cmd-module
-        print "Morty, what the hell are you trying to do?"

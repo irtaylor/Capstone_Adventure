@@ -30,15 +30,11 @@ class Item(object):
         :param world: The world the player is exploring.
         :param room: The room the player is currently in.
         """
-        print self.usable_room
-        print self.usable_world
-        print world.key
-        print room.key
         if self.usable_world == world.key and self.usable_room == room.key:
             if room.reveal_hidden_items() is True:
                 print self.get_usable_description()
             else:
-                "Morty, we've already done that. We can't be wasting time!"
+                print "Morty, we've already done that. We can't be wasting time!"
         else:
             print self.get_cannot_use_description()
 
@@ -55,4 +51,3 @@ class Item(object):
         :return: A string with the description.
         """
         return random.choice(self.failure_messages)
-
