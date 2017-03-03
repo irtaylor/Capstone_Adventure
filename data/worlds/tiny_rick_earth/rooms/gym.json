@@ -1,7 +1,7 @@
 {
     "name": "Gym",
     "features": [{
-        "key": "tiny_rick",
+        "key": "tiny",
         "description": "Tiny Rick",
         "interactive_text": "Wow, it's Tiny Rick! Not surprised he looks like the coolest kid at the dance."
     }],

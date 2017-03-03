@@ -174,8 +174,7 @@ class CommandParser(Cmd):
         self.print_rooms_list()
         
     def do_testf(self, args):
-        self.player.add_to_inventory("battery")
-        self.do_recharge("portal gun")
+        print self.current_room.key
 
     def do_recharge(self, key):
         """
@@ -265,7 +264,7 @@ class CommandParser(Cmd):
         """
         Verify portal gun is in player inventory and that it has sufficient charge to travel.
         """
-        if "portal_gun" in self.player.get_inventory():
+        if "portal_gun" in self.player.inventory:
             if self.items["portal_gun"].num_uses > 0:
                 return True
         else:
@@ -355,7 +354,7 @@ class CommandParser(Cmd):
         """
         if args == 'inventory':
             print "Current Inventory:"
-            for item in self.player.get_inventory():
+            for item in self.player.inventory:
                 print "- %s" % self.items[item].get_name()
 
             print "- Processors: x%s" % self.player.num_chips
@@ -429,12 +428,13 @@ class CommandParser(Cmd):
         if len(stripped_input) == 0:
             print self.current_room.get_entrance_long()
             self.print_rooms_list()
+            self.list_room_items()
 
         else:
             # iterate through words in string
 
             # check if valid item in player inventory
-            if self.is_item_valid(stripped_input, self.player.get_inventory()) is True:
+            if self.is_item_valid(stripped_input, self.player.inventory) is True:
                 item = convert_to_key(stripped_input)
                 print self.get_item_description(item)
                 return
@@ -496,6 +496,9 @@ class CommandParser(Cmd):
                 print "Don't be an idiot, we don't need that."
 
     def add_processor_to_portal_gun(self):
+        """
+        Adds processor to portal gun and unlocks new worlds, if eligible.
+        """
         self.player.num_chips += 1
         for key in self.worlds.keys():
             current_world = self.worlds[key]
@@ -516,7 +519,7 @@ class CommandParser(Cmd):
         else:
             #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
-            if self.is_item_valid(args, self.player.get_inventory()) is True:
+            if self.is_item_valid(args, self.player.inventory) is True:
                 item = convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)

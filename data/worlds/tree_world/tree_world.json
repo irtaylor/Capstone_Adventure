@@ -1,5 +1,6 @@
 {
     "name": "Tree World",
+    "key": "tree_world",
     "starting_room": "Wasteland",
     "connections": [],
     "description": "The perfect place to find Mega Trees.",
