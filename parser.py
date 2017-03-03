@@ -173,9 +173,6 @@ class CommandParser(Cmd):
         self.list_room_items()
         self.print_rooms_list()
         
-    def do_testf(self, args):
-        print self.current_room.key
-
     def do_recharge(self, key):
         """
         Recharges item using a battery.
@@ -190,9 +187,6 @@ class CommandParser(Cmd):
         # check if have battery in inventory
         elif self.is_item_valid("battery", self.player.inventory) is False:
             print "Morty, we need a-a-a power source.  You can't just go around saying random stuff and hoping it'll do something."
-        # check if there is a room restriction, and if there is, check that player is in right room
-        elif self.items["battery"].usable_room != "" or self.items["battery"].usable_room != self.current_room:
-            print "We'll have to go back *urp* to the Garage to do that.  I'm a scientist, Morty, not a genie."
         # success, charge the item, remove the battery
         else:
             if self.items[key].num_uses != "" and key in self.player.inventory:
