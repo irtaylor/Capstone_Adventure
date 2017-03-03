@@ -189,10 +189,9 @@ class CommandParser(Cmd):
             print "Morty, we need a-a-a power source.  You can't just go around saying random stuff and hoping it'll do something."
         # success, charge the item, remove the battery
         else:
-            if self.items[key].num_uses != "" and key in self.player.inventory:
-                print self.items["battery"].get_usable_description() + "%s." % self.items[key].get_name()
-                self.items[key].num_uses += 5
-                self.player.remove_from_inventory("battery")
+            print self.items["battery"].get_usable_description() + "%s." % self.items[key].get_name()
+            self.items[key].num_uses += 5
+            self.player.remove_from_inventory("battery")
         
     def get_room_elements(self, room_elements):
         """
