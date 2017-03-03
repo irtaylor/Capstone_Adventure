@@ -171,7 +171,27 @@ class CommandParser(Cmd):
         self.player.current_room.print_description()
         self.list_room_items()
         self.print_rooms_list()
+        
+    def do_testf(self, args):
+        self.player.add_to_inventory("battery")
 
+    def do_recharge(self, args):
+        """
+        Recharges item.
+        """
+        # check if have battery in inventory
+        if "battery" in self.player.inventory and "portal_gun" in self.player.inventory and self.current_world is 'garage':
+            print self.items["battery"].get_usable_description()
+            self.items["portal_gun"].num_uses += 5
+            self.player.remove_from_inventory("battery")
+        # no battery or no portal gun
+        elif "battery" not in self.player.inventory:
+            print "Morty, we need a power source.  You can't just go around saying random stuff and hoping it'll do something."
+        elif "portal_gun" not in self.player.inventory:
+            print "Great, Morty, we'll just... just do... what?  We don't have anything to-to... *urp* recharge."
+        elif "garage" != self.current_room:
+            print "We'll have to go back *urp* to the garage to do that.  I'm a scientist, Morty, not a genie."
+        
     def get_room_elements(self, room_elements):
         """
         populate array of things in the current room
