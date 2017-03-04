@@ -6,6 +6,7 @@
         "interactive_text": "It's hard to tell what those are -- they looks like strange amorphous creatures. Good thing they're far away, Morty. Th-th-they could probably kill us in an instant!"
     }],
     "items": ["gravity_boots"],
+    "hidden_items": [],
     "longform": "This is a bizarre landscape -- yellow sky, pink grass, and there's all these, like, blobby things off in the distance. Are they aliens? Or clouds? Space Clouds? Is Space Clouds a thing?",
     "shortform": "Wow, the wasteland stretches as far as I can see."
 }

@@ -1,9 +1,5 @@
 {
     "name": "Processor",
     "description": "A powerful processor chip, which can combine with the portal gun to increase its power.",
-    "actions": [{
-        "name": "use",
-        "success": "The portal gun has a new processor chip.",
-        "failure": "Well that didn't work."
-    }]
+    "actions": ["load"]
 }

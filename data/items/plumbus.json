@@ -1,11 +1,9 @@
 {
     "name": "Plumbus",
     "description": "A plumbus is... well, I mean... a plumbus is... well everyone's got one? Isn't that all that matters? It's a pretty standard household device, Morty. You don't hear people on Earth being like, \"Oh, toilet paper? What's that???\" Ok, fine, I'll be honest, I'm not really sure how to use the plumbus, Morty. Maybe I gotta be in the right state of mind.",
-    "actions": [
-	    {
-	        "name": "use",
-	        "success": "Holy Shit! That was awesome, Morty! Aren't Plumbuses *urp* aren't they like the best? So freakin' glad we got to use that!",
-	        "failure": "Huh, plumbuses aren't as cool as I once thought. Maybe I just used it wrong..."
-	    }
-	]
+    "actions": ["squanch", "squeeze", "poke"],
+    "success_message": "The plumbus seems agitated near the hybrid adamantium/unobtainium lock placed on Summer's Cell. Morty throws the plumbus at the lock and the plumbus sticks to it like some sort of suction cup. Ooze starts seething from the plumbus and eats away at the lock. Morty: \"I don't know what's happening, but I think it's working!\" Rick: \"Well whoda thunk it, Morty, the plumbus wasn't the useless sack of crap I thought it was.\" Once the lock was completely gone, Rick and Morty grab Summer and dart out of the prison. Summer: \"Wow guys, it took you an awful long time to find me. Thanks for taking time away from your busy day of failing school and creating dangerous science experiments to come save me. \" Morty: \"Shut up, Summer\"",
+    "failure_messages": ["Rick: \"Morty, I don't know why you insist on carrying that dumb thing around. It's worthless!\"", "Rick: \"That won't help us right now, Morty.\"", "The plumbus uses splash. It's not very effective."],
+	"usable_world": "prison_world",
+	"usable_room": "summers_cell"
 }

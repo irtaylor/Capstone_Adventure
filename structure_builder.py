@@ -118,7 +118,6 @@ def build_world(file_path_str):
         new_world.name = data["name"]
         new_world.starting_room = data["starting_room"]
         new_world.description = data["description"]
-        new_world.connections = data["connections"][:]
         new_world.chips_needed = data["chips_needed"]
         if data.get("key") is not None:
             new_world.key = data["key"]

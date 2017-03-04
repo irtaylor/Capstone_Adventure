@@ -1,6 +1,7 @@
 {
     "name": "Money",
     "description": "Intergalactic currency. Good for buying things, and for bribery!",
+    "actions": ["spend", "squanch"],
     "success_message": "Morty places some coins into the arcade machine and begins another round of Roy: A Life Well Lived. You take over the life of Roy, a simple man living a simple life. You battle the horrors of cancer and return to your beloved carpet emporium to live out your life peacefully. Unfortunately, you get the lowest score as the carpet store is the safest choice. Rick takes the rest of your money, plays another round, and takes Roy from a cancer diagnosis to jet skiing in Aruba with sunny skies and endless waves. He earns a high score and it looks like he won a prize. Look around to see what came out!",
     "failure_messages": ["What are you even trying to do Morty, money won't buy you anything other than fame, privilege, and probably a decent chance at global power. Shockingly, this is one of the few cases where money won't help us.", "M-m-m-morty. Put the money away. If anyone gets their peepers on our schmeckles we might get mugged faster than Beth goes through wine.", "Morty, put that away for when your grandpa needs a refill of the ol' flasky flask. That's far more important."],
 	"usable_world": "blips_and_chitz",

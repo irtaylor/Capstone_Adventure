@@ -1,8 +1,6 @@
 {
     "name": "Blips and Chitz",
-    "key": "blips_and_chitz",
     "starting_room": "Arcade",
-    "connections": [],
     "description": "The greatest arcade in the Multiverse.",
     "chips_needed": 1
 }

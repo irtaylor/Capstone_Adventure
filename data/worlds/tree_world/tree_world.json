@@ -1,7 +1,6 @@
 {
     "name": "Tree World",
     "starting_room": "Wasteland",
-    "connections": [],
     "description": "The perfect place to find Mega Trees.",
     "chips_needed": 3
 }

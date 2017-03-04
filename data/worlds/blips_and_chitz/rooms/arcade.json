@@ -1,6 +1,5 @@
 {
     "name": "Arcade",
-    "key": "arcade",
     "features": [{
         "key": "games",
         "description": "arcade games",

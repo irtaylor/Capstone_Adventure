@@ -1,11 +1,9 @@
 {
     "name": "Gravity Boots",
     "description": "These babies let you walk up just about anything! You can go up, down, downwards. Anywhere! It's weird they're just lying here -- it's a little... convenient.",
-    "actions": [
-	    {
-	        "name": "use",
-	        "success": "The boots are on. Nice! We might actually get somewhere.",
-	        "failure": "Well that didn't work."
-	    }
-	]
+    "actions": ["wear", "strap", "equip"],
+    "success_message": "Morty equips the gravity boots and they start to glow. Rick:\"Alright M-M-Morty, you just, you just need to jump over that gap and grab that shiny thing. I really th-think it will be useful.\" Morty takes a few steps back, and charges as fast as he can to jump across the chasm. Morty:\"CLEEEAR MY SEARRCHHH HIST- oh I made it.\" Morty kneels down to grab the object that Rick was talking about. It's a pink object with no describable shape. Morty jumps back across to Rick to show him the mysterious object. Rick: \"WHAT! A plumbus! No way!\" Morty:\"What's a plumbus!? Is it going to help us get Summer back?\" Rick:\"No, it's worthless, what a waste of my time.\" Rick then discards the plumbus casually onto the ground. Morty looks at the plumbus wistfully and wonders if it really is as useless as Rick says...",
+    "failure_messages": ["Rick: \"Watch out Morty, if you turn those on right now you'll float up against the flow of gravity and suffocate in the stratosphere.\"", "Rick:\"Now's not the time for the boots\"", "Rick:\"Morty, we should probably wait to use those until we are somewhere with some dangerous surface we need to cross, or some chasm we need to jump\""],
+    "usable_world": "tree_world",
+    "usable_room": "valley_of_mega_trees"
 }

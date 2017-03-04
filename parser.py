@@ -4,18 +4,6 @@ import text_helpers
 from cmd import Cmd
 from rm_player import Player
 from parser_grammar import *
-from rm_item import Item
-
-
-def convert_to_key(object_name):
-    """
-    Converts the given object name into the key that's used in their respective dictionary
-    :param object_name: The object name as a string
-    :return: The object name as it appears as a key in the dictionary
-    """
-    lower_case = object_name.lower()
-    key = lower_case.replace(" ", "_")
-    return key
 
 
 class CommandParser(Cmd):
@@ -35,14 +23,14 @@ class CommandParser(Cmd):
         self.items = items_dictionary
         self.current_world = None
         self.current_room = None
-        self.aliases = { 'see'  : 'look',
-                        'grab'  : 'take',
-                        'pick'  : 'take',
-                        'leave' : 'drop'}
+        self.aliases = {'see': 'look',
+                        'grab': 'take',
+                        'pick': 'take',
+                        'leave': 'drop'}
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
-        key = convert_to_key(cmd_arg)
+        key = text_helpers.convert_to_key(cmd_arg)
         print cmd, cmd_arg
         # check if the command is a known alias
         if cmd in self.aliases:
@@ -62,7 +50,6 @@ class CommandParser(Cmd):
                 return
 
         print("This is tiring, Morty. Please, please just tell me something I understand.")
-
 
     def sync_location(self):
         """
@@ -96,11 +83,11 @@ class CommandParser(Cmd):
     def do_use(self, args):
         """ Calls corresponding use command for the item in question """
         stripped = check_for_prepositions(args)
-        key = convert_to_key(stripped)
+        key = text_helpers.convert_to_key(stripped)
         if key == 'portal_gun' or key == 'processor':
             print 'It\'s a Big Multiverse, Morty. But without more processors, we can only go here:'
             for world in self.player.unlocked_worlds:
-                print self.player.worlds[world].name
+                print self.worlds[world].name
 
         elif key not in self.player.inventory:
             print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
@@ -120,22 +107,22 @@ class CommandParser(Cmd):
                 return True, True, key
 
         # If the destination is a key in our worlds map, return (is_valid, !is_room, key)
-        if convert_to_key(destination) in self.player.unlocked_worlds:
+        if text_helpers.convert_to_key(destination) in self.player.unlocked_worlds:
             return True, False, destination
         # Else, return (!is_valid, !is_room, None)
         else:
             return False, False, None
 
-
     def print_rooms_list(self):
         """
         Print rooms that the player can navigate to in the current world
         """
-        print "You can go to the following rooms from here: "
-        for room in self.current_world.rooms:
-            if room != self.current_room.name:
-                print room
-        print
+        if len(self.current_world.rooms) != 1:
+            print "You can go to the following rooms from here: "
+            for room in self.current_world.rooms:
+                if room != self.current_room.name:
+                    print room
+            print
 
     def change_world(self):
         """
@@ -145,7 +132,7 @@ class CommandParser(Cmd):
         self.current_world = self.player.current_world
 
         # Get the starting room for the new world
-        key = convert_to_key(self.current_world.name)
+        key = text_helpers.convert_to_key(self.current_world.name)
         start_name = self.worlds[key].starting_room
         start_room = self.worlds[key].rooms[start_name]
 
@@ -264,7 +251,7 @@ class CommandParser(Cmd):
             if is_room is True:
                 self.player.current_room = self.current_world.rooms[destination]
             else:
-                new_world = convert_to_key(stripped)
+                new_world = text_helpers.convert_to_key(stripped)
                 self.player.set_current_world(self.worlds[new_world])
 
         # Otherwise, destination was invalid, scold Morty for being useless.
@@ -386,13 +373,13 @@ class CommandParser(Cmd):
 
             # check if valid item in player inventory
             if self.is_item_valid(stripped_input, self.player.get_inventory()) is True:
-                item = convert_to_key(stripped_input)
+                item = text_helpers.convert_to_key(stripped_input)
                 print self.get_item_description(item)
                 return
 
             # check if valid item in current room
             if self.is_item_valid(stripped_input, self.current_room.get_items()) is True:
-                item = convert_to_key(stripped_input)
+                item = text_helpers.convert_to_key(stripped_input)
                 print self.get_item_description(item)
                 return
 
@@ -409,7 +396,7 @@ class CommandParser(Cmd):
         """
         Checks list to determine if item user is manipulating is in the list.
         """
-        questionable_item = convert_to_key(questionable_item)
+        questionable_item = text_helpers.convert_to_key(questionable_item)
         for items in list_of_items:
             if questionable_item in items:
                 return True
@@ -430,13 +417,14 @@ class CommandParser(Cmd):
             print "What? What should I take, Morty? Give me something to work with."
 
         else:
-            #validate item exists, is in current room, etc
+            # validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
             if self.is_item_valid(args, self.current_room.get_items()) is True:
-                item = convert_to_key(args)
+                item = text_helpers. convert_to_key(args)
                 self.current_room.remove_item(item)
 
                 if item == 'processor':
+                    print "Added Processor to inventory."
                     self.add_processor_to_portal_gun()
 
                 else:
@@ -463,10 +451,10 @@ class CommandParser(Cmd):
         if len(args) == 0:
              print "What? What should I drop, Morty?"
         else:
-            #validate item exists, is in current room, etc
+            # validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
             if self.is_item_valid(args, self.player.get_inventory()) is True:
-                item = convert_to_key(args)
+                item = text_helpers.convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
                 print "Dropped %s." % self.get_item_name(item)

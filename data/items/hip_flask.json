@@ -1,11 +1,9 @@
 {
     "name": "Hip Flask",
     "description": "Woah, cool, a hip flask! Who just leaves this lying around? It's big too -- prolly hold enough Krellian whiskey to keep me buzzzzzzzed for a month!",
-    "actions": [
-	    {
-	        "name": "drink",
-	        "success": "*Ack* *cough* *Urp!* WubaLubaDubDub that's good stuff.",
-	        "failure": ""
-	    }
-	]
+    "actions": ["drink", "sip", "open"],
+    "success_message": "TINY RICK: \"WHAT'S UP JA-BRO-KNEES, I'M TINY RICK\" Tiny Rick stumbles over to Rick and Morty, obviously inebrieted. Morty:\"Uh, uh hi other Rick. Shouldn't you be dancing and having a good time at the dance? TINY RICK:\"Whaddya mean? I'm having a better time than you people. At least I was until everyone found out I spiked the punch and drank all my stache. What's that you got there?\" Tiny Rick steals the open flask from Morty and drinks the contents like he's been deprived of water for the past week. TINY RICK: \"WhooooAAHHHHH, that's good stuff. Guys, have you -hic- seen my dance about me totally not dying in a vat in the garage?\" Rick:\"Well this place blows, Morty. One of my inferior parallel dimension selves clearly doesn't understand the risk of transferring consciousness to another, younger self.\" TINY RICK:\"-hic- YOU don't know how to not be a stick in the *urp* mud, old, dumb, Rick.\" Tiny Rick goes off into the dance but not before tripping and passing out on the floor. Upon hitting the ground, a processor chip slides across the floor..",
+    "failure_messages": ["Rick:\"Morty, can't you control your desire to get white boy wasted for another time? I'm going to need a DD in about 15 minutes.\"", "It's empty, apparently Rick emptied the flask when you weren't looking.", "Rick:\"Morty, you're like, 12, save the good stuff for your good grandpa\""],
+	"usable_world": "tiny_rick_earth",
+	"usable_room": "gym"
 }
