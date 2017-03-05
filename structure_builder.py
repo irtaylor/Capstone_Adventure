@@ -98,8 +98,8 @@ def build_room(file_path_str):
         # TODO: REMOVE ONCE ALL ROOMS HAVE HIDDEN_ITEMS ARRAY, EVEN IF EMPTY
         if data.get("hidden_items") is not None:
             new_room.hidden_items = data["hidden_items"][:]
-        if data.get("key") is not None:
-            new_room.key = data["key"]
+        if data.get("is_visited") is not None:
+            new_room.hidden_items = data["is_visited"]
         return new_room
 
 
