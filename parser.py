@@ -89,7 +89,7 @@ class CommandParser(Cmd):
         """ Calls corresponding use command for the item in question """
         stripped = check_for_prepositions(args)
         key = text_helpers.convert_to_key(stripped)
-        if key == 'portal_gun' or key == 'processor':
+        if key == 'portal_gun' or key == 'processor' or key == 'processors':
             print 'It\'s a Big Multiverse, Morty. But without more processors, we can only go here:'
             for world in self.player.unlocked_worlds:
                 print self.worlds[world].name
