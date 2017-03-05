@@ -342,7 +342,10 @@ class CommandParser(Cmd):
         if args == 'inventory':
             print "Current Inventory:"
             for item in self.player.inventory:
-                print "- %s" % self.items[item].get_name()
+                if item == 'portal_gun':
+                    print "- Portal Gun: Battery Level %d" % self.items[item].num_uses
+                else:
+                    print "- %s" % self.items[item].get_name()
 
             print "- Processors: x%s" % self.player.num_chips
 
