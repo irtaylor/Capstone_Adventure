@@ -5,12 +5,11 @@ import os
 from rm_room import Room
 from rm_world import World
 from rm_item import Item
+from rm_player import Player
+from text_helpers import convert_to_key
 
-WORLDS_DIRECTORY_PATH = "data/worlds/"
-ITEMS_DIRECTORY_PATH = "data/items"
 
-
-def construct_worlds():
+def construct_worlds(worlds_directory_path):
     """
     Populates World objects with JSON data from the "data/worlds" directory.
 
@@ -20,27 +19,28 @@ def construct_worlds():
     my_worlds = {}
 
     # List of directory names with our worlds
-    world_directories = os.listdir(WORLDS_DIRECTORY_PATH)
+    world_directories = os.listdir(worlds_directory_path)
     for directory in world_directories:
         if directory != ".DS_Store":
             # Key name for my_worlds
             str_key = directory
 
             # Create string representing the path to the world JSON file
-            world_file_path = WORLDS_DIRECTORY_PATH + directory + '/' + directory + '.json'
+            world_file_path = worlds_directory_path + directory + '/' + directory + '.json'
 
             # Create world object and add to dictionary
             world_obj = build_world(world_file_path)
             my_worlds[str_key] = world_obj
 
             # Get names of all corresponding room JSON files
-            room_directory = os.listdir(WORLDS_DIRECTORY_PATH + directory + '/rooms')
+            room_directory = os.listdir(worlds_directory_path + directory + '/rooms')
 
             # Create each Room object and append it to our list of rooms in the corresponding World object
             for room in room_directory:
                 if room != ".DS_Store":
-                    room_obj = build_room(WORLDS_DIRECTORY_PATH + directory + '/rooms/' + room)
-                    world_obj.rooms[room_obj.name] = room_obj
+                    room_obj = build_room(worlds_directory_path + directory + '/rooms/' + room)
+                    room_key = convert_to_key(room_obj.name)
+                    world_obj.rooms[room_key] = room_obj
 
     # Return our completed dictionary
     return my_worlds
@@ -99,7 +99,7 @@ def build_room(file_path_str):
         if data.get("hidden_items") is not None:
             new_room.hidden_items = data["hidden_items"][:]
         if data.get("is_visited") is not None:
-            new_room.hidden_items = data["is_visited"]
+            new_room.is_visited = data["is_visited"]
         return new_room
 
 
@@ -153,7 +153,7 @@ def build_item(file_path_str):
         return new_item
 
 
-def construct_items():
+def construct_items(items_directory_path):
     """
     Populates Item objects with JSON data from the "data/items" directory.
 
@@ -163,14 +163,14 @@ def construct_items():
     my_items = {}
 
     # List of directory names with our items
-    item_files = os.listdir(ITEMS_DIRECTORY_PATH)
+    item_files = os.listdir(items_directory_path)
     for item in item_files:
         if item != ".DS_Store":
             # Key name for my_worlds
             str_key = item[:-5]
 
             # Create string representing the path to the world JSON file
-            item_file_path = ITEMS_DIRECTORY_PATH + '/' + item
+            item_file_path = items_directory_path + '/' + item
 
             # Create the Item object given the file path
             item_obj = build_item(item_file_path)
@@ -202,3 +202,31 @@ def print_items(my_items):
             print action["success"]
             print action["failure"]
         print "\n"
+
+
+def build_player(file_path_str, worlds):
+    """
+    Loads a player's data from the given file, places it into a new Player object.
+
+    :param file_path_str: path to the desired player file.
+    :param worlds: worlds dictionary with the proper world objects
+    :return: A new Item object with the content of the passed file
+    """
+
+    # Open the file if possible
+    with open(file_path_str) as json_data:
+        data = json.load(json_data)
+        new_player = Player()
+        if data.get("current_world") is not None:
+            new_player.current_world = worlds[data["current_world"]]
+        if data.get("current_room") is not None:
+            key = convert_to_key(data["current_room"])
+            new_player.current_room = new_player.current_world.rooms[key]
+        if data.get("num_chips") is not None:
+            new_player.num_chips = data["num_chips"]
+        if data.get("unlocked_worlds") is not None:
+            new_player.unlocked_worlds = data["unlocked_worlds"][:]
+        if data.get("inventory") is not None:
+            new_player.inventory = data["inventory"][:]
+        return new_player
+

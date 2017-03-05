@@ -54,7 +54,7 @@ def create_player_file(player, path):
     json_obj["current_room"] = convert_to_key(player.current_room.name)
     json_obj["inventory"] = player.inventory
     json_obj["num_chips"] = player.num_chips
-    json_obj["unlocked_worlds"] = player.num_chips
+    json_obj["unlocked_worlds"] = player.unlocked_worlds
     file_content = json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
 
     with open(path + "/player.json", "w+") as json_data:
@@ -96,7 +96,7 @@ def create_room_file(room_obj, file_path):
     file_content = json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
 
     file_name = convert_to_key(room_obj.name)
-    with open(file_path + "/" + file_name, "w+") as json_data:
+    with open(file_path + "/" + file_name + ".json", "w+") as json_data:
         json_data.write(file_content)
 
 

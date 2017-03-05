@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
+import os
 import text_helpers
 from cmd import Cmd
 from rm_player import Player
 from parser_grammar import *
 from rm_save import *
+from rm_load import *
+
+SAVE_FILE_DIRECTORY_PATH = "data/savegame"
 
 
 class CommandParser(Cmd):
@@ -105,7 +109,8 @@ class CommandParser(Cmd):
         """
         # If the given destination is a room in our current world, return (is_valid, is_room, key)
         for key in self.current_world.rooms.keys():
-            if key.lower() == destination.lower():
+            room_name = self.current_world.rooms[key].name
+            if room_name.lower() == destination.lower():
                 return True, True, key
 
         # If the destination is a key in our worlds map, return (is_valid, !is_room, key)
@@ -121,9 +126,10 @@ class CommandParser(Cmd):
         """
         if len(self.current_world.rooms) > 1:
             print "You can go to the following rooms from here: "
-            for room in self.current_world.rooms:
-                if room != self.current_room.name:
-                    print room
+            for key in self.current_world.rooms.keys():
+                room = self.current_world.rooms[key]
+                if room.name != self.current_room.name:
+                    print room.name
             print
 
     def change_world(self):
@@ -135,7 +141,7 @@ class CommandParser(Cmd):
 
         # Get the starting room for the new world
         key = text_helpers.convert_to_key(self.current_world.name)
-        start_name = self.worlds[key].starting_room
+        start_name = convert_to_key(self.worlds[key].starting_room)
         start_room = self.worlds[key].rooms[start_name]
 
         # Update current room of both engine and player to world's starting room
@@ -540,8 +546,18 @@ class CommandParser(Cmd):
         """
         Loads a user's game file into the game engine and resumes the game.
         """
+
         if len(args) == 0:
-            print "Loading file, if file doesn't exist, throw error text.\n"
+            file_name = raw_input("Please enter a file name to load...")
+        else:
+            file_name = args
+
+        path = SAVE_FILE_DIRECTORY_PATH + "/" + file_name
+        if os.path.isdir(path):
+            loadgame(path, self)
+            self.do_look("")
+        else:
+            print "A save file under that name does not exist."
 
     def help_loadgame(self):
         """

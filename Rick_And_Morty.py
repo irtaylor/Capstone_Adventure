@@ -15,6 +15,10 @@ from pprint import pprint
 from structure_builder import *
 from rm_player import Player
 
+WORLDS_DIRECTORY_PATH = "data/worlds/"
+ITEMS_DIRECTORY_PATH = "data/items"
+
+
 class FakeStdIO(object):
     """
         A class to override write and readline methods for stdout and stdin respectively.
@@ -44,8 +48,8 @@ class FakeStdIO(object):
 
 
 def main():
-    my_worlds = construct_worlds()
-    my_items = construct_items()
+    my_worlds = construct_worlds(WORLDS_DIRECTORY_PATH)
+    my_items = construct_items(ITEMS_DIRECTORY_PATH)
     # print_worlds(my_worlds)
 
     stdscr = curses.initscr()
