@@ -4,6 +4,7 @@ import text_helpers
 from cmd import Cmd
 from rm_player import Player
 from parser_grammar import *
+from rm_save import *
 
 
 class CommandParser(Cmd):
@@ -519,14 +520,19 @@ class CommandParser(Cmd):
         """
         Saves the game into a file that may be loaded later.
         """
+
         if len(args) == 0:
-            print "Saving game...\n"
+            file_name = raw_input("Please enter a file name...")
+        else:
+            file_name = args
+
+        savegame(file_name, self.worlds, self.player)
 
     def help_savegame(self):
         """
         Provides the user with witty, yet practical advice for how to save the current state of the game.
         """
-        print '\nUsage: save <save_file_name>\n'
+        print '\nUsage: savegame\n'
         print 'Preserves the state of our universe into something I can carry in a flashdrive, Morty. ' \
               'I\'d explain more but I got shit to do.'
 
