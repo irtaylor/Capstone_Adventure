@@ -1,9 +1,10 @@
 {
     "name": "Valley of Mega Trees",
+    "key": "valley",
     "features": [{
-      "key": "mega_trees",
-      "description": "mega trees",
-      "interactive_text": "They're sort of like tall, purplish, gross palm trees without leaves."
+        "key": "trees",
+        "description": "mega trees",
+        "interactive_text": "They're sort of like tall, purplish, gross palm trees without leaves."
     }],
     "items": ["processor"],
     "hidden_items": ["plumbus"],

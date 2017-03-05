@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # List of prepositions that will be parsed from user input
-PREPOSITIONS = {'to', 'at', 'about', 'on', 'onto', 'above', 'into', 'around', 'with', 'in', 'by'}
+SPLIT_OUT_WORDS = {'to', 'at', 'about', 'on', 'onto', 'above', 'into', 'around', 'with', 'in', 'by', 'the', 'an', 'a', 'up'}
 
 # List of vowels that will determine article
 VOWELS = {'a', 'e', 'i', 'o', 'u'}
@@ -22,7 +22,7 @@ def check_for_prepositions(string):
     # Strip all prepositions from command.
     # See http://stackoverflow.com/a/25346119
     string_arr = string.split()
-    string_arr = [word for word in string_arr if word.lower() not in PREPOSITIONS]
+    string_arr = [word for word in string_arr if word.lower() not in SPLIT_OUT_WORDS]
     string = ' '.join(string_arr)
     return string
 

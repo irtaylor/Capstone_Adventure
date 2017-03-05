@@ -23,15 +23,17 @@ class CommandParser(Cmd):
         self.items = items_dictionary
         self.current_world = None
         self.current_room = None
-        self.aliases = {'see': 'look',
-                        'grab': 'take',
-                        'pick': 'take',
-                        'leave': 'drop'}
+        self.aliases = { 'see' : 'look',
+                        'grab' : 'take',
+                        'pick' : 'take',
+                        'port' : 'go',
+                        'portal' : 'go',
+                        'leave' : 'drop' ,
+                        'fix' : 'recharge'}
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
         key = text_helpers.convert_to_key(cmd_arg)
-        print cmd, cmd_arg
         # check if the command is a known alias
         if cmd in self.aliases:
             getattr(self, ('do_' + self.aliases[cmd]))(cmd_arg)
@@ -88,7 +90,6 @@ class CommandParser(Cmd):
             print 'It\'s a Big Multiverse, Morty. But without more processors, we can only go here:'
             for world in self.player.unlocked_worlds:
                 print self.worlds[world].name
-
         elif key not in self.player.inventory:
             print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
                   "So next time how about you suggest something useful."
@@ -117,7 +118,7 @@ class CommandParser(Cmd):
         """
         Print rooms that the player can navigate to in the current world
         """
-        if len(self.current_world.rooms) != 1:
+        if len(self.current_world.rooms) > 1:
             print "You can go to the following rooms from here: "
             for room in self.current_world.rooms:
                 if room != self.current_room.name:
@@ -158,21 +159,38 @@ class CommandParser(Cmd):
         self.list_room_items()
         self.print_rooms_list()
 
+    def do_recharge(self, key):
+        """
+        Recharges item using a battery.
+        """
+        key = text_helpers.convert_to_key(key)
+        # check if item is in inventory
+        if key not in self.player.inventory:
+            print "What the hell are you talking about, Morty?  We don't have that."
+        # check if item can be recharged
+        elif self.items[key].num_uses == "":
+            print "Great, Morty, we'll just... just do... what?  We can't *urp* recharge that."
+        # check if have battery in inventory
+        elif self.is_item_valid("battery", self.player.inventory) is False:
+            print "Morty, we need a-a-a power source.  You can't just go around saying random stuff and hoping it'll do something."
+        # success, charge the item, remove the battery
+        else:
+            print self.items["battery"].get_usable_description() + "%s." % self.items[key].get_name()
+            self.items[key].num_uses += 5
+            self.player.remove_from_inventory("battery")
+
     def get_room_elements(self, room_elements):
         """
         populate array of things in the current room
         formats strings to prepend article and determine plurality
         """
         for element in self.current_room.get_items():
-            fixed_string = format_string_plurality(self.get_item_name(element), None)
+            fixed_string = format_string_plurality(self.items[element].get_name(), None)
             room_elements.append(fixed_string)
         for feature in self.current_room.get_features():
             fixed_string = format_string_plurality(feature["key"], feature["description"])
             room_elements.append(fixed_string)
         return room_elements
-
-    def do_testfunc(self, args):
-        print
 
     def get_item_description(self, item):
         """
@@ -186,19 +204,6 @@ class CommandParser(Cmd):
             print "What? What are you saying?"
         else:
             return self.items[item].description
-
-    def get_item_name(self, item):
-        """
-        Helper function.
-        Collects item name from Item object or json file, whichever works.
-        Can probably throw this away when Item subclasses are in.
-        """
-        try:
-            self.items[item].name
-        except:
-            print "What? What are you saying?"
-        else:
-            return self.items[item].name
 
     def build_sentence(self, elements):
         """
@@ -234,6 +239,16 @@ class CommandParser(Cmd):
         self.build_sentence(room_elements)
         print
 
+    def check_portal_gun_charge(self):
+        """
+        Verify portal gun is in player inventory and that it has sufficient charge to travel.
+        """
+        if "portal_gun" in self.player.inventory:
+            if self.items["portal_gun"].num_uses > 0:
+                return True
+        else:
+            return False
+
     def do_go(self, args):
         """
         Usage: go [to planet|roomName]
@@ -251,13 +266,27 @@ class CommandParser(Cmd):
             if is_room is True:
                 self.player.current_room = self.current_world.rooms[destination]
             else:
-                new_world = text_helpers.convert_to_key(stripped)
-                self.player.set_current_world(self.worlds[new_world])
+                # check portal gun is in inventory and has sufficent charge
+                if self.check_portal_gun_charge() is True:
+                    new_world = text_helpers.convert_to_key(stripped)
+                    self.player.set_current_world(self.worlds[new_world])
+                    self.items["portal_gun"].num_uses -= 1
+                    print self.items["portal_gun"].success_message
+                # gun is out of juice, return error text
+                else:
+                    print self.items["portal_gun"].get_cannot_use_description()
 
         # Otherwise, destination was invalid, scold Morty for being useless.
         else:
             print "What are you blathering about Morty? " \
                   "Are you sure that's even a real place? There's no %s around here!" % stripped
+
+    def help_recharge(self):
+        """
+        Provides the user with witty, yet practical advice for recharging an item.
+        """
+        print '\nUsage: recharge [item]\n'
+        print 'Uses batteries to power my engine and charge my phone and stuff.'
 
     def help_go(self):
         """
@@ -265,13 +294,6 @@ class CommandParser(Cmd):
         """
         print '\nUsage: go [to planet|roomName]\n'
         print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
-
-    def do_port(self, args):
-        """
-        Same functionality as the "go" command.
-        """
-        self.do_go(args)
-        print self.items["portal_gun"].actions[0]["success"]
 
     def help_port(self):
         """
@@ -311,8 +333,8 @@ class CommandParser(Cmd):
         """
         if args == 'inventory':
             print "Current Inventory:"
-            for item in self.player.get_inventory():
-                print "- %s" % self.get_item_name(item)
+            for item in self.player.inventory:
+                print "- %s" % self.items[item].get_name()
 
             print "- Processors: x%s" % self.player.num_chips
 
@@ -336,6 +358,24 @@ class CommandParser(Cmd):
         """
         print '\nUsage: inventory\n'
         print 'WHAT\'S IN THE BOX, MORTY!? Just kidding, what have we gathered so far?'
+
+    def do_hello(self, args):
+        """
+        A simple echo function that says hello back to the user with an optional argument.
+        """
+        if len(args) == 0:
+            name = 'stranger'
+        else:
+            name = args
+        print "Hello, %s" % name
+
+    def help_hello(self):
+        """
+        Provides the user with witty, yet practical advice for saying hello.
+        """
+        print '\nUsage: hello [name]\n'
+        print 'Morty sometimes I underestimate how socially inept you are. ' \
+              'Do I really need to tell you how to say hello?'
 
     def do_portal(self, args):
         """
@@ -367,6 +407,7 @@ class CommandParser(Cmd):
         if len(stripped_input) == 0:
             print self.current_room.get_entrance_long()
             self.print_rooms_list()
+            self.list_room_items()
 
         else:
             # iterate through words in string
@@ -397,8 +438,8 @@ class CommandParser(Cmd):
         Checks list to determine if item user is manipulating is in the list.
         """
         questionable_item = text_helpers.convert_to_key(questionable_item)
-        for items in list_of_items:
-            if questionable_item in items:
+        for item in list_of_items:
+            if questionable_item == item:
                 return True
         return False
 
@@ -417,10 +458,11 @@ class CommandParser(Cmd):
             print "What? What should I take, Morty? Give me something to work with."
 
         else:
-            # validate item exists, is in current room, etc
+            args = check_for_prepositions(args)
+            #validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
             if self.is_item_valid(args, self.current_room.get_items()) is True:
-                item = text_helpers. convert_to_key(args)
+                item = text_helpers.convert_to_key(args)
                 self.current_room.remove_item(item)
 
                 if item == 'processor':
@@ -429,11 +471,14 @@ class CommandParser(Cmd):
 
                 else:
                     self.player.add_to_inventory(item)
-                    print "Added %s to inventory." % self.get_item_name(item)
+                    print "Added %s to inventory." % self.items[item].get_name()
             else:
                 print "Don't be an idiot, we don't need that."
 
     def add_processor_to_portal_gun(self):
+        """
+        Adds processor to portal gun and unlocks new worlds, if eligible.
+        """
         self.player.num_chips += 1
         for key in self.worlds.keys():
             current_world = self.worlds[key]
@@ -448,16 +493,17 @@ class CommandParser(Cmd):
         With args: Validate item is droppable (item exists in player inventory).  Throw error text if it isn't.
         Without args: Error text.
         """
+        args = check_for_prepositions(args)
         if len(args) == 0:
              print "What? What should I drop, Morty?"
         else:
             # validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
-            if self.is_item_valid(args, self.player.get_inventory()) is True:
+            if self.is_item_valid(args, self.player.inventory) is True:
                 item = text_helpers.convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
-                print "Dropped %s." % self.get_item_name(item)
+                print "Dropped %s." % self.items[item].get_name()
             else:
                 print "Can't drop that, Morty. No can do, nah-uh, no way!"
 
