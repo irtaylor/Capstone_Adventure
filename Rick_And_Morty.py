@@ -46,7 +46,7 @@ class FakeStdIO(object):
 def main():
     my_worlds = construct_worlds()
     my_items = construct_items()
-    #print_worlds(my_worlds)
+    # print_worlds(my_worlds)
 
     stdscr = curses.initscr()
     curses.cbreak()
@@ -61,7 +61,7 @@ def main():
     sys.stdin = io
     sys.stdout = io
 
-    height,width = stdscr.getmaxyx()
+    height, width = stdscr.getmaxyx()
     if (height < 24) or (width < 80):
         sys.stdout.write('Recommended minimum terminal size for this game is 80x24.\n')
         sys.stdout.write('Please resize your terminal and restart the game.\n')

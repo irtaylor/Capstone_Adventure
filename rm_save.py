@@ -39,6 +39,27 @@ def savegame(directory_name, worlds, player):
         world_directory_path = path + "/worlds/" + key + "/rooms"
         update_room_files(world_obj, world_directory_path)
 
+    # Update player file
+    create_player_file(player, path)
+
+
+def create_player_file(player, path):
+    """
+    Creates a new json file with the attributes of the given player object.
+    :param player: The object we want to convert to a json file
+    :param path: Where we want to store the new player file
+    """
+    json_obj = dict()
+    json_obj["current_world"] = convert_to_key(player.current_world.name)
+    json_obj["current_room"] = convert_to_key(player.current_room.name)
+    json_obj["inventory"] = player.inventory
+    json_obj["num_chips"] = player.num_chips
+    json_obj["unlocked_worlds"] = player.num_chips
+    file_content = json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
+
+    with open(path + "/player.json", "w+") as json_data:
+        json_data.write(file_content)
+
 
 def update_room_files(world_obj, world_rooms_path):
     """
