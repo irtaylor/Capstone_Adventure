@@ -25,7 +25,6 @@ class Room(object):
         self.features = {}
         # self.long_description_exit = ""
         # self.short_description_exit = ""
-        # self.morty_hints = []
 
     def print_description(self):
         print "You are in the " + self.name + "."
@@ -87,14 +86,6 @@ class Room(object):
         """
         When a player exits a room after the first time, they will receive this message.
         :return: A string with the short form description of this room.
-        """
-        pass
-
-    def get_morty_hint(self):
-        """
-        When Rick requests advice from Morty, they will receive 1 of 3 random quotes from Morty
-        with specific information about the room.
-        :return: A string to be returned to the user.
         """
         pass
 

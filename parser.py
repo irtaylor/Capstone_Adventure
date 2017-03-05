@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-import os
 import text_helpers
 from cmd import Cmd
-from rm_player import Player
 from parser_grammar import *
 from rm_save import *
 from rm_load import *
@@ -179,7 +177,8 @@ class CommandParser(Cmd):
             print "Great, Morty, we'll just... just do... what?  We can't *urp* recharge that."
         # check if have battery in inventory
         elif self.is_item_valid("battery", self.player.inventory) is False:
-            print "Morty, we need a-a-a power source.  You can't just go around saying random stuff and hoping it'll do something."
+            print "Morty, we need a-a-a power source. " \
+                  "You can't just go around saying random stuff and hoping it'll do something."
         # success, charge the item, remove the battery
         else:
             print self.items["battery"].get_usable_description() + "%s." % self.items[key].get_name()
@@ -466,7 +465,7 @@ class CommandParser(Cmd):
 
         else:
             args = check_for_prepositions(args)
-            #validate item exists, is in current room, etc
+            # validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
             if self.is_item_valid(args, self.current_room.get_items()) is True:
                 item = text_helpers.convert_to_key(args)

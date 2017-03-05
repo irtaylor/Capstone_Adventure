@@ -61,17 +61,3 @@ class Player(object):
         :param current_room: The Room object the player is now exploring.
         """
         self.current_room = current_room
-
-    def attack(self):
-        """
-        Attack in battle.
-        :return: an integer representing the strength of the attack.
-        """
-        pass
-
-    def ask_morty(self):
-        """
-        Ask Morty for help even though he will probably say something useless.
-        :return: a string representing Morty's comments.
-        """
-        pass
