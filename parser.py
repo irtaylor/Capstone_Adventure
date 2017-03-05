@@ -526,7 +526,7 @@ class CommandParser(Cmd):
         """
         Provides the user with witty, yet practical advice for how to save the current state of the game.
         """
-        print '\nUsage: save\n'
+        print '\nUsage: save <save_file_name>\n'
         print 'Preserves the state of our universe into something I can carry in a flashdrive, Morty. ' \
               'I\'d explain more but I got shit to do.'
 
