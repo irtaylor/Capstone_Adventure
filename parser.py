@@ -138,7 +138,7 @@ class CommandParser(Cmd):
                 if room != self.current_room.name:
                     print room
             print
-            
+
     def change_world(self):
         """
         Updates the user to their newest location and prints out descriptions, features, items, etc.
@@ -172,7 +172,7 @@ class CommandParser(Cmd):
         self.player.current_room.print_description()
         self.list_room_items()
         self.print_rooms_list()
-        
+
     def do_recharge(self, key):
         """
         Recharges item using a battery.
@@ -192,7 +192,7 @@ class CommandParser(Cmd):
             print self.items["battery"].get_usable_description() + "%s." % self.items[key].get_name()
             self.items[key].num_uses += 5
             self.player.remove_from_inventory("battery")
-        
+
     def get_room_elements(self, room_elements):
         """
         populate array of things in the current room
@@ -252,7 +252,7 @@ class CommandParser(Cmd):
         room_elements = self.get_room_elements(room_elements)
         self.build_sentence(room_elements)
         print
-        
+
     def check_portal_gun(self):
         """
         Verify portal gun is in player inventory and that it has sufficient charge to travel.
@@ -294,14 +294,14 @@ class CommandParser(Cmd):
         else:
             print "What are you blathering about Morty? " \
                   "Are you sure that's even a real place? There's no %s around here!" % stripped
-    
+
     def help_recharge(self):
         """
         Provides the user with witty, yet practical advice for recharging an item.
         """
         print '\nUsage: recharge [item]\n'
         print 'Uses batteries to power my engine and charge my phone and stuff.'
-                  
+
     def help_go(self):
         """
         Provides the user with witty, yet practical advice for going to another place.
@@ -452,8 +452,8 @@ class CommandParser(Cmd):
         Checks list to determine if item user is manipulating is in the list.
         """
         questionable_item = convert_to_key(questionable_item)
-        for items in list_of_items:
-            if questionable_item in items:
+        for item in list_of_items:
+            if questionable_item == item:
                 return True
         return False
 
