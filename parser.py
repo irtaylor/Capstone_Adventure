@@ -273,7 +273,9 @@ class CommandParser(Cmd):
                 self.player.current_room = self.current_world.rooms[destination]
             else:
                 # check portal gun is in inventory and has sufficent charge
-                if self.check_portal_gun_charge() is True:
+                if "portal_gun" not in self.player.inventory:
+                    print "W-w-we left the portal gun behind, Mo*URPPP*rty. It seemed like a stupid idea at the time, and now it seems even stupider."
+                elif self.check_portal_gun_charge() is True:
                     new_world = text_helpers.convert_to_key(stripped)
                     self.player.set_current_world(self.worlds[new_world])
                     self.items["portal_gun"].num_uses -= 1
@@ -509,7 +511,7 @@ class CommandParser(Cmd):
                 item = text_helpers.convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
-                print "Dropped %s." % self.items[item].get_name()
+                print "Uh, I guess we can leave the  %s here. No idea why you'd want to do that thogh. Seems like we should be grabbing everything we *urp* can." % self.items[item].get_name()
             else:
                 print "Can't drop that, Morty. No can do, nah-uh, no way!"
 
