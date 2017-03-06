@@ -41,9 +41,12 @@ class FakeStdIO(object):
         self.stdscr.refresh()
 
     def readline(self):
+        curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
+        self.stdscr.attrset(curses.color_pair(1))
         temp = self.stdscr.getstr()
         if len(temp) == 0:
             temp = ' '
+        self.stdscr.attrset(curses.color_pair(0))
         return temp
 
 
@@ -53,6 +56,7 @@ def main():
     # print_worlds(my_worlds)
 
     stdscr = curses.initscr()
+    curses.start_color()
     curses.cbreak()
     # curses.noecho()
     curses.echo()
