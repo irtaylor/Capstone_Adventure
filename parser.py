@@ -510,7 +510,9 @@ class CommandParser(Cmd):
         else:
             # validate item exists, is in current room, etc
             # if so, add to player inventory, remove item from room
-            if self.is_item_valid(args, self.player.inventory) is True:
+            if text_helpers.convert_to_key(args) == "processor" or text_helpers.convert_to_key(args) == "processors":
+                print "We can't drop Processors, Morty. They're fused into the Portal Gun. We can drop the Portal Gun, but... that's really stupid."
+            elif self.is_item_valid(args, self.player.inventory) is True:
                 item = text_helpers.convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
