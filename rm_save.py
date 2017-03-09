@@ -108,3 +108,11 @@ def copy_directory(source_path, destination_path):
     """
     copy_tree(source_path, destination_path)
 
+
+def get_save_files():
+    """
+    Creates a list of all the save files for Keep Summer Safe
+    :return: a list of directory names
+    """
+    return os.listdir(SAVE_FILE_DIRECTORY_PATH)
+

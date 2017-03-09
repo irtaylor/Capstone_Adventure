@@ -10,6 +10,7 @@
         "interactive_text": "We gotta find out how to break through the force field!"
     }],
     "items": [],
+    "is_visited": false,
     "hidden_items": [],
     "longform": "We found her! Wow, Morty, I can't beleive we actually did it.",
     "shortform": "We found her! Can we go home yet?",

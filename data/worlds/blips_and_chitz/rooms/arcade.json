@@ -7,6 +7,7 @@
         "actions": [{ "play": "Looks like you need some money." }, {"bang": "Hey now!  Don't want to attract attention."}]
     }],
     "items": ["battery"],
+    "is_visited": false,
     "hidden_items": ["processor"],
     "longform": "Blips & Chitz, Morty! It's the *urp* Greatest Arcade in the Multiverse! We're gonna have a ton of fun here!",
     "shortform": "Seriously, this place is awesome -- why do we keep leaving and coming back??",

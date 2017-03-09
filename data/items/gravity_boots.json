@@ -3,8 +3,9 @@
     "description": "These babies let you walk up just about anything! You can go up, down, downwards. Anywhere! It's weird they're just lying here -- it's a little... convenient.",
     "actions": ["wear", "strap", "equip"],
     "success_message": "See those trees, Morty?  The mega trees with the mega fruit?  That's where the seeds are.  I need them, Morty, for my *urp* research.\nMorty straps on the gravity boots and approaches a chasm with the mega trees in the distance.\n\"They're special grappling shoes, Morty.  You'll-you'll be fine.\nMorty walks off the cliff and plummets to the bottom.  You have to turn the shoes on, Morty! Rick walks down the cliff, wearing a pair of activated gravity boots.  Grasping some of the mega tree seeds that fell to the ground, Rick smashes one open and something falls out onto the ground.\nLook around and see if something has changed.",
-    "failure_messages": ["These babies take a lot of en-en-energy, Morty, don't waste them on something *urp* pointless.", "Come on, Morty, stop messing around."],
+    "failure_messages": ["These babies take a lot of en-en-energy, Morty, don't waste them on something *urp* pointless.", "M-M-Morty, are those things even on? You should see if we have any batteries for those things.", "Morty, there's literally no way we should use those right now."],
     "usable_world": "tree_world",
     "usable_room": "valley_of_mega_trees",
-    "num_uses": 1
+    "num_uses": 0,
+    "is_rechargeable": true
 }

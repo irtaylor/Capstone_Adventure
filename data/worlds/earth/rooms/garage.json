@@ -13,6 +13,7 @@
         "actions": [{"erase": "Erase my b-b-board and I'll send you to *urp* Gazorpazorp."}, {"flip": "There's nothing on the back side."}]
     }],
     "items": ["ray_gun", "processor"],
+    "is_visited": false,
     "hidden_items": [],
     "longform": "Rick's garage is impressive -- at first -- but after you've been in here a million times, you get used to seeing crazy gadgets all the time.",
     "shortform": "Same old stuff -- gadgets and gizmos and who knows what else...",
