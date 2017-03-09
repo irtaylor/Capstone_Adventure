@@ -124,6 +124,9 @@ class CommandParser(Cmd):
             print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
                   "So next time how about you suggest something useful."
         elif key in self.items.keys():
+            print key
+            print self.current_room
+            print self.current_world
             self.items[key].use(self.current_world, self.current_room)
 
     def is_valid_destination(self, destination):
