@@ -425,10 +425,6 @@ class CommandParser(Cmd):
         print 'Feel the power, Morty. Feel the hyperbolic proton gravity thrusters charging this bad boy. ' \
               'Let\'s use the portal gun to find more of those chips!'
               
-    def do_testfunc(self, args):
-        for i in range(0,3):
-            self.add_processor_to_portal_gun()
-
     def do_look(self, args):
         """
         Prints a description of the item, feature, or room the player designates.
