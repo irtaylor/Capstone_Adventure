@@ -124,9 +124,6 @@ class CommandParser(Cmd):
             print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
                   "So next time how about you suggest something useful."
         elif key in self.items.keys():
-            print key
-            print self.current_room
-            print self.current_world
             self.items[key].use(self.current_world, self.current_room)
 
     def is_valid_destination(self, destination):
@@ -164,15 +161,11 @@ class CommandParser(Cmd):
         """
         Updates the user to their newest location and prints out descriptions, features, items, etc.
         """
-        
         # print exit text from current room
         if self.current_room is not None:
-            if self.current_room.is_visited is False:
-                print self.current_room.get_exit_long()
-            else:
-                print self.current_room.get_exit_short()
-                
-        print self.items["portal_gun"].success_message
+            self.current_room.print_exit_description()
+            # changing world, so must have used portal gun successfully, print portal gun message
+            print self.items["portal_gun"].success_message
                
         # Update engine's current world to that of the player
         self.current_world = self.player.current_world
@@ -197,10 +190,7 @@ class CommandParser(Cmd):
         """
         # print exit text from current room
         if self.current_room is not None:
-            if self.current_room.is_visited is False:
-                print self.current_room.get_exit_long()
-            else:
-                print self.current_room.get_exit_short()
+            self.current_room.print_exit_description()
             
         # Update engine's current room to that of the player.
         self.current_room = self.player.current_room

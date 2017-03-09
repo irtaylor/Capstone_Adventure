@@ -59,6 +59,15 @@ class Room(object):
                 self.items.append(self.hidden_items.pop())
             return True
         return False
+        
+    def print_exit_description(self):
+        """
+        Prints exit description depending on if the room was previously visited or not
+        """
+        if self.is_visited is False:
+            print self.get_exit_long()
+        else:
+            print self.get_exit_short()
 
     def get_entrance_long(self):
         """
@@ -77,6 +86,8 @@ class Room(object):
     def get_exit_long(self):
         """
         When a player exits a room for the first time, they will receive this message.
+        The is_visited flag is set when exiting the room the first time and the long message will no 
+        longer be displayed upon subsequent visits.
         :return: A string with the long form description of this room.
         """
         self.set_is_visited(True)

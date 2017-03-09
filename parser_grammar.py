@@ -57,7 +57,7 @@ def format_string_plurality(key, description):
         key = key.title()
         return key
     if (description == None):
-        if key.endswith('s') is True:
+        if key.endswith('s') is True and key.lower() != 'plumbus':
             return add_article(key, True)
         else:
             return add_article(key, False)
