@@ -33,7 +33,6 @@ class CommandParser(Cmd):
                         'portal' : 'go',
                         'leave' : 'drop' ,
                         'fix' : 'recharge',
-                        'touch' : 'hit',
                         'squanch' : 'use'}
 
     def default(self, line):
@@ -61,30 +60,6 @@ class CommandParser(Cmd):
                 return
 
         print("This is tiring, Morty. Please, please just tell me something I understand.")
-
-    def build_sentence(self, elements):
-        """
-        Builds sentence to output to the user appending conjunctions, commas, and helping verbs as needed
-        """
-        sentence = "There"
-        if (len(elements)) == 0:
-                sentence += " is nothing of note here."
-        else:
-            # print first element
-            # determine appropriate verb
-            if elements[0].startswith("some"):
-                sentence += " are "
-            else:
-                sentence += " is "
-            sentence += elements[0]
-            # for all but last element, print with comma
-            for element in elements[1:-1]:
-                sentence += ", "
-                sentence += element
-            if len(elements) > 1:
-                sentence += " and "
-                sentence += elements[-1]
-        print sentence + "."
 
     def sync_location(self):
         """
@@ -250,6 +225,30 @@ class CommandParser(Cmd):
             print "What? What are you saying?"
         else:
             return self.items[item].description
+            
+    def build_sentence(self, elements):
+        """
+        Builds sentence to output to the user appending conjunctions, commas, and helping verbs as needed
+        """
+        sentence = "There"
+        if (len(elements)) == 0:
+                sentence += " is nothing of note here."
+        else:
+            # print first element
+            # determine appropriate verb
+            if elements[0].startswith("some"):
+                sentence += " are "
+            else:
+                sentence += " is "
+            sentence += elements[0]
+            # for all but last element, print with comma
+            for element in elements[1:-1]:
+                sentence += ", "
+                sentence += element
+            if len(elements) > 1:
+                sentence += " and "
+                sentence += elements[-1]
+        print sentence + "."
 
     def list_room_items(self):
         """

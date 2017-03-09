@@ -4,7 +4,8 @@
     "features": [{
         "key": "plutonium",
         "description": "glowing plutonium",
-        "interactive_text": "The Plutonians mine plutonium by sucking out of the not-planet's surface. The drills in here never stop -- they're destroying the not-planet!"
+        "interactive_text": "The Plutonians mine plutonium by sucking out of the not-planet's surface. The drills in here never stop -- they're destroying the not-planet!",
+        "actions": [{"touch": "The plutonium flouresces as Morty touches it."}, {"eat": "If you ate that, Morty, you'd glow in the dark!"}]
     }],
     "items": [],
     "hidden_items": ["processor"],
