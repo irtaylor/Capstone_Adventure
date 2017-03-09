@@ -12,5 +12,7 @@
     "items": [],
     "hidden_items": [],
     "longform": "We found her! Wow, Morty, I can't beleive we actually did it.",
-    "shortform": "We found her! Can we go home yet?"
+    "shortform": "We found her! Can we go home yet?",
+    "long_description_exit": "This place reminds me of Time Prison.  You know what they do to three dimensional life forms there?  Same thing they do in every other prison, only forever.",
+    "short_description_exit": "Morty, we've got-gotta get out of here before someone recognizes me."
 }

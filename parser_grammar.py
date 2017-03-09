@@ -45,7 +45,7 @@ def key_to_text(string):
     """
     key = string.replace("_", " ")
     return key
-
+    
 def format_string_plurality(key, description):
     """
     Verify if string is plural or not to prepend the correct article,

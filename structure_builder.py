@@ -99,6 +99,10 @@ def build_room(file_path_str):
             new_room.hidden_items = data["hidden_items"][:]
         if data.get("is_visited") is not None:
             new_room.is_visited = data["is_visited"]
+        if data.get("long_description_exit") is not None:
+            new_room.long_description_exit = data["long_description_exit"]
+        if data.get("short_description_exit") is not None:
+            new_room.short_description_exit = data["short_description_exit"]
         return new_room
 
 

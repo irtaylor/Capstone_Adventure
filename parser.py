@@ -32,7 +32,9 @@ class CommandParser(Cmd):
                         'port' : 'go',
                         'portal' : 'go',
                         'leave' : 'drop' ,
-                        'fix' : 'recharge'}
+                        'fix' : 'recharge',
+                        'touch' : 'hit',
+                        'squanch' : 'use'}
 
     def default(self, line):
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
@@ -45,8 +47,9 @@ class CommandParser(Cmd):
         # check if the command can apply to a world feature
         for feature in self.player.current_room.features:
             if cmd_arg == feature["key"]:
-                print "Did something to a feature."
-                return
+                # trying to do something to feature, cycle through list of actions
+                    print "Did something to a feature."
+                    return
 
         # check if the command applies to an item
         if key in self.player.inventory:
@@ -55,6 +58,30 @@ class CommandParser(Cmd):
                 return
 
         print("This is tiring, Morty. Please, please just tell me something I understand.")
+
+    def build_sentence(self, elements):
+        """
+        Builds sentence to output to the user appending conjunctions, commas, and helping verbs as needed
+        """
+        sentence = "There"
+        if (len(elements)) == 0:
+                sentence += " is nothing of note here."
+        else:
+            # print first element
+            # determine appropriate verb
+            if elements[0].startswith("some"):
+                sentence += " are "
+            else:
+                sentence += " is "
+            sentence += elements[0]
+            # for all but last element, print with comma
+            for element in elements[1:-1]:
+                sentence += ", "
+                sentence += element
+            if len(elements) > 1:
+                sentence += " and "
+                sentence += elements[-1]
+        print sentence + "."
 
     def sync_location(self):
         """
@@ -97,6 +124,9 @@ class CommandParser(Cmd):
             print "You know, Morty, it might be useful to use that if we actually had it. But alas, we do not. " \
                   "So next time how about you suggest something useful."
         elif key in self.items.keys():
+            print key
+            print self.current_room
+            print self.current_world
             self.items[key].use(self.current_world, self.current_room)
 
     def is_valid_destination(self, destination):
@@ -134,6 +164,16 @@ class CommandParser(Cmd):
         """
         Updates the user to their newest location and prints out descriptions, features, items, etc.
         """
+        
+        # print exit text from current room
+        if self.current_room is not None:
+            if self.current_room.is_visited is False:
+                print self.current_room.get_exit_long()
+            else:
+                print self.current_room.get_exit_short()
+                
+        print self.items["portal_gun"].success_message
+               
         # Update engine's current world to that of the player
         self.current_world = self.player.current_world
 
@@ -155,6 +195,13 @@ class CommandParser(Cmd):
         """
         Updates the user to their newest room location and prints out relevant data/descriptions.
         """
+        # print exit text from current room
+        if self.current_room is not None:
+            if self.current_room.is_visited is False:
+                print self.current_room.get_exit_long()
+            else:
+                print self.current_room.get_exit_short()
+            
         # Update engine's current room to that of the player.
         self.current_room = self.player.current_room
 
@@ -211,30 +258,6 @@ class CommandParser(Cmd):
         else:
             return self.items[item].description
 
-    def build_sentence(self, elements):
-        """
-        Builds sentence to output to the user appending conjunctions, commas, and helping verbs as needed
-        """
-        sentence = "There"
-        if (len(elements)) == 0:
-                sentence += " is nothing of note here."
-        else:
-            # print first element
-            # determine appropriate verb
-            if elements[0].startswith("some"):
-                sentence += " are "
-            else:
-                sentence += " is "
-            sentence += elements[0]
-            # for all but last element, print with comma
-            for element in elements[1:-1]:
-                sentence += ", "
-                sentence += element
-            if len(elements) > 1:
-                sentence += " and "
-                sentence += elements[-1]
-        print sentence + "."
-
     def list_room_items(self):
         """
         Collects elements (items and features) from room and their descriptions.
@@ -249,8 +272,7 @@ class CommandParser(Cmd):
         """
         Verify portal gun is in player inventory and that it has sufficient charge to travel.
         """
-        if "portal_gun" in self.player.inventory:
-            if self.items["portal_gun"].num_uses > 0:
+        if self.items["portal_gun"].num_uses > 0:
                 return True
         else:
             return False
@@ -279,7 +301,6 @@ class CommandParser(Cmd):
                     new_world = text_helpers.convert_to_key(stripped)
                     self.player.set_current_world(self.worlds[new_world])
                     self.items["portal_gun"].num_uses -= 1
-                    print self.items["portal_gun"].success_message
                 # gun is out of juice, return error text
                 else:
                     print self.items["portal_gun"].get_cannot_use_description()
@@ -424,7 +445,7 @@ class CommandParser(Cmd):
             # iterate through words in string
 
             # check if valid item in player inventory
-            if self.is_item_valid(stripped_input, self.player.get_inventory()) is True:
+            if self.is_item_valid(stripped_input, self.player.inventory) is True:
                 item = text_helpers.convert_to_key(stripped_input)
                 print self.get_item_description(item)
                 return
@@ -547,6 +568,7 @@ class CommandParser(Cmd):
         print '\nUsage: savegame\n'
         print 'Preserves the state of our universe into something I can carry in a flashdrive, Morty. ' \
               'I\'d explain more but I got shit to do.'
+
 
     def do_loadgame(self, args):
         """

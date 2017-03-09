@@ -9,5 +9,7 @@
     "items": [],
     "hidden_items": ["processor"],
     "longform": "You wanna know why Pluto's not a planet, Morty? It's because these greedy Plutonian corporate fat-cats mine up all the plutonium from the planet's interior. They're literally shrinking their planet by mining it away!",
-    "shortform": "Plutonium's not even worth it, Morty! I can get you the same high for way cheaper!"
+    "shortform": "Plutonium's not even worth it, Morty! I can get you the same high for way cheaper!",
+    "long_description_exit": "These Plutonians are going to shrink their planet down to an asteroid, maybe even disentigrate it to nothingness.",
+    "short_description_exit": "It'll be a shame when this non-planet is gone.  Uranus will be the last funny celestial body left."
 }

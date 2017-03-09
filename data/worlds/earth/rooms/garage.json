@@ -8,5 +8,7 @@
     "items": ["ray_gun", "processor"],
     "hidden_items": [],
     "longform": "Rick's garage is impressive -- at first -- but after you've been in here a million times, you get used to seeing crazy gadgets all the time.",
-    "shortform": "Same old stuff -- gadgets and gizmos and who knows what else..."
+    "shortform": "Same old stuff -- gadgets and gizmos and who knows what else...",
+    "long_description_exit": "Could spend hours here tooling around with some of this stuff, but need to head out if we want to find Summer.",
+    "short_description_exit": "Come on, Morty, we can't find Summer standing around here all day."
 }

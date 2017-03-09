@@ -33,6 +33,10 @@ class Item(object):
         :param world: The world the player is exploring.
         :param room: The room the player is currently in.
         """
+        print self.usable_world
+        print world.name
+        print self.usable_room
+        print room.name
         if self.usable_world == convert_to_key(world.name) and self.usable_room == convert_to_key(room.name):
             if room.reveal_hidden_items() is True:
                 print self.get_usable_description()
