@@ -8,5 +8,7 @@
     "items": ["gravity_boots"],
     "hidden_items": [],
     "longform": "This is a bizarre landscape -- yellow sky, pink grass, and there's all these, like, blobby things off in the distance. Are they aliens? Or clouds? Space Clouds? Is Space Clouds a thing?",
-    "shortform": "Wow, the wasteland stretches as far as I can see."
+    "shortform": "Wow, the wasteland stretches as far as I can see.",
+    "long_description_exit": "Those clouds don't look good, Morty.  Not at all.",
+    "short_description_exit": "Summer's not here, Morty.  Let's go look somewhere else."
 }

@@ -14,5 +14,7 @@
      "items": [],
     "hidden_items": [],
     "longform": "We've had some good family meals in here. And some bad ones -- so I guess it evens out? Well, in any case, dinner's not for a while, so there's no real point in sticking around.",
-    "shortform": "Just a plain old dining room -- probably nothing to see here"
+    "shortform": "Just a plain old dining room -- probably nothing to see here.",
+    "long_description_exit": "The robot whirrs as it circles the table in quiet contemplation of its existence.",
+    "short_description_exit": "Faint sounds of a wine glass clinking emit from the kitchen."
 }

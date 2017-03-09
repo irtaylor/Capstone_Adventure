@@ -23,14 +23,13 @@ class Room(object):
         self.short_description = ""
         self.is_visited = False
         self.features = {}
-        # self.long_description_exit = ""
-        # self.short_description_exit = ""
+        self.long_description_exit = ""
+        self.short_description_exit = ""
 
     def print_description(self):
         print "You are in the " + self.name + "."
         if self.is_visited is False:
             print self.long_description
-            self.set_is_visited(True)
         else:
             print self.short_description
 
@@ -80,14 +79,15 @@ class Room(object):
         When a player exits a room for the first time, they will receive this message.
         :return: A string with the long form description of this room.
         """
-        pass
+        self.set_is_visited(True)
+        return self.long_description_exit
 
     def get_exit_short(self):
         """
         When a player exits a room after the first time, they will receive this message.
         :return: A string with the short form description of this room.
         """
-        pass
+        return self.short_description_exit
 
     def remove_item(self, item):
         """

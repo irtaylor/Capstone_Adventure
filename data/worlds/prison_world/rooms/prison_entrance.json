@@ -12,5 +12,7 @@
     "items": [],
     "hidden_items": [],
     "longform": "Hoo boy, that is a long-ass security check to get into the prison. I am so bored, Morty. You know what, why don't you wait on the line, and I'll just go hang out at Blips & Chitz.",
-    "shortform": "I really don't want to go through the security line again, Morty. I've got, like a ton of drugs on me."
+    "shortform": "I really don't want to go through the security line again, Morty. I've got, like a ton of drugs on me.",
+    "long_description_exit": "Looking around, this is definitely a prison world.  Do you think Summer is in here somewhere?",
+    "short_description_exit": "Summer definitely isn't-isn't standing around out here."
 }

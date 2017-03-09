@@ -8,5 +8,7 @@
  	"items": [],
     "hidden_items": ["processor"],    
     "longform": "A school dance? Pfff, what is this? Breakfast at Tiffany's? Or wait -- the Breakfast Club? Which one is it Morty?",
-    "shortform": "This dance is lame. That Tiny Rick guy's not half bad though. Dude knows how to party!"
+    "shortform": "This dance is lame. That Tiny Rick guy's not half bad though. Dude knows how to party!",
+    "long_description_exit": "We're leaving already?  This is the only-only good part of going to school, Morty.",
+    "short_description_exit": "*Urp* Bye, Tiny Rick!"
 }
