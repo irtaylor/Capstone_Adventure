@@ -12,6 +12,7 @@
         }
     ],
      "items": [],
+    "is_visited": false,
     "hidden_items": [],
     "longform": "We've had some good family meals in here. And some bad ones -- so I guess it evens out? Well, in any case, dinner's not for a while, so there's no real point in sticking around.",
     "shortform": "Just a plain old dining room -- probably nothing to see here"

@@ -18,7 +18,8 @@ class Item(object):
         self.failure_messages = []
         self.usable_world = ""
         self.usable_room = ""
-        self.num_uses = ""
+        self.num_uses = 0
+        self.is_rechargeable = False
 
     def get_name(self):
         """
@@ -33,9 +34,12 @@ class Item(object):
         :param world: The world the player is exploring.
         :param room: The room the player is currently in.
         """
-        if self.usable_world == convert_to_key(world.name) and self.usable_room == convert_to_key(room.name):
+        if self.usable_world == convert_to_key(world.name) and self.usable_room == convert_to_key(room.name) \
+                and self.num_uses > 0:
+
             if room.reveal_hidden_items() is True:
                 print self.get_usable_description()
+                self.num_uses -= 1
             else:
                 print "Morty, we've already done that. We can't be wasting time!"
         else:

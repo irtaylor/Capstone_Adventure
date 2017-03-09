@@ -149,6 +149,8 @@ def build_item(file_path_str):
             new_item.usable_room = data["usable_room"]
         if data.get("num_uses") is not None:
             new_item.num_uses = data["num_uses"]
+        if data.get("is_rechargeable") is not None:
+            new_item.is_rechargeable = data["is_rechargeable"]
         return new_item
 
 

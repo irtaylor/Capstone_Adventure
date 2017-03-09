@@ -6,6 +6,7 @@
         "interactive_text": "The games here are a little more intense than what Earthlings are used to -- there's one game where you literally live an entire lifetime, and rack up points based on how successfully you live. It's not really much fun."
     }],
     "items": ["battery"],
+    "is_visited": false,
     "hidden_items": ["processor"],
     "longform": "Blips & Chitz, Morty! It's the *urp* Greatest Arcade in the Multiverse! We're gonna have a ton of fun here!",
     "shortform": "Seriously, this place is awesome -- why do we keep leaving and coming back??"

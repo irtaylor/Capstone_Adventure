@@ -10,6 +10,7 @@
         "interactive_text": "Ah, Morty, I'm not gonna lie to you -- Grandpa may or may not be a wanted terrorist, and these Inter-Dimensional Federation Guards are probably not gonna enjoy seeing me. We should probably be a bit more careful about getting in."
     }],
     "items": [],
+    "is_visited": false,
     "hidden_items": [],
     "longform": "Hoo boy, that is a long-ass security check to get into the prison. I am so bored, Morty. You know what, why don't you wait on the line, and I'll just go hang out at Blips & Chitz.",
     "shortform": "I really don't want to go through the security line again, Morty. I've got, like a ton of drugs on me."
