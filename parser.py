@@ -424,6 +424,10 @@ class CommandParser(Cmd):
         print '\nUsage: portal [to planetName]\n'
         print 'Feel the power, Morty. Feel the hyperbolic proton gravity thrusters charging this bad boy. ' \
               'Let\'s use the portal gun to find more of those chips!'
+              
+    def do_testfunc(self, args):
+        for i in range(0,3):
+            self.add_processor_to_portal_gun()
 
     def do_look(self, args):
         """
@@ -458,10 +462,19 @@ class CommandParser(Cmd):
             # check if valid feature
             room_features = self.current_room.get_features()
             for word in stripped_input.split():
-                for feature in room_features:
-                    if word == feature["key"]:
+                    for feature in room_features:
+                        if word == feature["key"]:
+                            print feature["interactive_text"]
+                            return
+
+            # check if the feature key is two words (like tiny_rick)
+            stripped_input = check_for_prepositions(args)
+            stripped_input = convert_to_key(stripped_input)
+            for feature in room_features:
+                    if stripped_input == feature["key"]:
                         print feature["interactive_text"]
                         return
+
             print "What... what should I look at? Be specific, Morty."
 
     def is_item_valid(self, questionable_item, list_of_items):
