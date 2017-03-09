@@ -37,6 +37,7 @@ class CommandParser(Cmd):
                         'squanch' : 'use'}
 
     def default(self, line):
+        line = check_for_prepositions(line)
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
         key = text_helpers.convert_to_key(cmd_arg)
         # check if the command is a known alias
@@ -44,12 +45,14 @@ class CommandParser(Cmd):
             getattr(self, ('do_' + self.aliases[cmd]))(cmd_arg)
             return
 
-        # check if the command can apply to a world feature
+        # check if the command can apply to a room feature
         for feature in self.player.current_room.features:
             if cmd_arg == feature["key"]:
-                # trying to do something to feature, cycle through list of actions
-                    print "Did something to a feature."
-                    return
+                # found feature in room, check for the correct action
+                for action in feature["actions"]:
+                    if cmd in action:
+                        print action[cmd]
+                        return
 
         # check if the command applies to an item
         if key in self.player.inventory:
