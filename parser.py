@@ -33,7 +33,8 @@ class CommandParser(Cmd):
                         'portal' : 'go',
                         'leave' : 'drop' ,
                         'fix' : 'recharge',
-                        'squanch' : 'use'}
+                        'squanch' : 'use',
+                        'exit' : 'quit'}
 
     def default(self, line):
         line = check_for_prepositions(line)
@@ -46,13 +47,13 @@ class CommandParser(Cmd):
 
         # check if the command can apply to a room feature
         for feature in self.player.current_room.features:
-            if cmd_arg == feature["key"]:
+            if cmd_arg == feature["key"] or convert_to_key(cmd_arg) == feature["key"]:
                 # found feature in room, check for the correct action
                 for action in feature["actions"]:
                     if cmd in action:
                         print action[cmd]
                         return
-
+                        
         # check if the command applies to an item
         if key in self.player.inventory:
             if key in self.items.keys():

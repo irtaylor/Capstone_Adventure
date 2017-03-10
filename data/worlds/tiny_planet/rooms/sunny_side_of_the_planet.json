@@ -3,7 +3,8 @@
     "features": [{
       "key": "space",
       "description": "curving slope leading into space",
-      "interactive_text": "Being on a Tiny Planet is really annoying -- the curvature of the surface is so steep, that you can't really see in front of you -- if you look straight, you're just looking out into Space."
+      "interactive_text": "Being on a Tiny Planet is really annoying -- the curvature of the surface is so steep, that you can't really see in front of you -- if you look straight, you're just looking out into Space.", 
+      "actions": [{"lean": "Whoa, Morty!  You're going to fall into space."}, {"touch": "The air feels cold to the touch."}]
     }],
     "items": ["processor"],
     "is_visited": false,

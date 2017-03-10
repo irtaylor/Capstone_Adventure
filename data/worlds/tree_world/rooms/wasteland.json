@@ -3,7 +3,8 @@
     "features": [{
         "key": "clouds",
         "description": "space clouds",
-        "interactive_text": "It's hard to tell what those are -- they looks like strange amorphous creatures. Good thing they're far away, Morty. Th-th-they could probably kill us in an instant!"
+        "interactive_text": "It's hard to tell what those are -- they looks like strange amorphous creatures. Good thing they're far away, Morty. Th-th-they could probably kill us in an instant!",
+        "actions": [{"touch": "The clouds pull away.  That's weird, are they alive?"}]
     }],
     "items": ["gravity_boots"],
     "is_visited": false,

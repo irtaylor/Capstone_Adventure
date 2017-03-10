@@ -3,11 +3,13 @@
     "features": [{
         "key": "Summer",
         "description": "Summer",
-        "interactive_text": "It's Summer -- we found her!"
+        "interactive_text": "It's Summer -- we found her!",
+        "actions": [{"cheer": "Summer says, \"Thanks for finding me, Grandpa Rick and Morty!\""}, {"talk": "Summer says, \"I have no idea how long I've been in here.\""}]
     }, {
-        "key": "field",
+        "key": "force_field",
         "description": "force field blocking access to Summer's cell",
-        "interactive_text": "We gotta find out how to break through the force field!"
+        "interactive_text": "We gotta find out how to break through the force field!",
+        "actions": [{"touch": "Ouch!  That hurts!"}, {"hit": "The field buzzes menacingly."}]
     }],
     "items": [],
     "is_visited": false,

@@ -3,11 +3,13 @@
     "features": [{
         "key": "line",
         "description": "security line",
-        "interactive_text": "This is going to take hours, Morty. We gotta find a different to get in."
+        "interactive_text": "This is going to take hours, Morty. We gotta find a different to get in.",
+        "actions": [{"stand": "No way we're waiting in this line."}, {"cut": "I wouldn't try that with this crowd."}]
     }, {
         "key": "guards",
         "description": "prison guards",
-        "interactive_text": "Ah, Morty, I'm not gonna lie to you -- Grandpa may or may not be a wanted terrorist, and these Inter-Dimensional Federation Guards are probably not gonna enjoy seeing me. We should probably be a bit more careful about getting in."
+        "interactive_text": "Ah, Morty, I'm not gonna lie to you -- Grandpa may or may not be a wanted terrorist, and these Inter-Dimensional Federation Guards are probably not gonna enjoy seeing me. We should probably be a bit more careful about getting in.",
+        "actions": [{"talk": "The guards ignore you."}, {"hit": "Let's not draw more attention to ourselves, Morty."}]
     }],
     "items": [],
     "is_visited": false,

@@ -3,7 +3,8 @@
     "features": [{
         "key": "tiny_rick",
         "description": "Tiny Rick",
-        "interactive_text": "Wow, it's Tiny Rick! Not surprised he looks like the coolest kid at the dance."
+        "interactive_text": "Wow, it's Tiny Rick! Not surprised he looks like the coolest kid at the dance.",
+        "actions": [{"talk": "Tiny Rick says, \"Wubby lubby doob doob!\"" }, {"poke": "Watch it! *Urp* Only got so much hyperbaric q-q-quantum fluid."}]
     }],
  	"items": [],
     "is_visited": false,
