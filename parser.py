@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import text_helpers
+import gameover
 from cmd import Cmd
 from parser_grammar import *
 from rm_save import *
@@ -83,6 +84,14 @@ class CommandParser(Cmd):
         :param stop: EOF
         :param line: user input
         """
+        ending = gameover.check_for_ending(self)
+        if ending:
+            text_helpers.get_ending(ending)
+            print "Press ENTER to continue..."
+            self.stdin.readline()
+            stop = True
+            return stop
+
         self.sync_location()
 
     def do_use(self, args):
@@ -279,6 +288,8 @@ class CommandParser(Cmd):
                     new_world = text_helpers.convert_to_key(stripped)
                     self.player.set_current_world(self.worlds[new_world])
                     self.items["portal_gun"].num_uses -= 1
+                    if self.items["portal_gun"].num_uses <= 2:
+                        print "Woah, watch out, Morty! We're getting a bit low on battery power. Eh, whatever."
                     print self.items["portal_gun"].success_message
                 # gun is out of juice, return error text
                 else:
