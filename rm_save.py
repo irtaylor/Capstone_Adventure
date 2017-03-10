@@ -93,6 +93,8 @@ def create_room_file(room_obj, file_path):
     json_obj["longform"] = room_obj.long_description
     json_obj["shortform"] = room_obj.short_description
     json_obj["is_visited"] = room_obj.is_visited
+    json_obj["long_description_exit"] = room_obj.long_description_exit
+    json_obj["short_description_exit"] = room_obj.short_description_exit
     file_content = json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
 
     file_name = convert_to_key(room_obj.name)
