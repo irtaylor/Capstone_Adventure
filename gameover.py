@@ -3,9 +3,10 @@ import parser
 
 def check_for_ending(parser):
     if check_win(parser):
-        ending = 'win'
-    #elif check_stranded(parser):
-    #    ending = 'stranded'
+        #ending = 'win'
+        ending = ''
+    elif check_stranded(parser):
+        ending = 'stranded'
     elif check_death(parser):
         ending = 'death'
     else:
