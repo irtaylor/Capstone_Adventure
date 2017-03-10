@@ -1,8 +1,13 @@
-
 from structure_builder import *
 
 
 def loadgame(save_directory, command_parser):
+    """
+    Updates the current state of the game to that of the desired game file.
+
+    :param save_directory: Save file to use.
+    :param command_parser: Command Parser instance being run.
+    """
     # Update worlds/rooms
     updated_worlds = construct_worlds(save_directory + "/worlds/")
     command_parser.worlds = updated_worlds

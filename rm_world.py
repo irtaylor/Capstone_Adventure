@@ -13,7 +13,6 @@ class World(object):
         self.key = ""
         self.rooms = {}
         self.starting_room = ""
-        self.connections = []
         self.description = ""
         self.is_visited = False
         self.chips_needed = None
@@ -34,12 +33,6 @@ class World(object):
 
     def set_is_visited(self, is_visited):
         self.is_visited = is_visited
-
-    def get_connecting_worlds(self):
-        """
-        :return: A list of the names of the adjacent worlds.
-        """
-        return self.connections
 
     def get_description(self):
         """

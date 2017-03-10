@@ -33,9 +33,12 @@ class CommandParser(Cmd):
                         'port' : 'go',
                         'portal' : 'go',
                         'leave' : 'drop' ,
-                        'fix' : 'recharge'}
+                        'fix' : 'recharge',
+                        'squanch' : 'use',
+                        'exit' : 'quit'}
 
     def default(self, line):
+        line = check_for_prepositions(line)
         cmd, cmd_arg = line.split()[0], " ".join(line.split()[1:])
         key = text_helpers.convert_to_key(cmd_arg)
         # check if the command is a known alias
@@ -43,11 +46,14 @@ class CommandParser(Cmd):
             getattr(self, ('do_' + self.aliases[cmd]))(cmd_arg)
             return
 
-        # check if the command can apply to a world feature
+        # check if the command can apply to a room feature
         for feature in self.player.current_room.features:
-            if cmd_arg == feature["key"]:
-                print "Did something to a feature."
-                return
+            if cmd_arg == feature["key"] or convert_to_key(cmd_arg) == feature["key"]:
+                # found feature in room, check for the correct action
+                for action in feature["actions"]:
+                    if cmd in action:
+                        print action[cmd]
+                        return
 
         # check if the command applies to an item
         if key in self.player.inventory:
@@ -107,6 +113,8 @@ class CommandParser(Cmd):
                   "So next time how about you suggest something useful."
         elif key in self.items.keys():
             self.items[key].use(self.current_world, self.current_room)
+            if self.items[key].num_uses == 0 and self.items[key].is_rechargeable is False:
+                self.player.remove_from_inventory(key)
 
     def is_valid_destination(self, destination):
         """
@@ -143,6 +151,12 @@ class CommandParser(Cmd):
         """
         Updates the user to their newest location and prints out descriptions, features, items, etc.
         """
+        # print exit text from current room
+        if self.current_room is not None:
+            self.current_room.print_exit_description()
+            # changing world, so must have used portal gun successfully, print portal gun message
+            print self.items["portal_gun"].success_message
+
         # Update engine's current world to that of the player
         self.current_world = self.player.current_world
 
@@ -164,11 +178,14 @@ class CommandParser(Cmd):
         """
         Updates the user to their newest room location and prints out relevant data/descriptions.
         """
+        # print exit text from current room
+        if self.current_room is not None:
+            self.current_room.print_exit_description()
+
         # Update engine's current room to that of the player.
         self.current_room = self.player.current_room
 
         # Write out descriptions to player
-        # TODO: Add logic for if_visited to diff between long and short descriptions
         self.player.current_room.print_description()
         self.list_room_items()
         self.print_rooms_list()
@@ -182,7 +199,7 @@ class CommandParser(Cmd):
         if key not in self.player.inventory:
             print "What the hell are you talking about, Morty?  We don't have that."
         # check if item can be recharged
-        elif self.items[key].num_uses == "":
+        elif self.items[key].is_rechargeable is False:
             print "Great, Morty, we'll just... just do... what?  We can't *urp* recharge that."
         # check if have battery in inventory
         elif self.is_item_valid("battery", self.player.inventory) is False:
@@ -258,8 +275,7 @@ class CommandParser(Cmd):
         """
         Verify portal gun is in player inventory and that it has sufficient charge to travel.
         """
-        if "portal_gun" in self.player.inventory:
-            if self.items["portal_gun"].num_uses > 0:
+        if self.items["portal_gun"].num_uses > 0:
                 return True
         else:
             return False
@@ -273,32 +289,34 @@ class CommandParser(Cmd):
         # split off preposition if there is one
         stripped = check_for_prepositions(args)
 
-        # Determine if the user's desired location is valid
-        is_valid, is_room, destination = self.is_valid_destination(stripped)
+        if len(stripped) > 0:
+            # Determine if the user's desired location is valid
+            is_valid, is_room, destination = self.is_valid_destination(stripped)
 
-        # If valid, change player's location to correct destination
-        if is_valid is True:
-            if is_room is True:
-                self.player.current_room = self.current_world.rooms[destination]
-            else:
-                # check portal gun is in inventory and has sufficent charge
-                if "portal_gun" not in self.player.inventory:
-                    print "W-w-we left the portal gun behind, Mo*URPPP*rty. It seemed like a stupid idea at the time, and now it seems even stupider."
-                elif self.check_portal_gun_charge() is True:
-                    new_world = text_helpers.convert_to_key(stripped)
-                    self.player.set_current_world(self.worlds[new_world])
-                    self.items["portal_gun"].num_uses -= 1
-                    if self.items["portal_gun"].num_uses <= 2:
-                        print "Woah, watch out, Morty! We're getting a bit low on battery power. Eh, whatever."
-                    print self.items["portal_gun"].success_message
-                # gun is out of juice, return error text
+            # If valid, change player's location to correct destination
+            if is_valid is True:
+                if is_room is True:
+                    self.player.current_room = self.current_world.rooms[destination]
+
                 else:
-                    print self.items["portal_gun"].get_cannot_use_description()
+                    # check portal gun is in inventory and has sufficent charge
+                    if "portal_gun" not in self.player.inventory:
+                        print "W-w-we left the portal gun behind, Mo*URPPP*rty. It seemed like a stupid idea at the time, and now it seems even stupider."
+                    elif self.check_portal_gun_charge() is True:
+                        new_world = text_helpers.convert_to_key(stripped)
+                        self.player.set_current_world(self.worlds[new_world])
+                        self.items["portal_gun"].num_uses -= 1
+                        print self.items["portal_gun"].success_message
+                    # gun is out of juice, return error text
+                    else:
+                        print self.items["portal_gun"].get_cannot_use_description()
 
-        # Otherwise, destination was invalid, scold Morty for being useless.
+            # Otherwise, destination was invalid, scold Morty for being useless.
+            else:
+                print "What are you blathering about Morty? " \
+                      "Are you sure that's even a real place? There's no %s around here!" % stripped
         else:
-            print "What are you blathering about Morty? " \
-                  "Are you sure that's even a real place? There's no %s around here!" % stripped
+            print "Yes, but where Morty? You can't just say vague commands and expect me to know what you mean."
 
     def help_recharge(self):
         """
@@ -312,13 +330,6 @@ class CommandParser(Cmd):
         Provides the user with witty, yet practical advice for going to another place.
         """
         print '\nUsage: go [to planet|roomName]\n'
-        print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
-
-    def help_port(self):
-        """
-        Provides the user with witty, yet practical advice for porting to another place.
-        """
-        print '\nUsage: port [to planet|roomName]\n'
         print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
 
     def help_use(self):
@@ -399,26 +410,6 @@ class CommandParser(Cmd):
         print 'Morty sometimes I underestimate how socially inept you are. ' \
               'Do I really need to tell you how to say hello?'
 
-    def do_portal(self, args):
-        """
-        Enables the user to port to another place, like a room or world.
-        """
-        if len(args) == 0:
-            print "Where are you going?"
-        else:
-            name = args
-            print "Check portal gun for fuel and chips.\n" \
-                  "Do we want it to check for chips or did we " \
-                  "want to have it blow up instead?\n" % name
-
-    def help_portal(self):
-        """
-        Provides the user with witty, yet practical advice for porting to another place.
-        """
-        print '\nUsage: portal [to planetName]\n'
-        print 'Feel the power, Morty. Feel the hyperbolic proton gravity thrusters charging this bad boy. ' \
-              'Let\'s use the portal gun to find more of those chips!'
-
     def do_look(self, args):
         """
         Prints a description of the item, feature, or room the player designates.
@@ -427,6 +418,9 @@ class CommandParser(Cmd):
         stripped_input = check_for_prepositions(args)
 
         if len(stripped_input) == 0:
+            print "Planet: " + self.current_world.name
+            print "You are in the " + self.current_room.name + "."
+            print
             print self.current_room.get_entrance_long()
             self.print_rooms_list()
             self.list_room_items()
@@ -435,7 +429,7 @@ class CommandParser(Cmd):
             # iterate through words in string
 
             # check if valid item in player inventory
-            if self.is_item_valid(stripped_input, self.player.get_inventory()) is True:
+            if self.is_item_valid(stripped_input, self.player.inventory) is True:
                 item = text_helpers.convert_to_key(stripped_input)
                 print self.get_item_description(item)
                 return
@@ -449,10 +443,19 @@ class CommandParser(Cmd):
             # check if valid feature
             room_features = self.current_room.get_features()
             for word in stripped_input.split():
-                for feature in room_features:
-                    if word == feature["key"]:
+                    for feature in room_features:
+                        if word == feature["key"]:
+                            print feature["interactive_text"]
+                            return
+
+            # check if the feature key is two words (like tiny_rick)
+            stripped_input = check_for_prepositions(args)
+            stripped_input = convert_to_key(stripped_input)
+            for feature in room_features:
+                    if stripped_input == feature["key"]:
                         print feature["interactive_text"]
                         return
+
             print "What... what should I look at? Be specific, Morty."
 
     def is_item_valid(self, questionable_item, list_of_items):
@@ -559,6 +562,7 @@ class CommandParser(Cmd):
         print 'Preserves the state of our universe into something I can carry in a flashdrive, Morty. ' \
               'I\'d explain more but I got shit to do.'
 
+
     def do_loadgame(self, args):
         """
         Loads a user's game file into the game engine and resumes the game.
@@ -571,10 +575,19 @@ class CommandParser(Cmd):
 
         path = SAVE_FILE_DIRECTORY_PATH + "/" + file_name
         if os.path.isdir(path):
-            loadgame(path, self)
-            self.do_look("")
+
+            response = raw_input("Are you sure you want to abandon the current game and load this game? Say yes "
+                                 "to confirm and anything else to abandon action.")
+
+            if response.lower() == "yes":
+                loadgame(path, self)
+                self.do_look("")
         else:
-            print "A save file under that name does not exist."
+            print "A save file under that name does not exist. Here are the current save files:"
+            list = get_save_files()
+            for save_file in list:
+                if save_file != ".DS_Store":
+                    print save_file
 
     def help_loadgame(self):
         """

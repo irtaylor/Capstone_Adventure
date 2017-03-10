@@ -45,7 +45,7 @@ def key_to_text(string):
     """
     key = string.replace("_", " ")
     return key
-
+    
 def format_string_plurality(key, description):
     """
     Verify if string is plural or not to prepend the correct article,
@@ -57,7 +57,7 @@ def format_string_plurality(key, description):
         key = key.title()
         return key
     if (description == None):
-        if key.endswith('s') is True:
+        if key.endswith('s') is True and key.lower() != 'plumbus':
             return add_article(key, True)
         else:
             return add_article(key, False)

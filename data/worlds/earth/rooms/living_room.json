@@ -3,16 +3,21 @@
     "features": [{
             "key": "television",
             "description": "television",
-            "interactive_text": "Rick once hooked this baby up to get intergalactic TV shows, but it drew too much power and caused a neighborhood blackout."
+            "interactive_text": "Rick once hooked this baby up to get intergalactic TV shows, but it drew too much power and caused a neighborhood blackout.",
+            "actions": [{ "hit": "The television switches on and blares a commerical for Two Brothers."}]
         },
         {
             "key": "couch",
             "description": "comfy couch",
-            "interactive_text": "It would be great to lie down for a nap, but Summer's missing."
+            "interactive_text": "It would be great to lie down for a nap, but Summer's missing.",
+            "actions": [{ "jump": "The couch doesn't bounce well."}, {"lay": "Not a good idea.  Summer lays on that couch a lot.  Don't want to get pink eye."}]
         }
     ],
     "items": [],
+    "is_visited": false,
     "hidden_items": [],
     "longform": "Ah, The living room! A peaceful place for relax and bonding with family. Pretty standard for a suburban upper-middle class family, don't ya think?",
-    "shortform": "Ok, I get it, it's a living room. There's really standard, living room stuff here."
+    "shortform": "Ok, I get it, it's a living room. There's really standard, living room stuff here.",
+    "long_description_exit": "Let's get out of here before Jerry comes in and talks about his feelings or something.",
+    "short_description_exit": "Not much going on here, Morty, there's probably no reason for us to come back here."
 }

@@ -3,10 +3,14 @@
     "features": [{
         "key": "games",
         "description": "arcade games",
-        "interactive_text": "The games here are a little more intense than what Earthlings are used to -- there's one game where you literally live an entire lifetime, and rack up points based on how successfully you live. It's not really much fun."
+        "interactive_text": "The games here are a little more intense than what Earthlings are used to -- there's one game where you literally live an entire lifetime, and rack up points based on how successfully you live. It's not really much fun.",
+        "actions": [{ "play": "Looks like you need some money." }, {"bang": "Hey now!  Don't want to attract attention."}]
     }],
     "items": ["battery"],
+    "is_visited": false,
     "hidden_items": ["processor"],
     "longform": "Blips & Chitz, Morty! It's the *urp* Greatest Arcade in the Multiverse! We're gonna have a ton of fun here!",
-    "shortform": "Seriously, this place is awesome -- why do we keep leaving and coming back??"
+    "shortform": "Seriously, this place is awesome -- why do we keep leaving and coming back??",
+    "long_description_exit": "Gotta keep your wits about you, Morty!  Never know what kind of *urp* weirdos or assassins are around here.",
+    "short_description_exit": "I always look track of time when I'm here."
 }

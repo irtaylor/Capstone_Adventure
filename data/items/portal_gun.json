@@ -4,6 +4,6 @@
     "actions": ["shoot", "fire"],
     "success_message": "And awaaaaaay we go!",
     "failure_messages": ["We can't go there -- the portal gun is out of juice! Speaking of which, where's my hip flask? There's gotta be a battery around here..."],
-    "num_uses": 10
-
+    "num_uses": 10,
+    "is_rechargeable": true
 }

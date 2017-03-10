@@ -93,6 +93,8 @@ def create_room_file(room_obj, file_path):
     json_obj["longform"] = room_obj.long_description
     json_obj["shortform"] = room_obj.short_description
     json_obj["is_visited"] = room_obj.is_visited
+    json_obj["long_description_exit"] = room_obj.long_description_exit
+    json_obj["short_description_exit"] = room_obj.short_description_exit
     file_content = json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
 
     file_name = convert_to_key(room_obj.name)
@@ -107,4 +109,12 @@ def copy_directory(source_path, destination_path):
     :param destination_path: Where we want to copy the source.
     """
     copy_tree(source_path, destination_path)
+
+
+def get_save_files():
+    """
+    Creates a list of all the save files for Keep Summer Safe
+    :return: a list of directory names
+    """
+    return os.listdir(SAVE_FILE_DIRECTORY_PATH)
 
