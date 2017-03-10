@@ -18,7 +18,7 @@ def get_intro():
 
 def get_ending(ending_type):
     """
-        Takes in the name of the desired ending (e.g. "plumbus" or "death"),
+        Takes in the name of the desired ending (e.g. "death_plumbus" or "death"),
         and runs the corresponding ending.
     """
     ending_file_name = "ending_" + ending_type + ".txt"

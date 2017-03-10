@@ -2,13 +2,21 @@
 import parser
 
 def check_for_ending(parser):
-
-    if check_stranded(parser):
-        ending = 'stranded'
+    if check_win(parser):
+        ending = 'win'
+    #elif check_stranded(parser):
+    #    ending = 'stranded'
+    elif check_death(parser):
+        ending = 'death'
     else:
         ending = ''
-
     return ending
+
+def check_win(parser):
+    win = False
+    if parser.player.current_room.name == "Summer's Cell":
+        win = True
+    return win
 
 def check_stranded(parser):
     stranded = True
@@ -32,3 +40,6 @@ def check_stranded(parser):
     else:
         stranded = False
     return stranded
+
+def check_death(parser):
+    return
