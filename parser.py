@@ -321,13 +321,6 @@ class CommandParser(Cmd):
         print '\nUsage: go [to planet|roomName]\n'
         print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
 
-    def help_port(self):
-        """
-        Provides the user with witty, yet practical advice for porting to another place.
-        """
-        print '\nUsage: port [to planet|roomName]\n'
-        print 'Let\'s get a move on, Morty! Summer most likely doesn\'t have much time left.'
-
     def help_use(self):
         """
         Provides the user with witty, yet practical advice for using an item.
@@ -405,27 +398,7 @@ class CommandParser(Cmd):
         print '\nUsage: hello [name]\n'
         print 'Morty sometimes I underestimate how socially inept you are. ' \
               'Do I really need to tell you how to say hello?'
-
-    def do_portal(self, args):
-        """
-        Enables the user to port to another place, like a room or world.
-        """
-        if len(args) == 0:
-            print "Where are you going?"
-        else:
-            name = args
-            print "Check portal gun for fuel and chips.\n" \
-                  "Do we want it to check for chips or did we " \
-                  "want to have it blow up instead?\n" % name
-
-    def help_portal(self):
-        """
-        Provides the user with witty, yet practical advice for porting to another place.
-        """
-        print '\nUsage: portal [to planetName]\n'
-        print 'Feel the power, Morty. Feel the hyperbolic proton gravity thrusters charging this bad boy. ' \
-              'Let\'s use the portal gun to find more of those chips!'
-              
+             
     def do_look(self, args):
         """
         Prints a description of the item, feature, or room the player designates.
