@@ -12,6 +12,10 @@ def loadgame(save_directory, command_parser):
     updated_worlds = construct_worlds(save_directory + "/worlds/")
     command_parser.worlds = updated_worlds
 
+    # Update Items
+    updated_items = construct_items(save_directory + "/items/")
+    command_parser.items = updated_items
+
     # Update Player
     updated_player = build_player(save_directory + "/player.json", updated_worlds)
     command_parser.player = updated_player
