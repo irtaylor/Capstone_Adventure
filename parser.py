@@ -202,14 +202,14 @@ class CommandParser(Cmd):
         elif self.items[key].is_rechargeable is False:
             print "Great, Morty, we'll just... just do... what?  We can't *urp* recharge that."
         # check if have battery in inventory
-        elif self.is_item_valid("battery", self.player.inventory) is False:
+        elif self.is_item_valid("multiverse_battery", self.player.inventory) is False:
             print "Morty, we need a-a-a power source. " \
                   "You can't just go around saying random stuff and hoping it'll do something."
         # success, charge the item, remove the battery
         else:
-            print self.items["battery"].get_usable_description() + "%s." % self.items[key].get_name()
+            print self.items["multiverse_battery"].get_usable_description() + "%s." % self.items[key].get_name()
             self.items[key].num_uses += 5
-            self.player.remove_from_inventory("battery")
+            self.player.remove_from_inventory("multiverse_battery")
 
     def get_room_elements(self, room_elements):
         """
