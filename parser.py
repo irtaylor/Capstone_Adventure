@@ -554,7 +554,7 @@ class CommandParser(Cmd):
         else:
             file_name = args
 
-        savegame(file_name, self.worlds, self.player)
+        savegame(file_name, self.worlds, self.items, self.player)
 
     def help_savegame(self):
         """

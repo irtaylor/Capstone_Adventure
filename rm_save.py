@@ -9,21 +9,22 @@ TEXT_DIRECTORY_PATH = "data/text"
 WORLDS_DIRECTORY_PATH = "data/worlds"
 
 
-def savegame(directory_name, worlds, player):
+def savegame(directory_name, worlds, items, player):
     """
     Saves the game as a new set of files in the "data/savegame" directory
     :param directory_name: Name of the new save file
     :param worlds: the dictionary of key-->world objects used in game
+    :param items: the dictionary of key-->world objects used in game
     :param player: the player object showing the current state of the game
     """
 
     # Create directory for new save file
     path = SAVE_FILE_DIRECTORY_PATH + "/" + directory_name
+    items_directory_path = path + "/items"
     if not os.path.exists(path):
         os.makedirs(path)
 
         # Create items directory and copy contents
-        items_directory_path = path + "/items"
         copy_directory(ITEMS_DIRECTORY_PATH, items_directory_path)
 
         # Create text directory and copy contents
@@ -34,10 +35,14 @@ def savegame(directory_name, worlds, player):
         worlds_directory_path = path + "/worlds"
         copy_directory(WORLDS_DIRECTORY_PATH, worlds_directory_path)
 
+    # Update contents of rooms
     for key in worlds.keys():
         world_obj = worlds[key]
         world_directory_path = path + "/worlds/" + key + "/rooms"
         update_room_files(world_obj, world_directory_path)
+
+    # Update attributes of items
+    update_item_files(items, items_directory_path)
 
     # Update player file
     create_player_file(player, path)
@@ -98,6 +103,47 @@ def create_room_file(room_obj, file_path):
     file_content = json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
 
     file_name = convert_to_key(room_obj.name)
+    with open(file_path + "/" + file_name + ".json", "w+") as json_data:
+        json_data.write(file_content)
+
+
+def update_item_files(items, items_path):
+    """
+    Updates the item files with their current state as seen in game.
+    :param items: dictionary holding the items
+    :param items_path: the path to item files
+    """
+    file_list = [f for f in os.listdir(items_path) if f.endswith(".json")]
+
+    # Clear previous room files
+    for f in file_list:
+        os.remove(items_path + "/" + f)
+
+    # Create new room files
+    for key in items.keys():
+        item = items[key]
+        create_item_file(item, items_path)
+
+
+def create_item_file(item, file_path):
+    """
+    Creates a new json file with the attributes of the given item object.
+    :param item: The object we want to convert to a json file
+    :param file_path: Where we want to store the new item file
+    """
+    json_obj = dict()
+    json_obj["name"] = item.name
+    json_obj["description"] = item.description
+    json_obj["actions"] = item.actions
+    json_obj["success_message"] = item.success_message
+    json_obj["failure_messages"] = item.failure_messages
+    json_obj["usable_world"] = item.usable_world
+    json_obj["usable_room"] = item.usable_room
+    json_obj["num_uses"] = item.num_uses
+    json_obj["is_rechargeable"] = item.is_rechargeable
+    file_content = json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
+
+    file_name = convert_to_key(item.name)
     with open(file_path + "/" + file_name + ".json", "w+") as json_data:
         json_data.write(file_content)
 
