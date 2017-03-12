@@ -1,0 +1,11 @@
+{
+    "name": "Win Flag",
+    "description": "",
+    "actions": [],
+    "success_message": "",
+    "failure_messages": [""],
+    "usable_world": "prison_world",
+    "usable_room": "summer's_cell",
+    "num_uses": 1,
+    "is_rechargeable": false
+}

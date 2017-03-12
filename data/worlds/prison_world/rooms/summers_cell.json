@@ -4,16 +4,24 @@
         "key": "Summer",
         "description": "Summer",
         "interactive_text": "It's Summer -- we found her!",
-        "actions": [{"cheer": "Summer says, \"Thanks for finding me, Grandpa Rick and Morty!\""}, {"talk": "Summer says, \"I have no idea how long I've been in here.\""}]
+        "actions": [{
+            "cheer": "Summer says, \"Thanks for finding me, Grandpa Rick and Morty!\""
+        }, {
+            "talk": "Summer says, \"I have no idea how long I've been in here.\""
+        }]
     }, {
         "key": "force_field",
         "description": "force field blocking access to Summer's cell",
         "interactive_text": "We gotta find out how to break through the force field!",
-        "actions": [{"touch": "Ouch!  That hurts!"}, {"hit": "The field buzzes menacingly."}]
+        "actions": [{
+            "touch": "Ouch!  That hurts!"
+        }, {
+            "hit": "The field buzzes menacingly."
+        }]
     }],
     "items": [],
     "is_visited": false,
-    "hidden_items": [],
+    "hidden_items": ["win_flag"],
     "longform": "We found her! Wow, Morty, I can't beleive we actually did it.",
     "shortform": "We found her! Can we go home yet?",
     "long_description_exit": "This place reminds me of Time Prison.  You know what they do to three dimensional life forms there?  Same thing they do in every other prison, only forever.",
