@@ -308,7 +308,6 @@ class CommandParser(Cmd):
                         self.items["portal_gun"].num_uses -= 1
                         if self.items["portal_gun"].num_uses <= 2:
                             print "Woah, be careful. Portal gun's a little low on charge, and I do NOT want to get stranded with you!"
-                        print self.items["portal_gun"].success_message
                     # gun is out of juice, return error text
                     else:
                         print self.items["portal_gun"].get_cannot_use_description()
