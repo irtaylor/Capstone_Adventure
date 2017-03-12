@@ -45,4 +45,9 @@ def check_stranded(parser):
     return stranded
 
 def check_death(parser):
-    return
+    death = False
+    if (parser.lastcmd == 'use gravity boots' or parser.lastcmd == 'wear gravity boots' \
+        or parser.lastcmd == 'equip gravity boots' or parser.lastcmd == 'strap gravity boots') \
+        and (parser.items["gravity_boots"].num_uses <= 0):
+        death = True
+    return death

@@ -35,13 +35,14 @@ class Item(object):
         :param room: The room the player is currently in.
         """
         if self.usable_world == convert_to_key(world.name) and self.usable_room == convert_to_key(room.name) \
-                and self.num_uses > 0:
+                and self.num_uses >= 0:
 
             if room.reveal_hidden_items() is True:
                 print self.get_usable_description()
-                self.num_uses -= 1
             else:
                 print "Morty, we've already done that. We can't be wasting time!"
+
+            self.num_uses -= 1
         else:
             print self.get_cannot_use_description()
 
