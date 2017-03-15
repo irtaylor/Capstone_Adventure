@@ -4,11 +4,11 @@
         "key": "tiny_rick",
         "description": "Tiny Rick",
         "interactive_text": "Wow, it's Tiny Rick! Not surprised he looks like the coolest kid at the dance.",
-        "actions": [{"talk": "Tiny Rick says, \"Wubby lubby doob doob!\"" }, {"poke": "Watch it! *Urp* Only got so much hyperbaric q-q-quantum fluid."}]
+        "actions": [{"talk": "Tiny Rick, you got da moves! WubaLubDubDub, am I right?! How's this dance? Totally lame right? No alcohol? We'll hook you up!" }, {"poke": "What is this, Facebook? Tiny Rick's right here?"}]
     }],
  	"items": [],
     "is_visited": false,
-    "hidden_items": ["processor"],    
+    "hidden_items": ["processor"],
     "longform": "A school dance? Pfff, what is this? Breakfast at Tiffany's? Or wait -- the Breakfast Club? Which one is it Morty?",
     "shortform": "This dance is lame. That Tiny Rick guy's not half bad though. Dude knows how to party!",
     "long_description_exit": "We're leaving already?  This is the only-only good part of going to school, Morty.",

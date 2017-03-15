@@ -8,7 +8,7 @@
     }, {
         "key": "guards",
         "description": "prison guards",
-        "interactive_text": "Ah, Morty, I'm not gonna lie to you -- Grandpa may or may not be a wanted terrorist, and these Inter-Dimensional Federation Guards are probably not gonna enjoy seeing me. We should probably be a bit more careful about getting in.",
+        "interactive_text": "Ah, Morty, I'm not gonna lie to you -- Grandpa may or may not be a wanted terrorist, and these Inter-Dimensional Federation Guards are probably not gonna enjoy seeing me. We should probably be a bit more careful about getting in. Speaking of which, do you have the Ray Gun?",
         "actions": [{"talk": "The guards ignore you."}, {"hit": "Let's not draw more attention to ourselves, Morty."}]
     }],
     "items": [],
