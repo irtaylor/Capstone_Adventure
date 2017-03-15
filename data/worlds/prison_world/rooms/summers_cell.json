@@ -1,7 +1,7 @@
 {
     "name": "Summer's Cell",
     "features": [{
-        "key": "Summer",
+        "key": "summer",
         "description": "Summer",
         "interactive_text": "It's Summer -- we found her!",
         "actions": [{
