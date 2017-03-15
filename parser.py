@@ -449,7 +449,7 @@ class CommandParser(Cmd):
                             print feature["interactive_text"]
                             print "Hmmm, I wonder what we can do to a", word, "?"   # give the user a list of actions they can take on a feature.
                             for action in feature["actions"]:
-                                print "- ", str(action.keys())[3:-2] 
+                                print "-", str(action.keys())[3:-2]
                             return
 
             # check if the feature key is two words (like tiny_rick)
