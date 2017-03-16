@@ -4,7 +4,11 @@
         "key": "games",
         "description": "arcade games",
         "interactive_text": "The games here are a little more intense than what Earthlings are used to -- there's one game where you literally live an entire lifetime, and rack up points based on how successfully you live. It's not really much fun, unless you know how to get ka-razzy!.",
-        "actions": [{ "play": "Looks like you need to use some money." }, {"bang": "Hey now!  Don't want to attract attention."}]
+        "actions": [{
+            "play": "Looks like you need to use some money."
+        }, {
+            "bang": "Hey now!  Don't want to attract attention."
+        }]
     }],
     "items": ["multiverse_battery"],
     "is_visited": false,

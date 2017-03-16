@@ -4,7 +4,11 @@
         "key": "books",
         "description": "books lying about",
         "interactive_text": "No way, I'm not wasting time reading that! If you want to find Summer, we better actually get to finding her.",
-        "actions": [{"read": "Nothing of use in here, Morty.  School is such a-a-a waste of time."}, {"throw": "The book lands on the ground, its pages fluttering."}]
+        "actions": [{
+            "read": "Nothing of use in here, Morty.  School is such a-a-a waste of time."
+        }, {
+            "throw": "The book lands on the ground, its pages fluttering."
+        }]
     }],
     "items": ["multiverse_battery"],
     "is_visited": false,

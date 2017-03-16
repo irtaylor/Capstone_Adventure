@@ -36,6 +36,8 @@ class CommandParser(Cmd):
                         'leave' : 'drop' ,
                         'fix' : 'recharge',
                         'squanch' : 'use',
+                        'save' : 'savegame',
+                        'load' : 'loadgame',
                         'exit' : 'quit'}
 
     def default(self, line):

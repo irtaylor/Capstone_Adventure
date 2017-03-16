@@ -10,7 +10,9 @@
             "key": "king",
             "description": "Plutonian King",
             "interactive_text": "He's a gross little frog. Seriously, what's the point? He probably doesn't even know where Summer is!",
-            "actions": [{"talk": "Please let's not talk to him, Morty. He's a stuck up, pompous idiot. I've talked to him before, and he just goes on and on about how awesome Pluto is, and how cool his palace is, and how he's hurting inside because his marriage is falling apart. Dude just won't shut up."}]
+            "actions": [{
+                "talk": "Please let's not talk to him, Morty. He's a stuck up, pompous idiot. I've talked to him before, and he just goes on and on about how awesome Pluto is, and how cool his palace is, and how he's hurting inside because his marriage is falling apart. Dude just won't shut up."
+            }]
         }
     ],
     "items": ["hip_flask"],

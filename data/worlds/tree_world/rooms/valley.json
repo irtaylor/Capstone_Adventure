@@ -5,7 +5,11 @@
         "key": "trees",
         "description": "mega trees",
         "interactive_text": "They're sort of like tall, purplish, gross palm trees without leaves.",
-        "actions": [{"shake": "The mega tree sways but remains erect."}, {"kick": "You're gonna hurt yourself, Morty. There's gotta be a-a-a way to climb the tree up to those *urp* seeds."}]
+        "actions": [{
+            "shake": "The mega tree sways but remains erect."
+        }, {
+            "kick": "You're gonna hurt yourself, Morty. There's gotta be a-a-a way to climb the tree up to those *urp* seeds."
+        }]
     }],
     "items": ["processor"],
     "is_visited": false,

@@ -5,7 +5,11 @@
         "key": "plutonium",
         "description": "glowing plutonium",
         "interactive_text": "The Plutonians mine plutonium by sucking out of the not-planet's surface. The drills in here never stop -- they're destroying the not-planet! We could easily take this place down with a well placed Ray Gun blast! Oh, who am I kidding -- you couldn't shoot to save my life. Or your life. Anyone's life, really...",
-        "actions": [{"touch": "The plutonium flouresces! It's so beautiful! Not sure if it's entirely safe, but who wants to live forever?"}, {"eat": "If you ate that, Morty, you'd glow in the dark! And die. So I guess your corpse would glow in the dark."}]
+        "actions": [{
+            "touch": "The plutonium flouresces! It's so beautiful! Not sure if it's entirely safe, but who wants to live forever?"
+        }, {
+            "eat": "If you ate that, Morty, you'd glow in the dark! And die. So I guess your corpse would glow in the dark."
+        }]
     }],
     "items": [],
     "is_visited": false,

@@ -4,8 +4,10 @@
         "key": "strawberries",
         "description": "strawberries on the cob",
         "interactive_text": "...? What the hell is that, Morty? Strawberries on the cob?!! It's not natural Morty. We gotta get outta here!",
-        "actions": [{ "eat": "No way I'm letting you eat that!  Ever heard of free radicals, Morty? Carcinogens?? Genotoxins?!  This is a billion times worse! You'll die -- ON THE COB!" }] 
-        }],
+        "actions": [{
+            "eat": "No way I'm letting you eat that!  Ever heard of free radicals, Morty? Carcinogens?? Genotoxins?!  This is a billion times worse! You'll die -- ON THE COB!"
+        }]
+    }],
     "items": ["processor"],
     "is_visited": false,
     "hidden_items": [],

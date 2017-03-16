@@ -4,13 +4,21 @@
             "key": "flembleggers",
             "description": "flembleggers",
             "interactive_text": "It's like an amorphous burger, but tastes like wood ash.",
-            "actions": [{ "eat": "Don't do it, Morty!  You're going to regret this..." }, {"poke": "I think it moved!"}]
+            "actions": [{
+                "eat": "Don't do it, Morty!  You're going to regret this..."
+            }, {
+                "poke": "I think it moved!"
+            }]
         },
         {
             "key": "spargeglur",
             "description": "spargeglur",
             "interactive_text": "Grits? Hominy? I have no idea what this pasty stuff is.",
-            "actions": [{ "eat": "Oh jeeze, Morty! You threw up Morty! Oh man that's foul!" }, {"poke": "My finger's stuck in it. Aggh, that is vile. Maybe we should travel to an alternate-universe-Blips-And-Chitz with better food!"}]
+            "actions": [{
+                "eat": "Oh jeeze, Morty! You threw up Morty! Oh man that's foul!"
+            }, {
+                "poke": "My finger's stuck in it. Aggh, that is vile. Maybe we should travel to an alternate-universe-Blips-And-Chitz with better food!"
+            }]
         }
     ],
     "items": ["money"],

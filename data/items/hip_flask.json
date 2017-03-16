@@ -2,7 +2,7 @@
     "name": "Hip Flask",
     "description": "Woah, cool, a hip flask! Who just leaves this lying around? It's big too -- prolly hold enough Krellian whiskey to keep me buzzzzzzzed for a month!",
     "actions": ["drink", "sip", "open"],
-    "success_message": "Jeeze, Morty! This is painful to watch -- all these awkward high schoolers dancing awkardly! It's bizarre. We gotta spice this party up a bit. I hate to waste good booze, but a little bit in the punch won't make a difference. Oh man, look, Tiny Rick is drink that stuff like he's been deprived of water for the past week. Dude's gonna get wrecked, stumbling around like he's having a s-s-s-stroke. Look at that! He dropped something!",
+    "success_message": "Jeeze, Morty! This is painful to watch -- all these awkward high schoolers dancing awkwardly! It's bizarre. We gotta spice this party up a bit. I hate to waste good booze, but a little bit in the punch won't make a difference. Oh man, look, Tiny Rick is drinking that stuff up like he's been deprived of water for the past week. Dude's gonna get wrecked, stumbling around like he's having a s-s-s-stroke. Look at that! He dropped something!",
     "failure_messages": ["Morty, can't you control your desire to get white boy wasted for another time? I'm going to need a DD in about 15 minutes.", "Morty, you're like, twelve -- or fourteen, or whatever! Save the good stuff for your grandpa"],
     "usable_world": "tiny_rick_earth",
     "usable_room": "gym",
