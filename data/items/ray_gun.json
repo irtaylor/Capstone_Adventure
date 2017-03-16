@@ -7,5 +7,5 @@
     "usable_world": "pluto",
     "usable_room": "plutonium_mines",
     "num_uses": 1,
-    "is_rechargeable": true
+    "is_rechargeable": false
 }
