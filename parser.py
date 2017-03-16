@@ -28,6 +28,7 @@ class CommandParser(Cmd):
         self.current_world = None
         self.current_room = None
         self.aliases = { 'see' : 'look',
+                        'examine' : 'look',
                         'grab' : 'take',
                         'pick' : 'take',
                         'port' : 'go',
@@ -398,10 +399,10 @@ class CommandParser(Cmd):
         A simple echo function that says hello back to the user with an optional argument.
         """
         if len(args) == 0:
-            name = 'stranger'
+            name = 'Morty'
         else:
             name = args
-        print "Hello, %s" % name
+        print "Hello, %s. Sometimes it gets lonely traveling the Multiverse..." % name
 
     def help_hello(self):
         """
@@ -534,7 +535,7 @@ class CommandParser(Cmd):
                 item = text_helpers.convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
-                print "Uh, I guess we can leave the  %s here. No idea why you'd want to do that thogh. Seems like we should be grabbing everything we *urp* can." % self.items[item].get_name()
+                print "Uh, I guess we can leave the  %s here. No idea why you'd want to do that though. Seems like we should be grabbing everything we *urp* can." % self.items[item].get_name()
             else:
                 print "Can't drop that, Morty. No can do, nah-uh, no way!"
 

@@ -1,17 +1,26 @@
 {
     "name": "Garage",
     "features": [{
-        "key": "beakers",
-        "description": "beakers of purple liquid",
-        "interactive_text": "They bubble and froth angrily.",
-        "actions": [{"touch": "The beakers feel warm to the touch.  There must be some kind of exothermic reaction going on. Exothermic? No wait, endothermic! No, hang on, uhh. Interthermic! Yeah!"}, {"hit": "Hey! You better not destroy my stuff, Morty!"}]
-    },
-    {
-        "key": "whiteboard",
-        "description": "whiteboard",
-        "interactive_text": "There's some scribbled notes and equations.",
-        "actions": [{"erase": "Erase my b-b-board and I'll send you to *urp* Gazorpazorp. You know what they do to science-ruining Earthlings there, dontcha?!"}, {"flip": "There's nothing on the back side."}]
-    }],
+            "key": "beakers",
+            "description": "beakers of purple liquid",
+            "interactive_text": "They bubble and froth angrily.",
+            "actions": [{
+                "touch": "The beakers feel warm to the touch.  There must be some kind of exothermic reaction going on. Exothermic? No wait, endothermic! No, hang on, uhh. Interthermic! Yeah!"
+            }, {
+                "hit": "Hey! You better not destroy my stuff, Morty!"
+            }]
+        },
+        {
+            "key": "whiteboard",
+            "description": "whiteboard",
+            "interactive_text": "There's some scribbled notes and equations.",
+            "actions": [{
+                "erase": "Erase my b-b-board and I'll send you to *urp* Gazorpazorp. You know what they do to science-ruining Earthlings there, dontcha?!"
+            }, {
+                "flip": "There's nothing on the back side."
+            }]
+        }
+    ],
     "items": ["ray_gun", "processor"],
     "is_visited": false,
     "hidden_items": [],

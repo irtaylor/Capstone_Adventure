@@ -9,8 +9,8 @@ def check_for_ending(parser):
         ending = 'win'
     elif check_stranded(parser):
         ending = 'stranded'
-    elif check_death_gravity_boots(parser):
-        ending = 'death'
+    #elif check_death_gravity_boots(parser):
+    #    ending = 'death'
     elif check_death_ray_gun(parser):
         ending = 'death'
     else:
@@ -48,7 +48,7 @@ def check_stranded(parser):
         stranded = False
     return stranded
 
-
+"""
 def check_death_gravity_boots(parser):
     death = False
     if (parser.lastcmd == 'use gravity boots' or parser.lastcmd == 'wear gravity boots'
@@ -56,7 +56,7 @@ def check_death_gravity_boots(parser):
             (parser.items["gravity_boots"].num_uses <= 0):
         death = True
     return death
-
+"""
 
 def check_death_ray_gun(parser):
     death = False

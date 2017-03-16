@@ -4,16 +4,24 @@
             "key": "robot",
             "description": "small robot on the table",
             "interactive_text": "Rick designed this robot exclusively to pass him the butter, but for some reason he made it a sentient device. The robot literally knows how meaningless its life is...",
-            "actions": [{"touch": "The robot pulls away from you."}, {"talk": "The robot ignores your words but returns with a stick of butter. Aww, look, it sighs with angst!"}]
+            "actions": [{
+                "touch": "The robot pulls away from you."
+            }, {
+                "talk": "The robot ignores your words but returns with a stick of butter. Aww, look, it sighs with angst!"
+            }]
         },
         {
             "key": "plates",
             "description": "plates, set for a meal",
             "interactive_text": "That's odd -- dinner isn't usually for like, a few hours, but the table's set and everything.",
-            "actions": [{"break": "Come on, Morty, Beth'll be mad if you make a mess."}, {"touch": "The plate is cold to the touch.  It's probably been out awhile."}]
+            "actions": [{
+                "break": "Come on, Morty, Beth'll be mad if you make a mess."
+            }, {
+                "touch": "The plate is cold to the touch.  It's probably been out awhile."
+            }]
         }
     ],
-     "items": [],
+    "items": [],
     "is_visited": false,
     "hidden_items": [],
     "longform": "We've had some good family meals in here. And some bad ones -- so I guess it evens out? Well, in any case, dinner's not for a while, so there's no real point in sticking around.",
