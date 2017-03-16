@@ -4,9 +4,13 @@
         "key": "tiny_rick",
         "description": "Tiny Rick",
         "interactive_text": "Wow, it's Tiny Rick! Not surprised he looks like the coolest kid at the dance.",
-        "actions": [{"talk": "Tiny Rick, you got da moves! WubaLubDubDub, am I right?! How's this dance? Totally lame right? No alcohol? We'll hook you up!" }, {"poke": "What is this, Facebook? Tiny Rick's right here?"}]
+        "actions": [{
+            "talk": "Tiny Rick, you got da moves! WubaLubDubDub, am I right?! How's this dance? Totally lame right? No alcohol? We'll hook you up!"
+        }, {
+            "poke": "What is this, Facebook? Tiny Rick's right here?"
+        }]
     }],
- 	"items": [],
+    "items": [],
     "is_visited": false,
     "hidden_items": ["processor"],
     "longform": "A school dance? Pfff, what is this? Breakfast at Tiffany's? Or wait -- the Breakfast Club? Which one is it Morty?",
