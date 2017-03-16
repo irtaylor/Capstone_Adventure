@@ -5,7 +5,7 @@
             "description": "beakers of purple liquid",
             "interactive_text": "They bubble and froth angrily.",
             "actions": [{
-                "touch": "The beakers feel warm to the touch.  There must be some kind of exothermic reaction going on. Exothermic? No wait, endothermic! No, hang on, uhh. Interthermic! Yeah!"
+                "touch": "The beakers feel warm to the touch. There must be some kind of exothermic reaction going on. Exothermic? No wait, endothermic! No, hang on, uhh. Interthermic! Yeah!"
             }, {
                 "hit": "Hey! You better not destroy my stuff, Morty!"
             }]

@@ -5,7 +5,7 @@
         "description": "strawberries on the cob",
         "interactive_text": "...? What the hell is that, Morty? Strawberries on the cob?!! It's not natural Morty. We gotta get outta here!",
         "actions": [{
-            "eat": "No way I'm letting you eat that!  Ever heard of free radicals, Morty? Carcinogens?? Genotoxins?!  This is a billion times worse! You'll die -- ON THE COB!"
+            "eat": "No way I'm letting you eat that! Ever heard of free radicals, Morty? Carcinogens?? Genotoxins?! This is a billion times worse! You'll die -- ON THE COB!"
         }]
     }],
     "items": ["processor"],
@@ -13,6 +13,6 @@
     "hidden_items": [],
     "longform": "Morty, I've got a really bad feeling about this. *Urp*. Everything's on the cob! Obviously there's corn on the cob. But then there's strawberries on the cob? I mean, what's that??! Jesus, even the molecules are on the cob! This is bad, Morty. This is really really bad.",
     "shortform": "I do not feel good about this, Morty. Everything's STILL ON THE COB.",
-    "long_description_exit": "Molecules on the cob are going to cause an inoperable stability to *urp* the oxygen in the air.  The whole planet's on a cob, we've got to get out of here!",
+    "long_description_exit": "Molecules on the cob are going to cause an inoperable stability to *urp* the oxygen in the air. The whole planet's on a cob, we've got to get out of here!",
     "short_description_exit": "Do you want to be on a cob?  Do you want to have hands and feet all cobby? Yeah, I didn't think so."
 }

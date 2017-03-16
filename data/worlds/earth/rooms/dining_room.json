@@ -17,7 +17,7 @@
             "actions": [{
                 "break": "Come on, Morty, Beth'll be mad if you make a mess."
             }, {
-                "touch": "The plate is cold to the touch.  It's probably been out awhile."
+                "touch": "The plate is cold to the touch. It's probably been out awhile."
             }]
         }
     ],

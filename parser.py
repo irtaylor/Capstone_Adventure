@@ -51,7 +51,7 @@ class CommandParser(Cmd):
 
         # check if the command can apply to a room feature
         for feature in self.player.current_room.features:
-            if cmd_arg == feature["key"] or convert_to_key(cmd_arg) == feature["key"]:
+            if feature["key"] in cmd_arg or feature["key"] in convert_to_key(cmd_arg):
                 # found feature in room, check for the correct action
                 for action in feature["actions"]:
                     if cmd in action:
@@ -542,7 +542,7 @@ class CommandParser(Cmd):
                 item = text_helpers.convert_to_key(args)
                 self.current_room.add_item(item)
                 self.player.remove_from_inventory(item)
-                print "Uh, I guess we can leave the  %s here. No idea why you'd want to do that though. Seems like we should be grabbing everything we *urp* can." % self.items[item].get_name()
+                print "Uh, I guess we can leave the %s here. No idea why you'd want to do that though. Seems like we should be grabbing everything we *urp* can." % self.items[item].get_name()
             else:
                 print "Can't drop that, Morty. No can do, nah-uh, no way!"
 

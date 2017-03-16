@@ -5,7 +5,7 @@
             "description": "flembleggers",
             "interactive_text": "It's like an amorphous burger, but tastes like wood ash.",
             "actions": [{
-                "eat": "Don't do it, Morty!  You're going to regret this..."
+                "eat": "Don't do it, Morty! You're going to regret this..."
             }, {
                 "poke": "I think it moved!"
             }]
@@ -26,6 +26,6 @@
     "hidden_items": [],
     "longform": "The only downside about this place is the food: I'm not gonna lie, Morty, it's pretty gross. They've, uh, they've got flembleggers, an-an-and spargeglur, and like, a lotta gross stuff Morty.",
     "shortform": "You're waaaaaay too hungry, Morty. There is probably no good reason for us to come here again.",
-    "long_description_exit": "Couldn't pay me all the *urp* scheckles in the world to eat this stuff.  Even Time Prison isn't as-as-as bad as this.",
+    "long_description_exit": "Couldn't pay me all the *urp* scheckles in the world to eat this stuff. Even Time Prison isn't as-as-as bad as this.",
     "short_description_exit": "I wouldn't even feed this stuff to Jerry."
 }

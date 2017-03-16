@@ -14,7 +14,7 @@
         "description": "force field blocking access to Summer's cell",
         "interactive_text": "We gotta find out how to break through the force field!",
         "actions": [{
-            "touch": "Ouch!  That hurts!"
+            "touch": "Ouch! That hurts!"
         }, {
             "hit": "The field buzzes menacingly."
         }]
